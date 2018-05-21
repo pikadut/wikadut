@@ -1,6 +1,6 @@
 Hallo everybody,
 
-this note is for anyone in this project 
+This note is for anyone in this project. 
 >>>
 1. this git hcis is always connected to redmine. So please everyone input ur issue tracker redmine in comment.
 2. Always push to dev branch, except Mr Heru and programer wika who can merge your task, but you can request merge if needed.
