@@ -1,0 +1,12 @@
+{
+  "flags": [],
+  "linkedModules": [],
+  "topLevelPatters": [
+    "angular-ui-tree@^2.22.5"
+  ],
+  "lockfileEntries": {
+    "angular-ui-tree@^2.22.5": "https://registry.yarnpkg.com/angular-ui-tree/-/angular-ui-tree-2.22.5.tgz#99071fb963feaf2eac11c98e95e40628c135813f"
+  },
+  "files": [],
+  "artifacts": {}
+}

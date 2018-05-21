@@ -1,0 +1,79 @@
+.top-navigation .navbar-brand{
+	background-color: #009fe3;
+}
+.top-navigation .nav > li.active > a{
+	color: #f7821d;
+}
+.loginColumns-d{
+	padding-bottom: 40px;
+}
+.login-bg{
+  background-image: url(../../assets/img/backgrounds.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.loginColumns{
+  max-width: 800px;
+  padding: 100px 20px 20px 20px;
+}
+.loginColumns-d{
+  max-width: 100%;
+  padding: 40px 800px 20px 20px;
+}
+
+/*haqim background*/
+body{
+  background-color: #0054a6;
+  /*background-color: #009fe3;*/
+}
+
+.img-header{
+      background-position: 20% 82%;
+      background-size:100%  ;
+}
+
+.page-heading h2{
+  color: #fff;
+  font-weight: bold;
+}
+
+.nav-header{
+  /*haqim*/
+    /*background: #f7821d;*/
+    /*background: #009fe3;*/
+    /*background: #0054a6;*/
+    background: #0984e3;
+}
+
+.navbar-default .nav > li > a,.nav-header a,.nav-header .text-muted{
+  color: #fff ;
+}
+
+
+.navbar-minimalize{
+  background-color: #f7821d !important;
+  border-color: #fff !important;
+}
+
+.logo-element{
+  background-color: #000;
+}
+
+.navbar-fixed-top, .navbar-static-top{
+
+}
+
+.navbar-top-links li a,.navbar-top-links li span{
+
+}
+
+table.valign tr th { 
+  display: table-cell;
+  vertical-align: middle; 
+  text-align: center;
+}
+
+.font_wika{
+  color: #009fe3 !important;
+}

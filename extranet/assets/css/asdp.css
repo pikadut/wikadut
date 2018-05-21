@@ -1,0 +1,23 @@
+.top-navigation .navbar-brand{
+	background-color: #0057bb;
+}
+.top-navigation .nav > li.active > a{
+	color: #f7821d;
+}
+.loginColumns-d{
+	padding-bottom: 40px;
+}
+.login-bg{
+	background-image: url(../../assets/img/backgrounds.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+.loginColumns{
+	max-width: 800px;
+	padding: 20px 20px 20px 20px;
+}
+.loginColumns-d{
+	max-width: 100%;
+	padding: 20px 20px 20px 800px;
+}

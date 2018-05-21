@@ -1,0 +1,89 @@
+New connection! (42)
+Connection 42 sending message "0#RFQ.201612.00014#KANTOR PUSAT#Online" to 0 other connections
+Connection 42 has disconnected
+New connection! (91)
+Connection 91 has disconnected
+New connection! (96)
+Connection 96 sending message "0#RFQ.201612.00014#KANTOR PUSAT#Offline" to 0 other connections
+New connection! (102)
+Connection 96 has disconnected
+New connection! (107)
+New connection! (112)
+Connection 107 has disconnected
+Connection 102 has disconnected
+New connection! (117)
+New connection! (122)
+Connection 122 has disconnected
+Connection 117 has disconnected
+New connection! (127)
+Connection 127 sending message "0#RFQ.201612.00014#KANTOR PUSAT#Online" to 1 other connection
+Connection 112 has disconnected
+New connection! (133)
+Connection 133 sending message "0#RFQ.201612.00012#KANTOR PUSAT#Online" to 1 other connection
+New connection! (139)
+Connection 139 sending message "0#RFQ.201612.00014#INDOTECH DUMMY#Online" to 2 other connections
+Connection 133 has disconnected
+New connection! (145)
+Connection 139 has disconnected
+Connection 145 has disconnected
+New connection! (150)
+New connection! (155)
+Connection 150 sending message "0#RFQ.201612.00012#INDOTECH DUMMY#Online" to 2 other connections
+New connection! (161)
+Connection 161 sending message "1#RFQ.201612.00014#INDOTECH DUMMY#tes" to 3 other connections
+Connection 155 sending message "1#RFQ.201612.00012#KANTOR PUSAT#Cioniiiiii..." to 3 other connections
+Connection 150 sending message "1#RFQ.201612.00012#INDOTECH DUMMY#pak aanwijzingnya dah mulai nih??????" to 3 other connections
+Connection 161 has disconnected
+New connection! (169)
+Connection 169 has disconnected
+New connection! (174)
+Connection 174 sending message "0#RFQ.201612.00012#LAPI ITB#Online" to 3 other connections
+Connection 150 sending message "1#RFQ.201612.00012#INDOTECH DUMMY#ci bambang jadi buyer ya????" to 3 other connections
+Connection 174 sending message "1#RFQ.201612.00012#LAPI ITB#ok mulai" to 3 other connections
+Connection 174 sending message "1#RFQ.201612.00012#LAPI ITB#hani" to 3 other connections
+Connection 155 sending message "1#RFQ.201612.00012#KANTOR PUSAT#mba hani" to 3 other connections
+Connection 150 sending message "1#RFQ.201612.00012#INDOTECH DUMMY#mba hany apa kabar?????" to 3 other connections
+Connection 174 sending message "1#RFQ.201612.00012#LAPI ITB#baik" to 3 other connections
+Connection 150 sending message "1#RFQ.201612.00012#INDOTECH DUMMY#" to 3 other connections
+Connection 150 has disconnected
+New connection! (187)
+Connection 187 sending message "1#RFQ.201612.00012#INDOTECH DUMMY#lama banget nih!" to 3 other connections
+Connection 155 sending message "1#RFQ.201612.00012#KANTOR PUSAT#Demikian Aanwijzing hari ini Ciooniiiii dan mba hani" to 3 other connections
+Connection 174 sending message "0#RFQ.201612.00012#LAPI ITB#Offline" to 3 other connections
+Connection 174 has disconnected
+Connection 155 sending message "0#RFQ.201612.00012#KANTOR PUSAT#Offline" to 2 other connections
+Connection 127 has disconnected
+New connection! (196)
+Connection 196 has disconnected
+New connection! (201)
+Connection 155 has disconnected
+Connection 187 sending message "0#RFQ.201612.00012#INDOTECH DUMMY#Offline" to 1 other connection
+Connection 187 has disconnected
+New connection! (207)
+Connection 207 has disconnected
+PHP Fatal error:  Uncaught exception 'React\Socket\ConnectionException' with message 'Could not bind to tcp://0.0.0.0:89: Permission denied' in /opt/lampp/htdocs/asdp/vendor/react/socket/src/Server.php:29
+Stack trace:
+#0 /opt/lampp/htdocs/asdp/vendor/cboden/ratchet/src/Ratchet/Server/IoServer.php(70): React\Socket\Server->listen(89, '0.0.0.0')
+#1 /opt/lampp/htdocs/asdp/Chat.php(85): Ratchet\Server\IoServer::factory(Object(Ratchet\Http\HttpServer), 89)
+#2 {main}
+  thrown in /opt/lampp/htdocs/asdp/vendor/react/socket/src/Server.php on line 29
+
+Fatal error: Uncaught exception 'React\Socket\ConnectionException' with message 'Could not bind to tcp://0.0.0.0:89: Permission denied' in /opt/lampp/htdocs/asdp/vendor/react/socket/src/Server.php:29
+Stack trace:
+#0 /opt/lampp/htdocs/asdp/vendor/cboden/ratchet/src/Ratchet/Server/IoServer.php(70): React\Socket\Server->listen(89, '0.0.0.0')
+#1 /opt/lampp/htdocs/asdp/Chat.php(85): Ratchet\Server\IoServer::factory(Object(Ratchet\Http\HttpServer), 89)
+#2 {main}
+  thrown in /opt/lampp/htdocs/asdp/vendor/react/socket/src/Server.php on line 29
+PHP Fatal error:  Uncaught exception 'React\Socket\ConnectionException' with message 'Could not bind to tcp://0.0.0.0:89: Permission denied' in /opt/lampp/htdocs/asdp/vendor/react/socket/src/Server.php:29
+Stack trace:
+#0 /opt/lampp/htdocs/asdp/vendor/cboden/ratchet/src/Ratchet/Server/IoServer.php(70): React\Socket\Server->listen(89, '0.0.0.0')
+#1 /opt/lampp/htdocs/asdp/Chat.php(85): Ratchet\Server\IoServer::factory(Object(Ratchet\Http\HttpServer), 89)
+#2 {main}
+  thrown in /opt/lampp/htdocs/asdp/vendor/react/socket/src/Server.php on line 29
+
+Fatal error: Uncaught exception 'React\Socket\ConnectionException' with message 'Could not bind to tcp://0.0.0.0:89: Permission denied' in /opt/lampp/htdocs/asdp/vendor/react/socket/src/Server.php:29
+Stack trace:
+#0 /opt/lampp/htdocs/asdp/vendor/cboden/ratchet/src/Ratchet/Server/IoServer.php(70): React\Socket\Server->listen(89, '0.0.0.0')
+#1 /opt/lampp/htdocs/asdp/Chat.php(85): Ratchet\Server\IoServer::factory(Object(Ratchet\Http\HttpServer), 89)
+#2 {main}
+  thrown in /opt/lampp/htdocs/asdp/vendor/react/socket/src/Server.php on line 29

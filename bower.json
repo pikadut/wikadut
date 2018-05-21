@@ -1,0 +1,27 @@
+{
+  "name": "EPROC MRT INTRANET",
+  "version": "1.0.0",
+  "authors": [
+    "Aldo Rifki Putra <aldoetobex@gmail.com>"
+  ],
+  "description": "eProc for PT. MRT Jakarta",
+  "main": "index.php",
+  "keywords": [
+    "eproc",
+    "pengadaan"
+  ],
+  "license": "MIT",
+  "homepage": "eproc.mrtjakarta.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "eonasdan-bootstrap-datetimepicker": "~4.14.30",
+    "moment": "~2.10.3",
+    "angucomplete-alt": "^3.0.0"
+  }
+}

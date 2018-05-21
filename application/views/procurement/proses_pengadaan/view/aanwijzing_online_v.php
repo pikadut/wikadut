@@ -1,0 +1,1 @@
+<?php include(VIEWPATH."/procurement/proses_pengadaan/form/aanwijzing_online_v.php") ?>

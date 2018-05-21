@@ -1,0 +1,39 @@
+.top-navigation .navbar-brand{
+	background-color: #0057bb;
+}
+.top-navigation .nav > li.active > a{
+	color: #f7821d;
+}
+.loginColumns-d{
+	padding-bottom: 40px;
+}
+.login-bg{
+	background-image: url(../../assets/img/backgrounds.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+    margin-bottom:10% auto;
+
+}
+.loginColumns{
+	max-width: 78% auto;
+	padding: 100px 20px 20px 20px;
+}
+.loginColumns-d{
+	max-width: 28%;
+	padding: 40px 800px 20px 20px;
+}
+.loginPengadaan{
+	max-width: 24%;
+	/*padding: 20px 20px 20px 800px;*/
+}
+.loginPengadaan-d{
+	max-width: 30%;
+	/*padding: 20px 20px 20px 800px;*/
+}
+.wordWrap {
+	white-space: pre-wrap !important;      /* CSS3 */   
+   	white-space: -moz-pre-wrap !important; /* Firefox */   
+   	white-space: -o-pre-wrap !important;   /* Opera 7 */    
+   	word-wrap: break-word !important;      /* IE */
+}

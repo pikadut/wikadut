@@ -1,0 +1,72 @@
+.top-navigation .navbar-brand{
+	background-color: #0057bb;
+}
+.top-navigation .nav > li.active > a{
+	color: #f7821d;
+}
+.loginColumns-d{
+	padding-bottom: 40px;
+}
+.login-bg{
+  background-image: url(../../assets/img/backgrounds.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin-bottom:10% auto;
+}
+.loginColumns{
+  max-width: 78% auto;
+  /*max-height: 100%;*/
+  padding: 100px 20px 20px 20px;
+}
+.loginColumns-d{
+  max-width: 28%;
+  /*max-height: 100%;*/
+  padding: 40px 800px 20px 20px;
+}
+
+body{
+  background-color: #0057bb;
+}
+
+.img-header{
+      background-position: 20% 82%;
+      background-size:100%  ;
+}
+
+.page-heading h2{
+  color: #fff;
+  font-weight: bold;
+}
+
+.nav-header{
+    background: #f7821d;
+}
+
+.navbar-default .nav > li > a,.nav-header a,.nav-header .text-muted{
+  color: #fff ;
+}
+
+
+.navbar-minimalize{
+  background-color: #f7821d !important;
+  border-color: #fff !important;
+}
+
+.logo-element{
+  background-color: #000;
+}
+
+.navbar-fixed-top, .navbar-static-top{
+
+}
+
+.navbar-top-links li a,.navbar-top-links li span{
+
+}
+
+table.valign tr th { 
+  display: table-cell;
+  vertical-align: middle; 
+  text-align: center;
+}
