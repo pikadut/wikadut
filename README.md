@@ -2,8 +2,8 @@ Hallo everybody,
 
 This note is for everyone in this project. 
 >>>
-1. this git hcis is always connected to redmine. So please everyone input ur issue tracker redmine in comment.
-2. Always push to dev branch, except Mr Heru and programer wika who can merge your task, but you can request merge if needed.
+1. this git SCM is always connected to your project management tools. So please everyone input ur issue tracker project management tools in commit message.
+2. Always push to dev branch, except Mr Heru and programer wika who can merge your task into master, but you  can request merge if needed.
 >>>
 
 Happy works.
