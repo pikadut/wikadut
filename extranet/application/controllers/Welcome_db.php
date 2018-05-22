@@ -97,7 +97,7 @@ class Welcome_db extends MY_Controller {
 					if(!empty($data["vendor_id"])){
 						if($data["reg_isactivate"] == '1'){
 							if(($data["status"] == '9' && $data["reg_status_id"] == '8') || ($data["status"] == '5' && $data["reg_status_id"] == '6')){
-								$session = $this->db->query("select last_access + interval 60 minute as last_access, NOW() as nows from vnd_session where login_id = '".$data["login_id"]."'")->row_array();
+								$session = $this->db->query("select last_access + interval '60 minute' as last_access, NOW() as nows from vnd_session where login_id = '".$data["login_id"]."'")->row_array();
 								if(!empty($session)){
 
 									if($session["last_access"] > $session["nows"]){
@@ -130,6 +130,10 @@ class Welcome_db extends MY_Controller {
 										"ip_address"	=> $_SERVER['REMOTE_ADDR'],
 										"login_id"		=> $data["login_id"]
 										));
+
+									$this->db->query("INSERT INTO vnd_session 
+										(session_id, ip_address, last_access, login_id) VALUES 
+										('".session_id()."', '".$_SERVER['REMOTE_ADDR']."', date_trunc('second', now()), '".$data["login_id"]."')");
 
 								}
 

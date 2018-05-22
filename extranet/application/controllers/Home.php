@@ -50,11 +50,11 @@ class Home extends MY_Controller {
 		$data['bast'] = $this->db
 		->query("SELECT po_id as id, contract_number,po_notes as description,b.vendor_name,progress_percentage, 'WO' as type FROM ctr_po_header b
 			LEFT JOIN ctr_contract_header a ON a.contract_id=b.contract_id 
-			WHERE b.vendor_id='".$userid."' AND progress_percentage='100' AND COALESCE(bastp_status,0) IN (0,99) AND bastp_number IS NULL
+			WHERE b.vendor_id='".$userid."' AND progress_percentage='100' AND COALESCE(bastp_status::integer,0) IN (0,99) AND bastp_number IS NULL
 			UNION ALL 
 			SELECT milestone_id as id, contract_number,b.description,vendor_name,progress_percentage, 'LUMPSUM' as type FROM ctr_contract_milestone b
 			LEFT JOIN ctr_contract_header a ON a.contract_id=b.contract_id 
-			WHERE a.vendor_id='".$userid."' AND progress_percentage='100' AND COALESCE(bastp_status,0) IN (0,99) AND bastp_number IS NULL")
+			WHERE a.vendor_id='".$userid."' AND progress_percentage='100' AND COALESCE(bastp_status::integer,0) IN (0,99) AND bastp_number IS NULL")
 		->num_rows();
 
 		//start code hlmifzi
