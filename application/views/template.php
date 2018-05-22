@@ -209,10 +209,10 @@
       </head>
       <!-- hlmifzi -->
        <?php
-        $jml_chat = $this->db
-      ->where('id_employee_to',$this->session->userdata['user_id'])
-      ->where('status',1)
-      ->get('t_chat_main')->num_rows();
+      //   $jml_chat = $this->db
+      // ->where('id_employee_to',$this->session->userdata['user_id'])
+      // ->where('status',1)
+      // ->get('t_chat_main')->num_rows();
 
 
        ?>

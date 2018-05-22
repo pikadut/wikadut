@@ -103,7 +103,9 @@ if(!empty($filtering) && $filtering == "approval"){
 
 // $this->db->select("ppc_id,A.pr_number,pr_requester_name,pr_subject_of_work,pr_delivery_point,awa_name as activity,DATE_FORMAT(ppc_start_date,'%d/%m/%Y %H:%i') as waktu");
 
-$this->db->select("ppc_id,A.pr_number,pr_requester_name,pr_subject_of_work,pr_delivery_point,awa_name as activity,DATE_FORMAT(ppc_start_date,'%Y-%m%-%d %H:%i') as waktu");
+// $this->db->select("ppc_id,A.pr_number,pr_requester_name,pr_subject_of_work,pr_delivery_point,awa_name as activity,DATE_FORMAT(ppc_start_date,'%Y-%m%-%d %H:%i') as waktu");
+
+$this->db->select("ppc_id,A.pr_number,pr_requester_name,pr_subject_of_work,pr_delivery_point,awa_name as activity,to_date(ppc_start_date::text,'YYYY-MM-DD HH24:MI') as waktu");
 
 
 
