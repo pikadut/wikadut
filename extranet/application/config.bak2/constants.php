@@ -84,74 +84,7 @@ define('EXIT_DATABASE', 8); // database error
 define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
-define("DEFAULT_MAXLENGTH", 500); //before 120 
-define("DEFAULT_MAXLENGTH_TEXT", 800);
-define("DEFAULT_MAXLENGTH_CODE", 10);
-define("GLOBAL_PPN", 0.1);
-define("COMMODITY_GROUP_MAX_LEVEL", 1);
-define("COMMODITY_KATALOG_JASA_PATH", "commodity/katalog/katalog_jasa");
-define("COMMODITY_KATALOG_BARANG_PATH", "commodity/katalog/katalog_barang");
-define("COMMODITY_GRUP_JASA_PATH", "commodity/katalog/grup_jasa");
-define("COMMODITY_GRUP_BARANG_PATH", "commodity/katalog/grup_barang");
-define("COMMODITY_HARGA_JASA_PATH", "commodity/daftar_harga/daftar_harga_jasa");
-define("COMMODITY_HARGA_BARANG_PATH", "commodity/daftar_harga/daftar_harga_barang");
-define("COMMODITY_KATALOG_JASA_FOLDER", "commodity/jasa");
-define("COMMODITY_KATALOG_BARANG_FOLDER", "commodity/barang");
-define("PROCUREMENT_MATA_ANGGARAN_PATH", "procurement/mata_anggaran");
-define("PROCUREMENT_PERENCANAAN_PENGADAAN_FOLDER", "procurement/perencanaan");
-//helmi
-define("PROCUREMENT_PERENCANAAN_CHAT_SPPBJ_FOLDER", "procurement/chat_sppbj");
-define("CONTRACT_INVOICE_LAMPIRAN", "http://localhost/adw/wika_v1/extranet/attachment");
-define("ASET_BERKALA_LAMPIRAN", "http://localhost/adw/wika_v1/uploads/aset/aset_berkala");
-//end
-//haqim
-define("PROCUREMENT_PERENCANAAN_CHAT_RFQ_FOLDER", "procurement/chat_rfq");
-//end
-define("PROCUREMENT_PERENCANAAN_PENGADAAN_PATH", "procurement/perencanaan_pengadaan");
-define("PROCUREMENT_PERMINTAAN_PENGADAAN_FOLDER", "procurement/permintaan");
-define("PROCUREMENT_PERMINTAAN_PENGADAAN_PATH", "procurement/permintaan_pengadaan");
-define("PROCUREMENT_TENDER_PENGADAAN_FOLDER", "procurement/tender");
-define("PROCUREMENT_TEMPLATE_EVALUASI_PATH", "procurement/template_evaluasi");
-define("PROCUREMENT_PANITIA_PENGADAAN_PATH", "procurement/procurement_tools/panitia_pengadaan");
-define("PROCUREMENT_VERIFIKASI_VENDOR_PATH", "procurement/verifikasi_vendor");
-define("PROCUREMENT_EVALUASI_TEKNIS_VENDOR_PATH", "procurement/evaluasi_teknis");
-define("PROCUREMENT_EVALUASI_HARGA_VENDOR_PATH", "procurement/evaluasi_harga");
-define("PROCUREMENT_SANGGAHAN_PICKER_PATH", "procurement/picker_sanggahan");
-define("PROCUREMENT_SANGGAHAN_DETAIL_PATH", "procurement/lihat_sanggahan");
-define("CONTRACT_FOLDER", "contract");
-define("ADDENDUM_FOLDER", "addendum");
-define("CONTRACT_UPDATE_MILESTONE_PATH", "contract/update_milestone");
-define("CONTRACT_TAGIHAN_MILESTONE_PATH", "contract/tagihan_milestone");
-define("TIKET_PERMINTAAN_TIKET_FOLDER", "tiket");
-define("TIKET_PERMINTAAN_TIKET_PATH", "tiket");
-define("DEFAULT_FORMAT_DATETIME", "d/m/y - H:i:s");
-define("DEFAULT_FORMAT_DATE", "d/m/y");
-define("DEFAULT_FORMAT_TIME", "H:i:s");
-define("DEFAULT_FORMAT_DATETIME_DB", "Y-m-d H:i:s");
-define("EXTRANET_URL", "http://192.168.2.207/wika/extranet/index.php");
-define("DEFAULT_BOOTSTRAP_TABLE_CONFIG", "striped:true,
-      sidePagination:'server',
-      smartDisplay:false,
-      cookie:true,
-      cookieExpire:'1h',
-      showExport:false,
-      exportTypes:['json', 'xml', 'csv', 'txt', 'excel'],
-      showFilter:true,
-      flat:true,
-      keyEvents:false,
-      showMultiSort:false,
-      reorderableColumns:false,
-      resizable:false,
-      pagination:true,
-      cardView:false,
-      detailView:false,
-      search:true,
-      showRefresh:true,
-      showToggle:true,
-        clickToSelect:true,
-      showColumns:true,");
-define("DEFAULT_BOOTSTRAP_TABLE_FIRST_COLUMN_NAME","Aksi");
-define("INTRANET_UPLOAD_FOLDER", "http://192.168.2.207/wika/uploads");
+
 define("COMPANY_NAME","PT WIJAYA KARYA (Persero) Tbk");
 define("COMPANY_LABEL","PT WIJAYA KARYA (Persero) Tbk");
 define("COMPANY_ADDRESS","PT WIJAYA KARYA (Persero) Tbk.<br/>
@@ -159,7 +92,5 @@ define("COMPANY_ADDRESS","PT WIJAYA KARYA (Persero) Tbk.<br/>
         Phone : +6221 8067 9200<br/>
         Fax: +6221 2289 3830 - INDONESIA");
 define("COMPANY_EMAIL","humas@wika.co.id");
-define("COMPANY_WEBSITE","www.wika.co.id/");
-define("SESSION_PREFIX","wika_int");
-define("WEBSOCKET_URL","ws://192.168.2.206:8899/");
+define("WEBSOCKET_URL","ws://adw.dynu.com:89/");
 define("HEADQUATERS_CODE", "110");
