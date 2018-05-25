@@ -8,4 +8,4 @@
 
     );
 
-  $this->template($view,"Divisi/Departemen/Pelabuhan",$data);
+  $this->template($view,"Divisi/Departemen",$data);
