@@ -21,7 +21,8 @@ class Procrfq_m extends CI_Model {
 
 	public function getMessageRFQ($code = "",$activity = ""){
 
-		$this->db->select("prc_bidder_message.*,vendor_name,awa_name,DATE_FORMAT(pbm_date,'%d-%m-%Y / %T') as pbm_date_format");
+		//$this->db->select("prc_bidder_message.*,vendor_name,awa_name,DATE_FORMAT(pbm_date,'%d-%m-%Y / %T') as pbm_date_format");
+		$this->db->select("prc_bidder_message.*,vendor_name,awa_name,TO_TIMESTAMP('2017-03-31 9:30:20','YYYY-MM-DD HH:MI:SS') as pbm_date_format");
 
 		if(!empty($code)){
 
