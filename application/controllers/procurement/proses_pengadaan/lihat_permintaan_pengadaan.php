@@ -24,4 +24,4 @@ $this->data['dir'] = PROCUREMENT_PERMINTAAN_PENGADAAN_FOLDER;
 
   $data["comment_list"][0] = $this->Comment_m->getProcurementPRActive($id)->result_array();
 
-  $this->template($view,"Detail SPPBJ",$data);
+  $this->template($view,"Detail PR",$data);

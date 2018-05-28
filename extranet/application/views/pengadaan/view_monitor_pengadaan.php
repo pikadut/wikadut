@@ -218,7 +218,7 @@
 						</tr>
 						<?php } ?>
 						<tr>
-							<th><?php echo $this->lang->line('Nilai SPPBJ'); ?></th>
+							<th><?php echo $this->lang->line('Nilai PR'); ?></th>
 							<td><?php echo number_format($header["nilai"], 2, '.', ',') ?></td>
 						</tr>
 					</table>

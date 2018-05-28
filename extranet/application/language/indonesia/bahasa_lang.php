@@ -327,5 +327,5 @@ $lang['Pra Kualifikasi'] = 'Pra Kualifikasi';
 $lang['Metode Aanwijzing'] = 'Metode Aanwijzing';
 $lang['Aanwijzing Online'] = 'Aanwijzing Online';
 $lang['Eauction'] = 'E-Auction';
-$lang['Nilai SPPBJ'] = 'Nilai SPPBJ';
+$lang['Nilai PR'] = 'Nilai PR';
 ?>
