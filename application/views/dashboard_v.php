@@ -7,7 +7,7 @@
           <h5>PR</h5>
         </div>
         <div class="ibox-content">
-          <h1 class="no-margins"><?php echo inttomoney($total_pr) ?></h1>
+          <h1 class="no-margins"><?php echo $total_pr ?></h1>
           <small></small>
         </div>
       </div>
@@ -18,7 +18,7 @@
           <h5>RFQ-Undangan</h5>
         </div>
         <div class="ibox-content">
-          <h1 class="no-margins"><?php echo inttomoney($total_rfq) ?></h1>
+          <h1 class="no-margins"><?php echo $total_rfq ?></h1>
           <small></small>
         </div>
       </div>
@@ -29,7 +29,7 @@
           <h5>Contract</h5>
         </div>
         <div class="ibox-content">
-          <h2 class="no-margins"><?php echo inttomoney($total_contract) ?></h2>
+          <h2 class="no-margins"><?php echo $total_contract ?></h2>
           <small></small>
         </div>
       </div>
@@ -40,7 +40,7 @@
           <h5>Vendor Aktif</h5>
         </div>
         <div class="ibox-content">
-          <h1 class="no-margins"><?php echo inttomoney($total_vendor) ?></h1>
+          <h1 class="no-margins"><?php echo $total_vendor ?></h1>
           <small></small>
         </div>
       </div>
