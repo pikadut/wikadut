@@ -12,7 +12,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="title">
-                    <i class="fa fa-pencil"></i> Chatting SPPBJ</h4>
+                    <i class="fa fa-pencil"></i> Chatting PR</h4>
             </div>
             <!--Body-->
             <div class="modal-body" style="max-height: calc(100vh - 210px);
@@ -155,7 +155,7 @@
             { "data": "pesan"},
             { "data": "date"},
             { "data": "attach", "render": function ( data, type, row, meta ) {
-              return data != null ? '<a href="<?= site_url('log/download_attachment/procurement/chat_sppbj')."/"?>'+data+ '" target="_blank">'+data+'</a>' : ' - ';
+              return data != null ? '<a href="<?= site_url('log/download_attachment/procurement/chat_PR')."/"?>'+data+ '" target="_blank">'+data+'</a>' : ' - ';
             }
           }
         ],

@@ -54,7 +54,7 @@
           <div class="form-group">
             <div class="col-sm-5">
             </div>
-            <label class="col-sm-4 control-label">Total SPPBJ</label>
+            <label class="col-sm-4 control-label">Total PR</label>
             <div class="col-sm-3">
               <p class="form-control-static text-right" id="total_alokasi"> <?php echo inttomoney($total) ?></p>
               <input type="hidden" name="total_alokasi_inp" id="total_alokasi_inp" value="<?php echo $total ?>">
@@ -74,7 +74,7 @@
           <div class="form-group">
             <div class="col-sm-5">
             </div>
-            <label class="col-sm-4 control-label">Total SPPBJ Setelah PPN</label>
+            <label class="col-sm-4 control-label">Total PR Setelah PPN</label>
             <div class="col-sm-3">
               <p class="form-control-static text-right text-red" id="total_alokasi_ppn"><?php echo inttomoney($total+($total*0.1)) ?></p>
               <input type="hidden" name="total_alokasi_ppn_inp" id="total_alokasi_ppn_inp" value="<?php echo $total+($total*0.1) ?>">

@@ -178,7 +178,7 @@
 <div class="form-group">
   <div class="col-sm-5">
   </div>
-  <label class="col-sm-4 control-label">Nilai SPPBJ</label>
+  <label class="col-sm-4 control-label">Nilai PR</label>
   <div class="col-sm-3">
     <p class="form-control-static text-right" id="total_alokasi"> <?php echo inttomoney($subtotal) ?></p>
     <input type="hidden" name="total_alokasi_inp" id="total_alokasi_inp" value="<?php echo $subtotal ?>">
@@ -208,7 +208,7 @@
 <div class="form-group">
   <div class="col-sm-5">
   </div>
-  <label class="col-sm-4 control-label">Nilai SPPBJ Setelah PPN &amp; PPH</label>
+  <label class="col-sm-4 control-label">Nilai PR Setelah PPN &amp; PPH</label>
   <div class="col-sm-3">
     <p class="form-control-static text-right text-red" id="total_alokasi_ppn"><?php echo inttomoney($subtotal+$subtotal_ppn+$subtotal_pph) ?></p>
     <input type="hidden" name="total_alokasi_ppn_inp" id="total_alokasi_ppn_inp" 

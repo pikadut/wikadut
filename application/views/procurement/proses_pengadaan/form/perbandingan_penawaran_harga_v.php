@@ -16,7 +16,7 @@
                 <tr>
                   <th rowspan="2">No</th>
                   <th rowspan="2">Item</th>
-                  <th colspan="2">Nilai SPPBJ</th>
+                  <th colspan="2">Nilai PR</th>
                   <?php foreach ($vendor as $key => $value) { ?>
                   <th colspan="2">
                     <a target="_blank" href="<?php echo site_url('procurement/lihat_penawaran/'.$value['id']) ?>">

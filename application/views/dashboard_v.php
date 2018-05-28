@@ -4,7 +4,7 @@
     <div class="col-lg-3">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>SPPBJ</h5>
+          <h5>PR</h5>
         </div>
         <div class="ibox-content">
           <h1 class="no-margins"><?php echo inttomoney($total_pr) ?></h1>
@@ -92,7 +92,7 @@
 
    <div class="ibox float-e-margins border-bottom">
     <div class="ibox-title">
-      <h5>Daftar Pekerjaan SPPBJ</h5>
+      <h5>Daftar Pekerjaan PR</h5>
       <div class="ibox-tools">
         <a class="collapse-link">
           <i class="fa fa-chevron-up"></i>
