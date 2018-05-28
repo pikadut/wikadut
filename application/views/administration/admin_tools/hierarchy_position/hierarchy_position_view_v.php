@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg-12">
 
-      <?php $hirarki = array("pr"=>0,"rfq"=>1,"pemenang"=>2,"inventory"=>3); 
+      <?php $hirarki = array("pr"=>0,"rfq"=>1,"pemenang"=>2); 
       foreach ($hirarki as $key => $value) { ?>
       <div class="ibox float-e-margins">
         <div class="ibox-title">
