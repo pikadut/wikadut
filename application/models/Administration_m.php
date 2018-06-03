@@ -472,21 +472,62 @@ class Administration_m extends CI_Model {
 		return $this->db->get("prc_anggaran");
 	}
 
+	//haqim
+
+	public function getHieMenu(){
+		return $this->db->get('adm_hierarchy_menu')->result_array();
+	}
+
 	public function getParentId($id = "",$type = "pr"){
 
 		switch ($type) {
-			case 'inventory':
-	$tabel = "adm_auth_hie_4";
-	break;
-			case 'rfq':
-			$tabel = "adm_auth_hie_2";
+			case 'rkp':
+			$tabel = "adm_auth_hie_5";
 			break;
-			case 'pemenang':
-			$tabel = "adm_auth_hie_3";
+
+			case 'rkap':
+			$tabel = "adm_auth_hie_6"; 
 			break;
-			default:
+
+			case 'pr-proyek':
+			$tabel = "adm_auth_hie_7";
+			break;
+
+			case "pr-non-proyek":
 			$tabel = "adm_auth_hie";
 			break;
+
+			case 'rfq-proyek':
+			$tabel = "adm_auth_hie_8";
+			break;
+
+			case 'rfq-non-proyek':
+			$tabel = "adm_auth_hie_2";
+			break;
+
+			case 'pemenang-proyek':
+			$tabel = "adm_auth_hie_9";
+			break;
+
+			case 'pemenang-non-proyek':
+			$tabel = "adm_auth_hie_3";
+			break;
+
+			case 'kontrak-proyek':
+			$tabel = "adm_auth_hie_10";
+			break;
+
+			case 'kontrak-non-proyek':
+			$tabel = "adm_auth_hie_11";
+			break;
+			
+			// case 'inventory':
+			// $tabel = "adm_auth_hie_4";
+			// break;
+			
+			// default:
+			// $tabel = "adm_auth_hie";
+			// break;
 		}
 
 
@@ -499,6 +540,7 @@ class Administration_m extends CI_Model {
 		return $this->db->get("$tabel");
 
 	}
+	//end
 
 	public function get_pos_id($id = ""){
 

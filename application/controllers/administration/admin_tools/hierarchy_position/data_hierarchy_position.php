@@ -1,18 +1,57 @@
 <?php
 
+/*
+%20 is whitespace, $id is taken from url
+*/
 switch ($id) {
-	case 'inventory':
-	$tabel = "adm_auth_hie_4";
+	case 'rkp':
+	$tabel = "adm_auth_hie_5";
 	break;
-	case 'rfq':
-	$tabel = "adm_auth_hie_2";
+
+	case 'rkap':
+	$tabel = "adm_auth_hie_6"; 
 	break;
-	case 'pemenang':
-	$tabel = "adm_auth_hie_3";
+
+	case 'pr-proyek':
+	$tabel = "adm_auth_hie_7";
 	break;
-	default:
+
+	case "pr-non-proyek":
 	$tabel = "adm_auth_hie";
 	break;
+
+	case 'rfq-proyek':
+	$tabel = "adm_auth_hie_8";
+	break;
+
+	case 'rfq-non-proyek':
+	$tabel = "adm_auth_hie_2";
+	break;
+
+	case 'pemenang-proyek':
+	$tabel = "adm_auth_hie_9";
+	break;
+
+	case 'pemenang-non-proyek':
+	$tabel = "adm_auth_hie_3";
+	break;
+
+	case 'kontrak-proyek':
+	$tabel = "adm_auth_hie_10";
+	break;
+
+	case 'kontrak-non-proyek':
+	$tabel = "adm_auth_hie_11";
+	break;
+
+	// default:
+	// $tabel = "adm_auth_hie";
+	// break;
+	// case 'inventory':
+	// $tabel = "adm_auth_hie_4";
+	// break;
+	
+	
 }
 
 $param = $this->input->get("id");
