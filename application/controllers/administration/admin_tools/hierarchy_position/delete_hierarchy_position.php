@@ -65,6 +65,6 @@ if($delete){
 			->update($type,array("parent_id"=>$parent['parent_id']));
 		}
 	}
-	$this->setMessage("Berhasil menghapus hirakri posisi");
+	$this->setMessage("Berhasil menghapus hirarki posisi");
 }
 redirect(site_url('administration/admin_tools/hierarchy_position'));
