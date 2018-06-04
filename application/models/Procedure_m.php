@@ -639,7 +639,8 @@ class Procedure_m extends MY_Model {
 
 					if(!empty($newNumber)){
 
-						$nextjobtitle = 'VP PENGADAAN';
+						//$nextjobtitle = 'VP PENGADAAN';
+						$nextjobtitle = 'PIC USER'; //y rfq kembali ke pic user (PR[approval PR] -> RFQ[PIC User PR])
 						
 						$getdata = $this->getNextState(
 							"pos_id",
@@ -651,7 +652,7 @@ class Procedure_m extends MY_Model {
 						$nextPosName = $getdata['nextPosName'];
 
 
-						$nextActivity = 1029;
+						$nextActivity = 1040;
 
 					} 
 
@@ -830,7 +831,7 @@ class Procedure_m extends MY_Model {
 		
 				//completing tender comment
 
-		$totalOE = $this->db->select("sum((tit_price*tit_quantity)*(1+(COALESCE(tit_pph,0)/100)+(COALESCE(tit_ppn,0)/100))) as total")->from("prc_tender_item")
+		$totalOE = $this->db->select("sum((tit_price*tit_quantity)*(1+(COALESCE(tit_pph::integer,0)/100)+(COALESCE(tit_ppn::integer,0)/100))) as total")->from("prc_tender_item")
 		->where("ptm_number",$ptm_number)->get()->row()->total;
 
 		$max_amount = $this->db->select("max_amount")->from("adm_auth_hie")
@@ -841,7 +842,7 @@ class Procedure_m extends MY_Model {
 		->where("pos_id",$lastPosCode)->get()->row();
 // ubah $pr_number jadi ptm_number
 		$totalOE_2 = $this->db
-		->select("sum((tit_price*tit_quantity)*(1+(COALESCE(tit_pph,0)/100)+(COALESCE(tit_ppn,0)/100))) as total")
+		->select("sum((tit_price*tit_quantity)*(1+(COALESCE(tit_pph::integer,0)/100)+(COALESCE(tit_ppn::integer,0)/100))) as total")
 		->from("prc_tender_item")
 		->where("ptm_number",$ptm_number)
 		->get()->row()->total;
