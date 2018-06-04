@@ -50,13 +50,9 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Tipe</label>
             <div class="col-sm-3">
-             <select required class="form-control" name="tipe_inp" id="tipe_inp">
-              <option value="">Pilih</option>
-              <?php 
-              foreach($tipe_list as $key => $val){
-                $selected = ($key == $curval) ? "selected" : ""; ?> 
-                <option <?php echo $selected ?> value="<?php echo $key ?>"><?php echo $val ?></option>
-                <?php } ?>
+              <select required class="form-control" name="tipe_inp" id="tipe_inp">
+                <option value="">Pilih</option>
+                <option value="<?php echo $tipe_list; ?>"><?php echo $tipe_list; ?></option>
               </select>
             </div>
           </div>
