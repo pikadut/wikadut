@@ -639,7 +639,8 @@ class Procedure_m extends MY_Model {
 
 					if(!empty($newNumber)){
 
-						$nextjobtitle = 'VP PENGADAAN';
+						//$nextjobtitle = 'VP PENGADAAN';
+						$nextjobtitle = 'PIC USER'; //y rfq kembali ke pic user (PR[approval PR] -> RFQ[PIC User PR])
 						
 						$getdata = $this->getNextState(
 							"pos_id",
@@ -651,7 +652,8 @@ class Procedure_m extends MY_Model {
 						$nextPosName = $getdata['nextPosName'];
 
 
-						$nextActivity = 1029;
+						//$nextActivity = 1029;
+						$nextactivity = 1040;
 
 					} 
 
