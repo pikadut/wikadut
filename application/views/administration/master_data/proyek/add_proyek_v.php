@@ -46,8 +46,8 @@
             </div>
           </div> 
 
-          <?php $curval = set_value("status_inp"); ?>
-          <div class="form-group">
+         <?php // $curval = set_value("status_inp"); ?>
+          <!-- <div class="form-group">
             <label class="col-sm-2 control-label">Status</label>
             <div class="col-sm-4">
               <select name="status_inp" class="form-control" required>
@@ -55,7 +55,7 @@
                 <option value="0">non-aktif</option>
               </select>
             </div>
-          </div> 
+          </div> --> 
 
         </div>
       </div>
