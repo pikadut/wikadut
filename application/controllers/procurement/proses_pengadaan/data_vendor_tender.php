@@ -23,7 +23,7 @@ $klasifikasi = $this->session->userdata('klasifikasi');
 
 $ptm_number = $this->session->userdata("rfq_id");
 
-$last_comment = $this->Comment_m->getProcurementRFQ("",$ptm_number)->row_array();
+$last_comment = $this->Comment_m->getProcurementRFQ("",$id)->row_array();
 
 $status = $this->session->userdata("activity_id");
 
@@ -91,7 +91,7 @@ if(!empty($data_item)){
 
 $this->db
 ->distinct()
-->where_in("status",array(5,9))
+->where_in("status",array('5','9'))
 ->join("prc_tender_vendor_status","pvs_vendor_code=vendor_id","left")
 ->join("z_bidder_status","lkp_id=pvs_status","left")
 ->join("adm_district","adm_district.district_id=vw_vnd_bidder_list.district_id","left");
@@ -160,7 +160,7 @@ if(!empty($data_item)){
 
 $this->db
 ->distinct()
-->where_in("status",array(5,9))
+->where_in("status",array('5','9'))
 ->join("prc_tender_vendor_status","pvs_vendor_code=vendor_id","left")
 ->join("z_bidder_status","lkp_id=pvs_status","left")
 ->join("adm_district","adm_district.district_id=vw_vnd_bidder_list.district_id","left");
