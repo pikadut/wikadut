@@ -360,14 +360,14 @@ class Commodity_m extends CI_Model {
 		if($mat){
 			$this->db->where("mat_group_code ='".$code."'");
 			
-			$this->db->select("CAST(SUBSTRINGING(max(mat_catalog_code) FROM ".$panjang." FOR 6) AS INT)+1 as urut", false);
+			$this->db->select("CAST(SUBSTRING(max(mat_catalog_code) FROM ".$panjang." FOR 6) AS INT)+1 as urut", false);
 			
 			$urut = $this->db->get("com_mat_catalog")->row()->urut;
 		}
 		else{
 			$this->db->where("srv_group_code ='".$code."'");
 			
-			$this->db->select("CAST(SUBSTRINGING(max(srv_catalog_code) FROM ".$panjang." FOR 6) AS INT)+1 as urut", false);
+			$this->db->select("CAST(SUBSTRING(max(srv_catalog_code) FROM ".$panjang." FOR 6) AS INT)+1 as urut", false);
 			
 			$urut = $this->db->get("com_srv_catalog")->row()->urut;
 		}
