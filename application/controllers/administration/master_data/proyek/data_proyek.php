@@ -23,9 +23,12 @@ if(!empty($search)){
 if(!empty($id)){
   $this->db->where("id",$id);
 }
-
+$disabled = 1;
 // $this->db->where("code_cc",$userdata['dept_code']);
-
+if (!empty($picker)) {
+  $this->db->where('status', "aktif");
+}
+$this->db->where("disabled !=", $disabled);
 $data['total'] = $this->db->get("vw_adm_project_list")->num_rows();
 
 if(!empty($search)){
@@ -53,7 +56,10 @@ if(!empty($limit)){
 // $this->db->where("code_cc",$userdata['dept_code']);
 
 // $this->db->join("adm_dept","dept_id=dept_cc","left");
-
+if (!empty($picker)) {
+  $this->db->where('status', "aktif");
+}
+$this->db->where("disabled !=", $disabled);
 $rows = $this->db->get("vw_adm_project_list")->result_array();
 
 foreach ($rows as $key => $value) {
@@ -61,7 +67,7 @@ foreach ($rows as $key => $value) {
 }
 
 $data['rows'] = $rows;
-
+// echo $this->db->last_query();
 $this->output
 ->set_content_type('application/json')
 ->set_output(json_encode($data));

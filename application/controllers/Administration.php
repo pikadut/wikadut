@@ -976,7 +976,7 @@ public function delete_proyek($id){
   include ("administration/master_data/proyek/delete_proyek.php");
 }
 
-public function data_proyek(){ 
+public function data_proyek($picker=""){ 
   include ("administration/master_data/proyek/data_proyek.php");
 }
 

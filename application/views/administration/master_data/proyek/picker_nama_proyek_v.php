@@ -58,9 +58,9 @@
 
     $table.bootstrapTable({
 
-      url: "<?php echo site_url('administration/data_proyek') ?>",
-      cookieIdTable:"anggaran_ck",
-      idField:"id_cc",
+      url: "<?php echo site_url('administration/data_proyek/picker') ?>",
+      cookieIdTable:"proyek",
+      idField:"id",
       <?php echo DEFAULT_BOOTSTRAP_TABLE_CONFIG ?>
       columns: [
       {
@@ -99,15 +99,6 @@
       {
         field: 'date_end',
         title: 'Tanggal Akhir',
-        sortable:true,
-        order:true,
-        searchable:true,
-        align: 'left',
-        valign: 'middle'
-      },
-      {
-        field: 'status',
-        title: 'Status',
         sortable:true,
         order:true,
         searchable:true,

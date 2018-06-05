@@ -39,15 +39,16 @@
              </div>
            </div>
 
-           <div class="form-group" id="nama_proyek">
+           <div class="form-group" id="nama_proyek_form">
+            <?php $curval = set_value("nama_proyek"); ?>
               <label class="col-sm-2 control-label">Nama Proyek*</label>
               <div class="col-sm-9">
                <input type="text" class="form-control" name="nama_proyek" id="nama_proyek" value="" readonly>
              </div>
              <div class="col-sm-1">
-              <?php $curval = set_value("nama_proyek_inp"); ?>
-              <input readonly required type="hidden" class="form-control"  id="nama_proyek_inp" name="nama_proyek_inp" value="<?php echo $curval ?>">
-             <button type="button" data-id="nama_proyek_inp" data-url="<?php echo site_url('administration/picker_nama_proyek') ?>" class="btn btn-primary picker">
+              <?php $curval = set_value("proyek_id"); ?>
+              <input readonly required type="hidden" class="form-control"  id="proyek_id" name="proyek_id" value="<?php echo $curval ?>">
+             <button type="button" data-id="proyek_id" data-url="<?php echo site_url('administration/picker_nama_proyek') ?>" class="btn btn-primary picker">
                 <i class="fa fa-search"></i>
               </button>
               </div>
@@ -302,22 +303,22 @@ include(VIEWPATH."/comment_workflow_v.php") ?>
 <script type="text/javascript">
   $(document).ready(function(){
 
-    $('#nama_proyek').hide();
+    $('#nama_proyek_form').hide();
     $('.jenis_rencana').click(function(){
       if ($(this).val() == 'rkp') {
-           $('#nama_proyek').show();
+           $('#nama_proyek_form').show();
            $('[name=nama_proyek]').attr('required','required');
       }else{
-        $('#nama_proyek').hide();
+        $('#nama_proyek_form').hide();
         $('[name=nama_proyek]').removeAttr('required');
 
       }
     })
 
-    $(document.body).on("change","#nama_proyek_inp",function(){
+    $(document.body).on("change","#proyek_id",function(){
 
       var id = $(this).val();
-      var url = "<?php echo site_url('administration/data_proyek') ?>";
+      var url = "<?php echo site_url('administration/data_proyek/picker') ?>";
       $.ajax({
         url : url+"?id="+id,
         dataType:"json",
