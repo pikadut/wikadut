@@ -5,7 +5,7 @@
       <div class="col-lg-12">
         <div class="ibox float-e-margins">
           <div class="ibox-title">
-            <h5>Tambah Divisi/Departemen/Pelabuhan</h5>
+            <h5>Tambah Divisi/Departemen</h5>
             <div class="ibox-tools">
               <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
@@ -46,13 +46,17 @@
             </div>
           </div>
 
-           <?php $curval = set_value("tipe_inp"); ?>
+          <?php $curval = set_value("tipe_inp"); ?>
           <div class="form-group">
             <label class="col-sm-2 control-label">Tipe</label>
             <div class="col-sm-3">
-              <select required class="form-control" name="tipe_inp" id="tipe_inp">
-                <option value="">Pilih</option>
-                <option value="<?php echo $tipe_list; ?>"><?php echo $tipe_list; ?></option>
+             <select required class="form-control" name="tipe_inp" id="tipe_inp">
+              <option value="">Pilih</option>
+              <?php 
+              foreach($tipe_list as $key => $val){
+                $selected = ($key == $curval) ? "selected" : ""; ?> 
+                <option <?php echo $selected ?> value="<?php echo $key ?>"><?php echo $val ?></option>
+                <?php } ?>
               </select>
             </div>
           </div>
