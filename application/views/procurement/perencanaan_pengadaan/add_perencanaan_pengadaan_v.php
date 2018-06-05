@@ -30,6 +30,30 @@
             </div>
           </div>
 
+          <!-- haqim -->
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Jenis Rencana*</label>
+              <div class="col-sm-10">
+               <input type="radio" name="jenis_rencana" value="rkp" class="jenis_rencana"> RKP 
+               <input type="radio" name="jenis_rencana" value="rkap" class="jenis_rencana"> RKAP
+             </div>
+           </div>
+
+           <div class="form-group" id="nama_proyek">
+              <label class="col-sm-2 control-label">Nama Proyek*</label>
+              <div class="col-sm-9">
+               <input type="text" class="form-control" name="nama_proyek" id="nama_proyek" value="" readonly>
+             </div>
+             <div class="col-sm-1">
+              <?php $curval = set_value("nama_proyek_inp"); ?>
+              <input readonly required type="hidden" class="form-control"  id="nama_proyek_inp" name="nama_proyek_inp" value="<?php echo $curval ?>">
+             <button type="button" data-id="nama_proyek_inp" data-url="<?php echo site_url('administration/picker_nama_proyek') ?>" class="btn btn-primary picker">
+                <i class="fa fa-search"></i>
+              </button>
+              </div>
+           </div>           
+           <!-- end -->
+
           <?php $curval = set_value("nama_rencana_pekerjaan_inp"); ?>
           <div class="form-group">
             <label class="col-sm-2 control-label">Nama Rencana Pekerjaan *</label>
@@ -277,6 +301,36 @@ include(VIEWPATH."/comment_workflow_v.php") ?>
 
 <script type="text/javascript">
   $(document).ready(function(){
+
+    $('#nama_proyek').hide();
+    $('.jenis_rencana').click(function(){
+      if ($(this).val() == 'rkp') {
+           $('#nama_proyek').show();
+           $('[name=nama_proyek]').attr('required','required');
+      }else{
+        $('#nama_proyek').hide();
+        $('[name=nama_proyek]').removeAttr('required');
+
+      }
+    })
+
+    $(document.body).on("change","#nama_proyek_inp",function(){
+
+      var id = $(this).val();
+      var url = "<?php echo site_url('administration/data_proyek') ?>";
+      $.ajax({
+        url : url+"?id="+id,
+        dataType:"json",
+        success:function(data){
+          var mydata = data.rows[0];
+          $("[name=nama_proyek]").val(mydata.project_name);
+          // $("#mata_anggaran_label_inp").val(mydata.name_cc);
+          // $("#sub_mata_anggaran_code_inp").val(mydata.subcode_cc);
+          // $("#sub_mata_anggaran_label_inp").val(mydata.subname_cc);
+        }
+      });
+
+    });
 
     $(document.body).on("change","#mata_anggaran_inp",function(){
 

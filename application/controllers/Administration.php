@@ -131,6 +131,30 @@ public function master_data($param1 = "" ,$param2 = "",$param3 = ""){
 
   switch ($param1) {
 
+    case 'proyek':
+
+    switch ($param2) {
+
+      case 'tambah':
+      $this->add_proyek();
+      break;
+
+      case 'ubah':
+      $this->edit_proyek($param3);
+      break;
+
+      case 'hapus':
+      $this->delete_proyek($param3);
+      break;
+
+      default:
+      $this->proyek();
+      break;
+
+    }
+
+    break;
+
     case 'divisi_departemen':
 
     switch ($param2) {
@@ -456,6 +480,7 @@ public function master_data($param1 = "" ,$param2 = "",$param3 = ""){
     }
 
     break;
+
   }
 }
 
@@ -927,6 +952,37 @@ public function delete_kategori_pajak($id){
   include ("administration/master_data/kategori_pajak/delete_kategori_pajak.php");
 }
 
+public function proyek(){
+  include("administration/master_data/proyek/proyek.php");
+}
+
+public function add_proyek(){ 
+  include ("administration/master_data/proyek/add_proyek.php");
+}
+
+public function submit_add_proyek(){ 
+  include ("administration/master_data/proyek/submit_add_proyek.php");
+}
+
+public function edit_proyek($id){ 
+  include ("administration/master_data/proyek/edit_proyek.php");
+}
+
+public function submit_edit_proyek(){ 
+  include ("administration/master_data/proyek/submit_edit_proyek.php");
+}
+
+public function delete_proyek($id){ 
+  include ("administration/master_data/proyek/delete_proyek.php");
+}
+
+public function data_proyek(){ 
+  include ("administration/master_data/proyek/data_proyek.php");
+}
+
+public function picker_nama_proyek(){
+  include ("administration/master_data/proyek/picker_nama_proyek.php");
+}
 
 public function anggaran(){
   include("administration/master_data/anggaran/anggaran.php");
@@ -1125,8 +1181,6 @@ public function delete_hierarchy_position($id){
   include ("administration/admin_tools/hierarchy_position/delete_hierarchy_position.php");
 }
 
-
-
 public function position(){
   include("administration/admin_tools/position/position.php");
 }
@@ -1228,6 +1282,7 @@ public function submit_edit_lintasan(){
 public function nonaktif_lintasan(){ 
   include ("administration/master_data/lintasan/nonaktif_lintasan.php");
 }
+
 
 
 }

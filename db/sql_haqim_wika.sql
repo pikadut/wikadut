@@ -183,3 +183,58 @@ CREATE TABLE IF NOT EXISTS "public"."adm_hierarchy_menu" (
   "url" varchar(255) NOT NULL
 )
 ;
+--- 04/06/2018
+CREATE TABLE IF NOT EXISTS "public"."adm_project_list" (
+  "id" serial8,
+  "project_name" varchar(255),
+  "description" varchar(255),
+  "date_start" varchar(255),
+  "date_end" varchar(255),
+  PRIMARY KEY ("id")
+)
+;
+
+CREATE OR REPLACE VIEW "public"."vw_adm_project_list" AS SELECT 
+a."id" AS id,
+a.project_name AS project_name,
+a.description AS description,
+concat(substr((a.date_start)::text,4,2),' ',
+CASE COALESCE(substr((a.date_start)::TEXT,1,2))
+WHEN '01'::text THEN 'January'::text
+WHEN '02'::text THEN 'February'::text
+WHEN '03'::text THEN 'March'::text
+WHEN '04'::text THEN 'April'::text
+WHEN '05'::text THEN 'May'::text
+WHEN '06'::text THEN 'June'::text
+WHEN '07'::text THEN 'July'::text
+WHEN '08'::text THEN 'August'::text
+WHEN '09'::text THEN 'September'::text
+WHEN '10'::text THEN 'October'::text
+WHEN '11'::text THEN 'November'::text
+WHEN '12'::text THEN 'December'::text
+ELSE NULL::text
+        END, ' ', right((a.date_start)::text, 4)
+) AS date_start,
+concat(substr((a.date_end)::text,4,2),' ',CASE COALESCE(substr((a.date_end)::TEXT,1,2))
+WHEN '01'::text THEN 'January'::text
+WHEN '02'::text THEN 'February'::text
+WHEN '03'::text THEN 'March'::text
+WHEN '04'::text THEN 'April'::text
+WHEN '05'::text THEN 'May'::text
+WHEN '06'::text THEN 'June'::text
+WHEN '07'::text THEN 'July'::text
+WHEN '08'::text THEN 'August'::text
+WHEN '09'::text THEN 'September'::text
+WHEN '10'::text THEN 'October'::text
+WHEN '11'::text THEN 'November'::text
+WHEN '12'::text THEN 'December'::text
+ELSE NULL::text
+        END, ' ', right((a.date_end)::text, 4) 
+) AS date_end,
+CASE
+WHEN (('now'::text)::date > to_date((a.date_end)::text, 'mm-dd-YYYY'::text)) THEN 'non-aktif'::text
+WHEN (('now'::text)::date < to_date((a.date_end)::text, 'mm-dd-YYYY'::text)) THEN 'aktif'::text
+ELSE NULL::text
+END AS status
+FROM adm_project_list a
+;
