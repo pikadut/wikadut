@@ -13,13 +13,14 @@ if (strtotime($post['date_start_inp']) > strtotime($post['date_end_inp']) ) {
 		'description' => $post['desc_inp'],
 		'date_start' => $post['date_start_inp'],
 		'date_end' => $post['date_end_inp'],
+		'disabled' => 0,
 		// 'status' => $post['status_inp'],
 	);
 
 	$insert = $this->db->insert('adm_project_list', $data);
 
 	if($insert){
-	$this->setMessage("Berhasil menambah data anggaran");
+	$this->setMessage("Berhasil menambah data proyek");
 	}
 
 	redirect(site_url('administration/master_data/proyek'));
