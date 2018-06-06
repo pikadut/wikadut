@@ -68,6 +68,28 @@
 								</div>
 							</div>
 
+						<?php if($data["customer_code"]==NULL || $data["customer_code"]==''){;?>	
+						<?php $curval = ""?>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Kode Nasabah</label>
+							<div class="col-sm-9">
+								<p class="form-control-static" id="customer_code_inp">Auto Generate</p>
+							</div>
+						</div>
+						<?php } ?>
+
+					  <?php if($data["customer_code"]!=NULL){;?>
+						<?php $curval = $data["customer_code"]; ?>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Kode Nasabah</label>
+							<div class="col-sm-9">
+								<p class="form-control-static" id="customer_code_inp"><?php echo $curval ?></p>
+							</div>
+						</div>
+
+					  <?php }?>
+
+
 						</div>
 					</div>
 				</div>

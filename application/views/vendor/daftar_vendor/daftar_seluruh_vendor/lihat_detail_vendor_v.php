@@ -73,6 +73,20 @@
                       </table>
                     </div>
                   </div>
+                  <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    Kode Nasabah
+                  </div>
+                  <div style="padding: 15px;">
+                    <table class="table">
+
+                      <tr>
+                        <th>Kode Nasabah</th>
+                        <td><?php echo $query['customer_code']; ?></td>
+                      </tr>
+                      </table>
+                    </div>
+                  </div>
 
                   <div class="panel panel-primary">
                     <div class="panel-heading">
