@@ -145,6 +145,15 @@ function totalPriceFormatter(data) {
         valign: 'middle'
       },
       {
+        field: 'customer_code',
+        title: 'Kode Nasabah',
+        sortable:true,
+        order:true,
+        searchable:true,
+        align: 'center',
+        valign: 'middle'
+      },
+      {
         field: 'address_street',
         title: 'Alamat',
         sortable:true,
