@@ -93,7 +93,7 @@
   <?php $curval = (isset($hps['hps_total'])) ? inttomoney($hps['hps_total']) : 0; ?>
 
   <div class="form-group">
-    <label class="col-sm-2 control-label">Nilai PR</label>
+    <label class="col-sm-2 control-label">Nilai HPS</label>
     <div class="col-sm-10">
       <p class="form-control-static"><?php echo $curval ?></p>
     </div>

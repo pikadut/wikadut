@@ -159,7 +159,7 @@ function totalPriceFormatter(data) {
       },
 	  {
         field: 'nilai',
-        title: 'Nilai PR',
+        title: 'Nilai HPS',
         sortable:true,
         order:true,
         searchable:true,
