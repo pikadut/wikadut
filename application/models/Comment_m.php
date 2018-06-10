@@ -98,7 +98,7 @@ class Comment_m extends CI_Model {
 
 	}
 //hlmifzi
-	public function insertProcurementPlan($code = "",$comment = "",$response = "",$activity = "",$dateopen = ""){
+	public function insertProcurementPlan($code = "",$comment = "",$response = "",$activity = "",$dateopen = "",$nextjobtitle = ""){
 
 		$userdata = $this->Administration_m->getLogin();
 
@@ -111,6 +111,7 @@ class Comment_m extends CI_Model {
 		$input['response'] = $response;
 		$input['pos_id'] = $userdata['pos_id'];
 		$input['pos_name'] = $userdata['pos_name'];
+		$input['next_pos_id'] = $nextjobtitle;
 
 		$this->db->insert("prc_plan_comment",$input);
 

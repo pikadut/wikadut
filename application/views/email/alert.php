@@ -1,5 +1,4 @@
-<img src="https://www.indonesiaferry.co.id/assets/images/logo2.png">
-<!-- <img src="http://www.indonesiaferry.co.id/images/logo.png"> -->
+<img src="http://www.wika.co.id/po-content/po-upload/logo_wika.png">
 <p>{message}</p>
 <br/>
 Terima Kasih

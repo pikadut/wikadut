@@ -30,6 +30,30 @@
             </div>
           </div>
 
+          <!-- haqim -->
+           <?php $curval = $perencanaan["ppm_type_of_plan"]; ?>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Jenis Rencana*</label>
+              <div>
+              <input type="hidden" name="jenis_rencana" value="<?=$perencanaan["ppm_type_of_plan"]?>">
+             </div>
+             <div class="col-sm-9">
+               <?= strtoupper($perencanaan["ppm_type_of_plan"]) ?>
+             </div>
+           </div>
+
+           <?php if ($perencanaan["ppm_type_of_plan"] == 'rkp'): ?>
+              <div class="form-group" id="nama_proyek_form">
+                <?php $curval = set_value("nama_proyek"); ?>
+                  <label class="col-sm-2 control-label">Nama Proyek*</label>
+                  <div class="col-sm-10">
+                   <input type="text" class="form-control" name="nama_proyek" id="nama_proyek" value="<?=$perencanaan['ppm_project_name']?>" disabled>
+                 </div>
+               </div>           
+           <?php endif ?>
+           
+           <!-- end -->
+
           <?php $curval = $perencanaan["ppm_subject_of_work"]; ?>
           <div class="form-group">
             <label class="col-sm-2 control-label">Nama Rencana Pekerjaan *</label>
@@ -76,6 +100,7 @@
       <div class="col-sm-4">
        <input disabled type="text" class="form-control money" name="pagu_anggaran_inp" value="<?php echo $curval ?>">
      </div>
+     <input type="hidden" class="form-control money" name="pagu_anggaran_inp" value="<?php echo $curval ?>">
    </div>
 
      <?php $month = getmonthname(substr($perencanaan["ppm_renc_pelaksanaan"], 4, 2)); ?>

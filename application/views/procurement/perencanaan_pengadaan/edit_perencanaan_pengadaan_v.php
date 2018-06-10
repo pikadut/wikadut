@@ -30,6 +30,33 @@
             </div>
           </div>
 
+         <!-- haqim -->
+         <?php $curval = $perencanaan["ppm_type_of_plan"]; ?>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Jenis Rencana*</label>
+              <div class="col-sm-10">
+               <input type="radio" name="jenis_rencana" value="rkp" <?= $curval == 'rkp' ? "checked" : '' ?> class="jenis_rencana"> RKP 
+               <input type="radio" name="jenis_rencana" value="rkap" class="jenis_rencana" <?= $curval == 'rkap' ? "checked" : '' ?>> RKAP
+             </div>
+           </div>
+
+            <div class="form-group" id="nama_proyek_form">
+            <?php $curval = set_value("nama_proyek"); ?>
+              <label class="col-sm-2 control-label">Nama Proyek*</label>
+              <div class="col-sm-9">
+               <input type="text" class="form-control" name="nama_proyek" id="nama_proyek" value="" readonly>
+             </div>
+             <div class="col-sm-1">
+              <?php $curval = set_value("proyek_id"); ?>
+              <input readonly required type="hidden" class="form-control"  id="proyek_id" name="proyek_id" value="<?php echo $curval ?>">
+             <button type="button" data-id="proyek_id" data-url="<?php echo site_url('administration/picker_nama_proyek') ?>" class="btn btn-primary picker">
+                <i class="fa fa-search"></i>
+              </button>
+              </div>
+           </div>
+           
+           <!-- end -->
+
           <?php $curval = (isset($perencanaan['ppm_subject_of_work'])) ? $perencanaan['ppm_subject_of_work'] : set_value("nama_rencana_pekerjaan_inp"); ?>
           <div class="form-group">
             <label class="col-sm-2 control-label">Nama Rencana Pekerjaan *</label>
@@ -364,6 +391,18 @@ include(VIEWPATH."/comment_workflow_v.php") ?>
 
 <script type="text/javascript">
   $(document).ready(function(){
+
+    $('#nama_proyek_form').hide();
+    $('.jenis_rencana').click(function(){
+      if ($(this).val() == 'rkp') {
+           $('#nama_proyek_form').show();
+           $('[name=nama_proyek]').attr('required','required');
+      }else{
+        $('#nama_proyek_form').hide();
+        $('[name=nama_proyek]').removeAttr('required');
+
+      }
+    })
 
     $(document.body).on("change","#mata_anggaran_inp",function(){
 

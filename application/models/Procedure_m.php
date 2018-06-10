@@ -354,7 +354,24 @@ class Procedure_m extends MY_Model {
 
 	}
 
-	//haqim //send drp mail
+	//haqim 
+
+	public function getNextJobTitlePlan($pos_id,$anggaran="",$plan_type){
+
+		$this->db->where('hap_pos_code', $pos_id);
+		if (!empty($anggaran)) {
+			$this->db->where('hap_amount >=', floatval(str_replace(",00", '', str_replace(".", "", $anggaran))));
+		}
+		if ($plan_type == 'rkp') {
+			$table = 'vw_prc_hierarchy_approval_5';
+		} elseif ($plan_type == 'rkap') {
+			$table = 'vw_prc_hierarchy_approval_6';
+		}
+
+		return $this->db->get($table)->result_array();
+	}
+
+	//send drp mail
 
 	public function prc_plan_comment_complete(
 		$ppm_id="",
@@ -362,55 +379,25 @@ class Procedure_m extends MY_Model {
 		$ppm_planner_pos_name="",
 		$nama_proses = "",
 		$job_title="",
-		$status=""
+		$next_pos_id=""
 		) {
+		
+		$msg = "Selamat datang di eSCM,
+		<br/>
+		<br/>
+		Perencanaan Pengadaan Berikut : <br/>
+		Proses : $nama_proses<br/>
+		Sebagai : ".$ppm_planner_pos_name."<br/>
+		Membutuhkan Response. 
+		Silahkan login di ".COMPANY_WEBSITE." untuk melanjutkan proses pekerjaan.";
 
-		if ($status == "3") {
-			$response = "<b>Telah Disetujui</b>";
-		} else {
-			$response = "<b>Perlu Direvisi</b>";
-		}
-
-		// $nextjobtitle = "MANAJER USER";
-
-		switch ($job_title) {
-			//pembuatan drp
-			case "PIC USER":
-				$nextjobtitle = "MANAJER USER";
-				$msg = "Selamat datang di eSCM,
-				<br/>
-				<br/>
-				Perencanaan Pengadaan Berikut : <br/>
-				Proses : $nama_proses<br/>
-				Sebagai : ".$ppm_planner_pos_name."<br/>
-				Membutuhkan Response. 
-				Silahkan login di ".COMPANY_WEBSITE." untuk melanjutkan proses pekerjaan.";
-				break;
-			//approval drp
-			default:
-				
-				$nextjobtitle = $job_title;
-				$msg = "Selamat datang di eSCM,
-				<br/>
-				<br/>
-				Perencanaan Pengadaan Berikut : <br/>
-				Proses : $nama_proses<br/>
-				Sebagai : ".$ppm_planner_pos_name."<br/>
-				$response dan Membutuhkan Response. 
-				Silahkan login di ".COMPANY_WEBSITE." untuk melanjutkan proses pekerjaan.";
-				break;
-		}
-
-		// $dept_name = $dept_name;
+	
 		
 		$this->db->distinct();
 		$this->db->select("email");
 		$this->db->where("dept_name", $dept_name);
-		if ($job_title == 'PIC USER') {
-			$this->db->like("job_title", $nextjobtitle);
-		} else {
-			$this->db->like("complete_name", $nextjobtitle);
-		}
+		$this->db->where('pos_id', $next_pos_id);
+		// $this->db->where('employee_id', $nextjobtitle);
 		// ->where("job_title like %$nextjobtitle% AND dept_name like $dept_name")
 		$email_list = $this->db->get("vw_user_access")->result_array();
 

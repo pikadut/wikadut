@@ -11,14 +11,17 @@ $order = (isset($get['order']) && !empty($get['order'])) ? $get['order'] : "";
 $limit = (isset($get['limit']) && !empty($get['limit'])) ? $get['limit'] : 10;
 $search = (isset($get['search']) && !empty($get['search'])) ? $this->db->escape_like_str(strtolower($get['search'])) : "";
 $offset = (isset($get['offset']) && !empty($get['offset'])) ? $get['offset'] : 0;
-$field_order = (isset($get['sort']) && !empty($get['sort'])) ? $get['sort'] : "ppm_id";
+$field_order = (isset($get['sort']) && !empty($get['sort'])) ? $get['sort'] : "ppm_created_date";
 
 
+$this->db->distinct();
 
+$this->db->where('ppm_next_pos_id', $userdata['pos_id']);
+$total_proses = $this->db->get('prc_plan_main a')->num_rows();
 
-$pic_user = $this->Administration_m->getPosition("PIC USER");
-$manajer_user = $this->Administration_m->getPosition("MANAJER USER");
-$kepala_anggaran = $this->Administration_m->getPosition("KEPALA ANGGARAN");
+// $pic_user = $this->Administration_m->getPosition("PIC USER");
+// $manajer_user = $this->Administration_m->getPosition("MANAJER USER");
+// $kepala_anggaran = $this->Administration_m->getPosition("KEPALA ANGGARAN");
 $pos = $this->Administration_m->getPosition();
 
 $alldept = array();
@@ -30,26 +33,26 @@ foreach ($pos as $key => $value) {
   $alldist[] = $value['district_id'];
 }
 
-if($kepala_anggaran){
+// if($kepala_anggaran){
 
-  $this->db->where(array(
-    "ppm_district_id"=>$kepala_anggaran['district_id'],
-    ));
+//   $this->db->where(array(
+//     "ppm_district_id"=>$kepala_anggaran['district_id'],
+//     ));
 
-} else if($manajer_user) {
+// } else if($manajer_user) {
 
   $this->db->where_in("ppm_district_id",$alldist);
   $this->db->where_in("ppm_dept_id",$alldept);
 
-} else if($pic_user) {
+// } else if($pic_user) {
 
- $this->db->where(array(
-  "ppm_planner_pos_code"=>$pic_user['pos_id'],
-  "ppm_district_id"=>$pic_user['district_id'],
-  "ppm_dept_id"=>$pic_user['dept_id']
-  ));
+//  $this->db->where(array(
+//   "ppm_planner_pos_code"=>$pic_user['pos_id'],
+//   "ppm_district_id"=>$pic_user['district_id'],
+//   "ppm_dept_id"=>$pic_user['dept_id']
+//   ));
 
-}
+// }
 
 if(!empty($id)){
   $this->db->where("ppm_id",$id);
@@ -58,7 +61,7 @@ if(!empty($id)){
 // echo "line 55\n";
 if(!empty($search)){
   $this->db->group_start();
-  $this->db->like("LOWER(ppm_id)",$search);
+  // $this->db->like("LOWER(ppm_id)",$search);
   $this->db->or_like("LOWER(ppm_planner)",$search);
   $this->db->or_like("LOWER(ppm_planner_pos_name)",$search);
   $this->db->or_like("LOWER(ppm_subject_of_work)",$search);
@@ -70,81 +73,75 @@ if(!empty($filtering)){
 
     case 'approval':
 
-    if($kepala_anggaran) {
-      $this->db->where("ppm_status",2);
-    } else if($manajer_user){
-     $this->db->where("ppm_status",1);
-   } else {
-    $this->db->where("ppm_status",99);
-  }
+    if ($total_proses > 0) {
+      // $this->db->select('a.*');
+      $this->db->where('ppm_next_pos_id', $userdata['pos_id']);
+      $this->db->where("ppm_status !=",0);
+      $this->db->where("ppm_status !=",4);
+    }
 
-  break;
+    // if($kepala_anggaran) {
+    //   $this->db->where("ppm_status",2);
+    // } else if($manajer_user){
+    //    $this->db->where("ppm_status",1);
+     // }
+     else {
+      $this->db->where("ppm_status",99);
+    }
 
-  case 'update':
-  $this->db->where_in("ppm_status",array(0,4));
-  break;
+    break;
 
-  case 'approved':
-  $this->db->where("ppm_status",3);
-  break;
+    case 'update':
+    $this->db->where_in("ppm_status",array(0,4));
+    break;
 
-  default:
-  if(!$pic_user){
-    $this->db->where("ppm_status",99);
-  }
+    case 'approved':
+    $this->db->where('ppm_next_pos_id', 212);
+    $this->db->where("ppm_status",3);
+    break;
 
-  break;
+    default:
+    // if(!$pic_user){
+      $this->db->where("ppm_status",99);
+    // }
+
+    break;
 
 }
 
 }
-
-
+// $this->db->distinct();
+// $this->db->select('a.*');
+// $this->db->join('prc_plan_comment b', 'b.ppm_id = a.ppm_id','right');
 $data['total'] = $this->Procplan_m->getPerencanaanPengadaan()->num_rows();
 
-//echo $this->db->last_query();
 
-if($kepala_anggaran){
+// if($kepala_anggaran){
 
-  $this->db->where(array(
-    "ppm_district_id"=>$kepala_anggaran['district_id'],
-    ));
+//   $this->db->where(array(
+//     "ppm_district_id"=>$kepala_anggaran['district_id'],
+//     ));
 
-// } else if($pic_user['ppm_planner_pos_code'!=='27']) {
-// } else if ($pic_user['pos_id']), '27'){
+// } else if ($manajer_user){
 
+//   $this->db->where_in("ppm_district_id",$alldist);
+//   $this->db->where_in("ppm_dept_id",$alldept);
 
-} else if ($manajer_user){
-
-  $this->db->where_in("ppm_district_id",$alldist);
-  $this->db->where_in("ppm_dept_id",$alldept);
-
-//hapus ini
-// } else if($pic_user) {
-
-//  $this->db->where(array(
-//   "ppm_planner_pos_code"=>$pic_user['pos_id'],
-//   "ppm_district_id"=>$pic_user['district_id'],
-//   "ppm_dept_id"=>$pic_user['dept_id']
-//   ));
-//batas hapus
+//   // / nambahin ini 
+// }else if($pic_user ['pos_id'] =='25' ){
+// $this->db->where_in("ppm_district_id",$alldist);
+// $this->db->where_in("ppm_dept_id", $alldept);
+// // /////end nambahin
 
 
-  // / nambahin ini 
-}else if($pic_user ['pos_id'] =='25' ){
-$this->db->where_in("ppm_district_id",$alldist);
-$this->db->where_in("ppm_dept_id", $alldept);
-// /////end nambahin
-
-
-}if(!empty($id)){
+// }
+if(!empty($id)){
   $this->db->where("ppm_id",$id);
 }
 
 if(!empty($search)){
   $this->db->group_start();
-  // $this->db->escape_like_str("LOWER(ppm_status)",$search);
-  $this->db->like("LOWER(ppm_id)",$search);
+  // $this->db->like("LOWER(ppm_id)",$search);
   $this->db->or_like("LOWER(ppm_planner)", $search);
   $this->db->or_like("LOWER(ppm_planner_pos_name)",$search);
   $this->db->or_like("LOWER(ppm_subject_of_work)",$search);
@@ -158,19 +155,27 @@ if(!empty($search)){
 
 if(!empty($filtering)){
   switch ($filtering) {
-    case 'approval':
 
-    if($kepala_anggaran) {
-      $this->db->where("ppm_status",2);
-    } else if($manajer_user){
-     $this->db->where("ppm_status",1);
-   } else {
+    case 'approval':
+    if ($total_proses > 0) {
+      $this->db->where('ppm_next_pos_id', $userdata['pos_id']);
+      $this->db->where("ppm_status !=",0);
+      $this->db->where("ppm_status !=",4);
+    }
+
+  //   if($kepala_anggaran) {
+  //     $this->db->where("ppm_status",2);
+  //   } else if($manajer_user){
+  //    $this->db->where("ppm_status",1);
+   //
+    else {
     $this->db->where("ppm_status",99);
   }
 
   break;
 
   case 'approved':
+  $this->db->where('ppm_next_pos_id', 212);
   $this->db->where("ppm_status",3);
   break;
 
@@ -178,10 +183,10 @@ if(!empty($filtering)){
   $this->db->where_in("ppm_status",array(0,4));
   break;
 
-  default:
-  if(!$pic_user){
-    $this->db->where("ppm_status",99);
-  }
+  // default:
+  //   if(!$pic_user){
+  //     $this->db->where("ppm_status",99);
+  //   }
 
   break;
 
@@ -196,10 +201,10 @@ if(!empty($order)){
 if(!empty($limit)){
   $this->db->limit($limit,$offset);
 }
-
-
+// $this->db->distinct();
+// $this->db->select('a.*');
+// $this->db->join('prc_plan_comment b', 'b.ppm_id = a.ppm_id');
 $rows = $this->Procplan_m->getPerencanaanPengadaan()->result_array();
-// echo $this->db->last_query();
 
 $selection = $this->data['selection_perencanaan_pengadaan'];
 
@@ -220,12 +225,6 @@ foreach ($rows as $key => $value) {
   $rows[$key]['ppm_status'] = (isset($status[$rows[$key]['ppm_status']])) ? $status[$rows[$key]['ppm_status']] : "Belum Disetujui";
 }
 
-
 $data['rows'] = $rows;
 
-
-
-
 echo json_encode($data);
-
-// $this->db->last_query();

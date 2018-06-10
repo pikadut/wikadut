@@ -178,7 +178,7 @@ function totalPriceFormatter(data) {
         valign: 'middle'
       },
  {
-        field: 'ppm_status',
+        field: 'ppm_status_name',
         title: 'Status',
         sortable:true,
         order:true,

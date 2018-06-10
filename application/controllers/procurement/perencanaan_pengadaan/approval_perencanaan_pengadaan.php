@@ -4,16 +4,25 @@ $userdata = $this->data['userdata'];
 
 $data = array();
 
-$manajer_user = $this->Administration_m->getPosition("MANAJER USER");
+// $manajer_user = $this->Administration_m->getPosition("MANAJER USER");
 
-$kepala_anggaran = $this->Administration_m->getPosition("KEPALA ANGGARAN");
+// $kepala_anggaran = $this->Administration_m->getPosition("KEPALA ANGGARAN");
 
-if($manajer_user){
+$this->db->where('ppm_next_pos_id', $userdata['pos_id']);
+// $this->db->join('prc_plan_comment b', 'b.ppm_id = a.ppm_id', 'left');
+$total_proses = $this->db->get('prc_plan_main a')->num_rows();
+
+// if($manajer_user){
+// 	$this->data['workflow_list'] = array(3=>"Setuju",4=>"Revisi");
+// } else if($kepala_anggaran){
+// 	$this->data['workflow_list'] = array(3=>"Setuju",4=>"Revisi");
+// } 
+if ($total_proses) {
 	$this->data['workflow_list'] = array(3=>"Setuju",4=>"Revisi");
-} else if($kepala_anggaran){
-	$this->data['workflow_list'] = array(3=>"Setuju",4=>"Revisi");
-} else {
-	$this->noAccess("Hanya VP USER & KEPALA ANGGARAN yang dapat mengelola approval perencanaan pengadaan");
+}
+else {
+	$this->noAccess("Anda tidak dapat mengelola approval perencanaan pengadaan");
+	// $this->noAccess("Hanya VP USER & KEPALA ANGGARAN yang dapat mengelola approval perencanaan pengadaan");
 }
 
 $post = $this->input->post();
