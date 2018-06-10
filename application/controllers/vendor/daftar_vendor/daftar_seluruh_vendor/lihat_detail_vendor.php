@@ -21,6 +21,7 @@ $data = array(
 
   'jumlah' =>1,
   'header'=> array(),
+  'query'=> array(),
   'alamat'=> array(),
   'tipe'=> array(),
   'akta'=> array(),
@@ -38,6 +39,8 @@ $data = array(
   'dokumen'=> array(),
 
   );
+
+$data['query'] = $this->db->where('vendor_id', $vendor_id)->get('vnd_header')->row_array();
 
 $url_ws = "http://vendor.pengadaan.com:8888/RESTSERVICE";
 $url_doc = "http://vendor.pengadaan.com/Download";

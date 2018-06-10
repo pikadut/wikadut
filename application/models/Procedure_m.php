@@ -223,7 +223,8 @@ class Procedure_m extends MY_Model {
 
 		$input['pr_number'] = $pr_number;
 
-		$input['ptm_status'] = 1030;
+		//$input['ptm_status'] = 1030;
+		$input['ptm_status'] = 1040; //y ubah workflow dari 1020->1040
 
 		$act = $this->Procrfq_m->insertDataRFQ($input);
 
@@ -638,9 +639,31 @@ class Procedure_m extends MY_Model {
 						$nextPosCode = $getdata['nextPosCode'];
 						$nextPosName = $getdata['nextPosName'];
 
-
 						$nextActivity = 1040;
 
+					//=======================================================
+						//y get pr planner sebagai rfq buyer
+						$buyers = $this->getNextState(
+							"pr_requester_id",
+							"pr_requester_name",
+							"prc_pr_main",
+							array("pr_number"=>$pr_number));
+
+						$buyerdata = $this->getNextState(
+							"pos_id",
+							"pos_name",
+							"vw_employee",
+							array("pos_name"=>"BUYER"));
+						
+					    $inputbuyer['ptm_buyer_id'] = $buyers['nextPosCode'];
+						$inputbuyer['ptm_buyer'] = $buyers['nextPosName'];
+					    $inputbuyer['ptm_buyer_pos_code'] = $buyerdata['nextPosCode'];
+					    $inputbuyer['ptm_buyer_pos_name'] = $buyerdata['nextPosName'];
+						
+						$this->db->where('ptm_number', $newNumber)->update('prc_tender_main', $inputbuyer);
+						
+						//y end
+					//======================================================
 					} 
 
 
@@ -998,6 +1021,19 @@ class Procedure_m extends MY_Model {
 
 						$nextPosName = $getdata['nextPosName'];
 						$nextPosCode = $getdata['nextPosCode'];
+
+						//y rfq dari buyer ke staff scm
+						if($nextPosCode == NULL){
+							$getdatastaf = $this->getNextState(
+								"ptm_requester_pos_code",
+								"ptm_requester_pos_name",
+								"prc_tender_main",
+									array("ptm_number"=>$ptm_number));
+
+							$nextPosName = $getdatastaf['nextPosName'];
+							$nextPosCode = $getdatastaf['nextPosCode'];
+						}
+						//y end
 
 						$nextjobtitle = $this->getNextJobTitle($nextPosCode);
 
