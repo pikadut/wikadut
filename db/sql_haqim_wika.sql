@@ -296,11 +296,11 @@ ALTER TABLE "public"."prc_plan_main"
   ADD COLUMN "ppm_project_name" varchar(255);
   ADD COLUMN "ppm_project_id" int4;
 
----ALTER TABLE "public"."prc_plan_comment" 
----  ADD COLUMN "next_pos_id" int4;
-
 ALTER TABLE "public"."prc_plan_main" 
   ADD COLUMN "ppm_next_pos_id" int4;
+
+ALTER TABLE "public"."prc_plan_comment" 
+  ADD COLUMN "next_pos_id" int4;
 
 --DROP VIEW "public"."vw_prc_plan_main";
 
@@ -321,13 +321,14 @@ CREATE OR REPLACE VIEW "public"."vw_prc_plan_main" AS  SELECT prc_plan_main.ppm_
             WHEN 0 THEN 'Simpan Sementara'::text
             WHEN 1 THEN 'Belum Disetujui'::text
             WHEN 2 THEN 'Telah Disetujui User'::text
-            --WHEN 3 THEN 'Telah Disetujui Kepala Anggaran'::text
-	    WHEN 3 THEN concat('Telah Disetujui ', initcap((SELECT vw_adm_pos.pos_name
-               FROM vw_adm_pos WHERE vw_adm_pos.pos_id = ( SELECT prc_plan_comment.pos_id FROM prc_plan_comment WHERE ppm_id = prc_plan_main.ppm_id ORDER BY prc_plan_comment.comment_id DESC LIMIT 1 ) LIMIT 1 ))
-					)
-            WHEN 4 THEN 'Revisi'::text
-            ELSE NULL::text
-        END AS ppm_status_name,
+            WHEN 3 THEN concat('Telah Disetujui ', initcap((( SELECT vw_adm_pos.pos_name
+               FROM vw_adm_pos
+              WHERE (vw_adm_pos.pos_id = ( SELECT prc_plan_comment.pos_id
+                       FROM prc_plan_comment
+                      WHERE (prc_plan_comment.ppm_id = prc_plan_main.ppm_id)
+                      ORDER BY prc_plan_comment.comment_id DESC
+                     LIMIT 1))
+             LIMIT 1))::text))
             WHEN 4 THEN 'Revisi'::text
             ELSE NULL::text
         END AS ppm_status_name,
@@ -395,6 +396,5 @@ CREATE OR REPLACE VIEW "public"."vw_prc_plan_main" AS  SELECT prc_plan_main.ppm_
     prc_plan_main.ppm_approved_pos_code,
     prc_plan_main.ppm_approved_pos_name,
     prc_plan_main.ppm_planner_id,
-    prc_plan_main.ppm_next_pos_id	
+    prc_plan_main.ppm_next_pos_id
    FROM prc_plan_main;
-
