@@ -130,6 +130,22 @@
           </div>
         </div>
 
+        <!-- //y tambah jenis pr -->        
+        <?php $curval = (isset($permintaan['pr_type'])) ?  $permintaan["pr_type"] : set_value("tipe_pr"); ?>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Jenis PR *</label>
+          <div class="col-sm-5">
+           <select class="form-control" required name="tipe_pr" value="<?php echo $curval ?>">
+            <option value=""><?php echo lang('choose') ?></option>
+            <?php foreach($pr_type as $key => $val){
+              $selected = ($key == $curval) ? "selected" : ""; 
+              ?>
+              <option <?php echo $selected ?> value="<?php echo $key ?>"><?php echo $val ?></option>
+              <?php } ?>
+            </select>
+          </div>
+        </div>
+
 <!-- HLMIFZI -->
         <div class="form-group">
           <label class="col-sm-2 control-label">Pembelian Langsung/Swakelola

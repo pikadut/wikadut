@@ -21,6 +21,7 @@ $data['district_list'] = $this->Administration_m->getDistrict()->result_array();
 $data['del_point_list'] = $this->Administration_m->get_divisi_departemen()->result_array();
 $data['contract_type'] = array("LUMPSUM"=>"LUMPSUM");
 $data['workflow_list'] = $this->Procedure_m->getResponseList($activity['awa_id']);
+$data['pr_type'] = array("KONSOLIDASI" => "KONSOLIDASI", "NON KONSOLIDASI" => "NON KONSOLIDASI", "MATERIAL STRATEGIS" => "MATERIAL STRATEGIS"); //y tipe pr
 
 $this->db->limit(1);
 $permintaan = $this->Procpr_m->getPR()->row_array();

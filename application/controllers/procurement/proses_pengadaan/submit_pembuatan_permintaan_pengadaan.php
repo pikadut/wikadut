@@ -14,6 +14,7 @@ if(!$position){
 $this->form_validation->set_rules("perencanaan_pengadaan_inp", "Nomor Perencanaan Pengadaan", 'required|max_length['.DEFAULT_MAXLENGTH.']');
 /*$this->form_validation->set_rules("lokasi_kebutuhan_inp", "Lokasi Kebutuhan", 'required|max_length['.DEFAULT_MAXLENGTH_TEXT.']');*/
 $this->form_validation->set_rules("lokasi_pengiriman_inp", "Lokasi Pengiriman", 'required|max_length['.DEFAULT_MAXLENGTH.']');
+$this->form_validation->set_rules("tipe_pr", "Jenis PR", 'required|max_length['.DEFAULT_MAXLENGTH.']'); //y jenis pr
 
 $perencanaan_id = $post['perencanaan_pengadaan_inp'];
 $perencanaan = $this->Procplan_m->getPerencanaanPengadaan($perencanaan_id)->row_array();
@@ -34,6 +35,9 @@ $input['pr_requester_name']=$userdata['complete_name'];
 $input['pr_requester_pos_code']=$position['pos_id'];
 $input['pr_requester_pos_name']=$position['pos_name'];
 $input['pr_requester_id']=$userdata['employee_id'];
+$input['pr_project_name']=$perencanaan['ppm_project_name']; //y
+$input['pr_type_of_plan']=$perencanaan['ppm_type_of_plan']; //y
+$input['pr_type']=$post['tipe_pr'];
 //start code hlmifzi
 if (empty($post['swakelola_inp'])){
     $swakelola_inp = null;
@@ -132,6 +136,37 @@ foreach ($post as $key => $value) {
 }
 
 $error = false;
+
+//y validasi tipe pr
+if($post['tipe_pr'] == "KONSOLIDASI" ){
+  if ($input['pr_pagu_anggaran'] > 25000000) {
+    $this->setMessage("Tipe perencanaan pengadaan non konsolidasi harus kurang dari 25 juta rupiah");
+    $error= true;
+  }
+}elseif ($post['tipe_pr'] == "NON KONSOLIDASI") {
+  if($input['pr_pagu_anggaran'] <= 25000000){
+    $this->setMessage("Tipe perencanaan pengadaan konsolidasi harus lebih dari 25 juta rupiah");
+    $error = true;
+  }elseif ($input['pr_pagu_anggaran'] > 20000000000) {
+    $this->setMessage("Tipe perencanaan pengadaan konsolidasi harus kurang dari 20 milyar rupiah");
+    $error= true;
+  }
+}elseif ($post['tipe_pr'] == "MATERIAL STRATEGIS") {
+  if($input['pr_type_of_plan'] == "rkap" and $input['pr_pagu_anggaran'] < 20000000000){
+    $this->setMessage("Tipe perencanaan pengadaan material strategis non proyek harus lebih dari 20 milyar rupiah");
+    $error = true;
+  }elseif ($input['pr_type_of_plan'] == "rkp" and $input['pr_pagu_anggaran'] < 200000000000) {
+    $this->setMessage("Tipe perencanaan pengadaan material strategis proyek harus lebih dari 200 milyar rupiah");
+    $error = true;
+  }else{
+    $this->setMessage("Tipe proyek tidak ada");
+    $error = true;
+  }
+}else{
+  $this->setMessage("Tipe perencanaan harus dipilih");
+  $error = true;
+}
+//end
 
 if($input['pr_sisa_anggaran'] < 0){
   $this->setMessage("Sisa anggaran tidak boleh kurang dari 0");
