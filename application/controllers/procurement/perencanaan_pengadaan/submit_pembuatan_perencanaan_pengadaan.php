@@ -171,8 +171,6 @@ if ($this->form_validation->run() == FALSE || $error){
     
   //hlmifzi
     $this->Comment_m->insertProcurementPlan($last_id,$com,$response,$activity,$dateopen,$next_pos_id);
-    echo $this->db->last_query();
-    exit;
 
     foreach ($input_comment as $key => $value) {
       $value['ppm_id'] = $last_id;
