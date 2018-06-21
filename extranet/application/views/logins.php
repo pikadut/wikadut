@@ -103,7 +103,7 @@
 
   <div class="animated slideInRight loginLogin wrapper">
     <!-- <div class="ibox-content"> -->
-     <div class="row" style="margin: 0% 5% 3% 5%; height: 100%">
+     <div class="row" style="margin: 0% 5% 8% 5%; height: 100%">
       <div style="height: 100%;">
         <p align="center">
           <img src="<?php echo base_url('assets/img/logo.png') ?>" class="img-responsive" style="height: 35%; width: 35%">
@@ -122,7 +122,6 @@
           Email : helpdesk@adw.co.id
         </p>
        
-        <br/>
       <?php 
       $pesan = $this->session->userdata('message');
       $pesan = (empty(trim($pesan))) ? "" : $pesan;
