@@ -48,7 +48,7 @@
 
    <!-- <div class="" > -->
 
-    <div class="row" style="margin-left: 8%; margin-right: 8%; margin-bottom: 10%">
+    <div class="row" style="margin-left: 8%; margin-right: 8%; margin-bottom: 5%">
 
       <div style="height: 100% absolute">
       <div style="height: 25%">
