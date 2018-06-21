@@ -121,7 +121,7 @@
           <br/>
           Email : helpdesk@adw.co.id
         </p>
-       
+       <br/>
       <?php 
       $pesan = $this->session->userdata('message');
       $pesan = (empty(trim($pesan))) ? "" : $pesan;
@@ -168,7 +168,6 @@
     <div align="center">
    Dikembangkan oleh <strong>ADW Consulting</strong> untuk <strong><?php echo COMPANY_NAME ?></strong>
   </div>
-  <br/>
   <div id="crPhone" style="display: none; text-align: center;">
    <small>© <?php $made = 2018; echo ($made == DATE('Y')) ? $made : $made .'-'. DATE('Y') ?> All Right Reserved</small>
  </div>
