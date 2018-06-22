@@ -140,12 +140,12 @@ $error = false;
 //y validasi tipe pr
 if($post['tipe_pr'] == "KONSOLIDASI" ){
   if ($input['pr_pagu_anggaran'] > 25000000) {
-    $this->setMessage("Tipe perencanaan pengadaan non konsolidasi harus kurang dari 25 juta rupiah");
+    $this->setMessage("Tipe perencanaan pengadaan konsolidasi harus kurang dari 25 juta rupiah");
     $error= true;
   }
 }elseif ($post['tipe_pr'] == "NON KONSOLIDASI") {
   if($input['pr_pagu_anggaran'] <= 25000000){
-    $this->setMessage("Tipe perencanaan pengadaan konsolidasi harus lebih dari 25 juta rupiah");
+    $this->setMessage("Tipe perencanaan pengadaan non konsolidasi harus lebih dari 25 juta rupiah");
     $error = true;
   }elseif ($input['pr_pagu_anggaran'] > 20000000000) {
     $this->setMessage("Tipe perencanaan pengadaan konsolidasi harus kurang dari 20 milyar rupiah");
