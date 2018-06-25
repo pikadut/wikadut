@@ -138,25 +138,25 @@ foreach ($post as $key => $value) {
 $error = false;
 
 //y validasi tipe pr
-if($post['tipe_pr'] == "KONSOLIDASI" ){
+if($post['tipe_pr'] == "NON KONSOLIDASI" ){
   if ($input['pr_pagu_anggaran'] > 25000000) {
-    $this->setMessage("Tipe perencanaan pengadaan konsolidasi harus kurang dari 25 juta rupiah");
+    $this->setMessage("Tipe PR non konsolidasi harus <= 25 juta");
     $error= true;
   }
-}elseif ($post['tipe_pr'] == "NON KONSOLIDASI") {
+}elseif ($post['tipe_pr'] == "KONSOLIDASI") {
   if($input['pr_pagu_anggaran'] <= 25000000){
-    $this->setMessage("Tipe perencanaan pengadaan non konsolidasi harus lebih dari 25 juta rupiah");
+    $this->setMessage("Tipe PR konsolidasi harus lebih dari 25 juta");
     $error = true;
   }elseif ($input['pr_pagu_anggaran'] > 20000000000) {
-    $this->setMessage("Tipe perencanaan pengadaan konsolidasi harus kurang dari 20 milyar rupiah");
+    $this->setMessage("Tipe PR konsolidasi harus <= 20 milyar");
     $error= true;
   }
 }elseif ($post['tipe_pr'] == "MATERIAL STRATEGIS") {
   if($input['pr_type_of_plan'] == "rkap" and $input['pr_pagu_anggaran'] < 20000000000){
-    $this->setMessage("Tipe perencanaan pengadaan material strategis non proyek harus lebih dari 20 milyar rupiah");
+    $this->setMessage("Tipe PR material strategis non proyek harus > 20 milyar");
     $error = true;
   }elseif ($input['pr_type_of_plan'] == "rkp" and $input['pr_pagu_anggaran'] < 200000000000) {
-    $this->setMessage("Tipe perencanaan pengadaan material strategis proyek harus lebih dari 200 milyar rupiah");
+    $this->setMessage("Tipe PR material strategis proyek harus > 200 milyar");
     $error = true;
   }else{
     $this->setMessage("Tipe proyek tidak ada");
