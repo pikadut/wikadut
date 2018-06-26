@@ -75,3 +75,52 @@ CREATE VIEW "public"."vw_prc_pr_monitor" AS  SELECT pr.pr_number,
 ALTER TABLE "public"."vw_prc_pr_monitor" OWNER TO "postgres";
 COMMENT ON VIEW "public"."vw_prc_pr_monitor" IS 'Monitor PR';
 
+
+-----------
+---26062018
+DROP VIEW "public"."vw_daftar_pekerjaan_sppbj";
+CREATE VIEW "public"."vw_daftar_pekerjaan_sppbj" AS  SELECT prc_pr_main.pr_number,
+    prc_pr_main."isSwakelola",
+    prc_pr_main.pr_requester_name,
+    prc_pr_main.pr_requester_pos_code,
+    prc_pr_main.pr_requester_pos_name,
+    prc_pr_main.pr_created_date,
+    prc_pr_main.pr_subject_of_work,
+    prc_pr_main.pr_scope_of_work,
+    prc_pr_main.pr_district_id,
+    prc_pr_main.pr_district AS pr_district_name,
+    prc_pr_main.pr_delivery_point_id,
+    prc_pr_main.pr_delivery_point,
+    prc_pr_main.pr_delivery_time,
+    prc_pr_main.pr_delivery_unit,
+    prc_pr_main.pr_buyer,
+    prc_pr_main.pr_buyer_pos_code,
+    prc_pr_main.pr_buyer_pos_name,
+    prc_pr_main.pr_currency,
+    prc_pr_main.pr_contract_type,
+    prc_pr_main.pr_last_participant,
+    prc_pr_main.pr_last_participant_code,
+    prc_pr_main.pr_status,
+    prc_pr_main.pr_dept_id,
+    prc_pr_main.pr_dept_name,
+    prc_pr_main.pr_mata_anggaran,
+    prc_pr_main.pr_nama_mata_anggaran,
+    prc_pr_main.pr_sub_mata_anggaran,
+    prc_pr_main.pr_nama_sub_mata_anggaran,
+    prc_pr_main.pr_pagu_anggaran,
+    prc_pr_main.pr_sisa_anggaran,
+    prc_pr_main.pr_requester_id,
+    prc_pr_main.ppm_id,
+    prc_pr_main.pr_type,
+    COALESCE(( SELECT adm_wkf_activity.awa_name
+           FROM adm_wkf_activity
+          WHERE (adm_wkf_activity.awa_id = ( SELECT prc_pr_comment.ppc_activity
+                   FROM prc_pr_comment
+                  WHERE (((prc_pr_comment.pr_number)::text = (prc_pr_main.pr_number)::text) AND (prc_pr_comment.ppc_name IS NULL))))), 'Permintaan dilanjutkan ke RFQ-Undangan'::character varying) AS status,
+    COALESCE((( SELECT format((sum(((prc_pr_item.ppi_quantity * (prc_pr_item.ppi_price)::double precision) * (1.1)::double precision)))::text, 2) AS jumlah
+           FROM prc_pr_item
+          WHERE ((prc_pr_item.pr_number)::text = (prc_pr_main.pr_number)::text)
+          GROUP BY prc_pr_item.pr_number))::integer, 0) AS nilai
+   FROM prc_pr_main;
+
+ALTER TABLE "public"."vw_daftar_pekerjaan_sppbj" OWNER TO "postgres";
