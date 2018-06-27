@@ -4,7 +4,7 @@
 		
 		public function do_login($email, $password){
 			
-			$login = "http://vendor.pengadaan.com:8888/RESTSERVICE/vndheader.json?token=123456&act=1&vndHeader.emailAddress=".$email."&vndHeader.password=".$password."&buyerId=5";
+			$login = "http://vendor.pengadaan.com:8888/RESTSERVICE/vndheader.json?token=123456&act=1&vndHeader.emailAddress=".$email."&vndHeader.password=".$password."&buyerId=8";
 			 
 			$jsonfile = file_get_contents($login);
 			$arrays = json_decode($jsonfile, true);
