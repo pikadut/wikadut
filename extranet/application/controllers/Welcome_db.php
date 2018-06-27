@@ -124,12 +124,12 @@ class Welcome_db extends MY_Controller {
 									$this->session->set_userdata('nama_vendor', $data["vendor_name"]);
 									$this->session->set_userdata('login_id', $data["login_id"]);
 
-									$this->db->insert("vnd_session",array(
-										"last_access"	=> time(),
-										"session_id"	=> session_id(),
-										"ip_address"	=> $_SERVER['REMOTE_ADDR'],
-										"login_id"		=> $data["login_id"]
-										));
+									// $this->db->insert("vnd_session",array(
+									// 	"last_access"	=> time(),
+									// 	"session_id"	=> session_id(),
+									// 	"ip_address"	=> $_SERVER['REMOTE_ADDR'],
+									// 	"login_id"		=> $data["login_id"]
+									// 	));
 
 									$this->db->query("INSERT INTO vnd_session 
 										(session_id, ip_address, last_access, login_id) VALUES 
