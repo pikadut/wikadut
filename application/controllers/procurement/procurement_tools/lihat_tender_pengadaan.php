@@ -95,7 +95,7 @@ if(!empty($vendor)){
   $this->db
   ->select("vendor_id,vendor_name")
   ->distinct()
-  ->where_in("status",array(5,9))
+  ->where_in((int)"status",array(5,9))
   ->where("pvs_status >",0)
   ->where_in("vendor_id",$vendor)
   ->join("prc_tender_vendor_status","pvs_vendor_code=vendor_id","left")
