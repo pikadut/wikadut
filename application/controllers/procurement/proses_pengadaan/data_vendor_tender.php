@@ -10,7 +10,7 @@ $userdata = $this->data['userdata'];
 
 $id = (isset($get['id']) && !empty($get['id'])) ? $get['id'] : "";
 $order = (isset($get['order']) && !empty($get['order'])) ? $get['order'] : "asc";
-$limit = (isset($get['limit']) && !empty($get['limit'])) ? $get['limit'] : 10;
+$limit = (isset($get['limit']) && !empty($get['limit'])) ? $get['limit'] : 100;
 $search = (isset($get['search']) && !empty($get['search'])) ? $this->db->escape_like_str(strtolower($get['search'])) : "";
 $offset = (isset($get['offset']) && !empty($get['offset'])) ? $get['offset'] : 0;
 $field_order = (isset($get['sort']) && !empty($get['sort'])) ? $get['sort'] : "vendor_name";
@@ -171,7 +171,7 @@ if(!empty($selection_district) && empty($filtering)){
 }
 
 $rows = $this->Vendor_m->getBidderList($id)->result_array();
-//echo $this->db->last_query();
+
 
 if($filtering === "selected"){
   $vendor_attend = (isset($this->data['selection_vendor_tender_hadir'])) ? $this->data['selection_vendor_tender_hadir'] : array();
