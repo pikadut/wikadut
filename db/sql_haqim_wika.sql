@@ -402,3 +402,7 @@ CREATE OR REPLACE VIEW "public"."vw_prc_plan_main" AS  SELECT prc_plan_main.ppm_
 28/06/2018
 ALTER TABLE "public"."prc_tender_vendor" 
   ALTER COLUMN "ptv_is_attend_2" SET DEFAULT 0;
+
+ALTER TABLE "public"."prc_tender_quo_main_hist" 
+  ALTER COLUMN "pqm_guarantee_unit" TYPE varchar(32) USING "pqm_guarantee_unit"::varchar(32),
+  ALTER COLUMN "pqm_deliverable_unit" TYPE varchar(32) USING "pqm_deliverable_unit"::varchar(32);
