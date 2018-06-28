@@ -398,3 +398,7 @@ CREATE OR REPLACE VIEW "public"."vw_prc_plan_main" AS  SELECT prc_plan_main.ppm_
     prc_plan_main.ppm_planner_id,
     prc_plan_main.ppm_next_pos_id
    FROM prc_plan_main;
+
+28/06/2018
+ALTER TABLE "public"."prc_tender_vendor" 
+  ALTER COLUMN "ptv_is_attend_2" SET DEFAULT 0;
