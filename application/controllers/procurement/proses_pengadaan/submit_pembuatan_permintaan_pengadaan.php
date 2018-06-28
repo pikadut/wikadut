@@ -139,23 +139,23 @@ $error = false;
 
 //y validasi tipe pr
 if($post['tipe_pr'] == "NON KONSOLIDASI" ){
-  if ($input['pr_pagu_anggaran'] > 25000000) {
+  if ($post['total_alokasi_ppn_inp'] > 25000000) {
     $this->setMessage("Tipe PR non konsolidasi harus <= 25 juta");
     $error= true;
   }
 }elseif ($post['tipe_pr'] == "KONSOLIDASI") {
-  if($input['pr_pagu_anggaran'] <= 25000000){
+  if($post['total_alokasi_ppn_inp'] <= 25000000){
     $this->setMessage("Tipe PR konsolidasi harus lebih dari 25 juta");
     $error = true;
-  }elseif ($input['pr_pagu_anggaran'] > 20000000000) {
+  }elseif ($post['total_alokasi_ppn_inp'] > 20000000000) {
     $this->setMessage("Tipe PR konsolidasi harus <= 20 milyar");
     $error= true;
   }
 }elseif ($post['tipe_pr'] == "MATERIAL STRATEGIS") {
-  if($input['pr_type_of_plan'] == "rkap" and $input['pr_pagu_anggaran'] < 20000000000){
+  if($input['pr_type_of_plan'] == "rkap" and $post['total_alokasi_ppn_inp'] < 20000000000){
     $this->setMessage("Tipe PR material strategis non proyek harus > 20 milyar");
     $error = true;
-  }elseif ($input['pr_type_of_plan'] == "rkp" and $input['pr_pagu_anggaran'] < 200000000000) {
+  }elseif ($input['pr_type_of_plan'] == "rkp" and $post['total_alokasi_ppn_inp'] < 200000000000) {
     $this->setMessage("Tipe PR material strategis proyek harus > 200 milyar");
     $error = true;
   }else{
