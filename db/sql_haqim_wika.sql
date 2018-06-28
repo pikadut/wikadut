@@ -453,3 +453,38 @@ CREATE VIEW "public"."vw_prc_evaluation" AS  SELECT prc_tender_eval.ptm_number,
           GROUP BY ptqm1.ptm_number, ptqm1.ptv_vendor_code) tqi ON ((((tqi.ptm_number)::text = (prc_tender_vendor_status.ptm_number)::text) AND (tqi.ptv_vendor_code = prc_tender_eval.ptv_vendor_code))))
      JOIN vnd_header ON ((vnd_header.vendor_id = prc_tender_eval.ptv_vendor_code)))
   ORDER BY ptqm.ptm_number, ptqm.pqm_type, ptqm.ptv_vendor_code;
+
+
+DROP VIEW "public"."vw_prc_tender_quo_tech";
+
+CREATE VIEW "public"."vw_prc_tender_quo_tech" AS  SELECT pqt.pqt_id,
+    pqt.pqt_item,
+    pqt.pqt_weight,
+    pqt.pqt_check,
+    pqt.pqt_check_vendor,
+    pqt.pqt_vendor_desc,
+    pqt.pqt_value,
+		pqt.pqt_attachment,
+    pqm.pqm_id,
+    pqm.ptm_number,
+    pqm.ptv_vendor_code,
+    pqm.pqm_number,
+    pqm.pqm_type,
+    pqm.pqm_bid_bond_value,
+    pqm.pqm_local_content,
+    pqm.pqm_delivery_time,
+    pqm.pqm_delivery_unit,
+    pqm.pqm_valid_thru,
+    pqm.pqm_notes,
+    pqm.pqm_att,
+    pqm.pqm_created_date,
+    pqm.pqm_currency,
+    vnd.vendor_name,
+    ptvs.pvs_status,
+    ptvs.pvs_technical_status
+   FROM (((prc_tender_quo_tech pqt
+     JOIN prc_tender_quo_main pqm ON ((pqm.pqm_id = pqt.pqm_id)))
+     JOIN vnd_header vnd ON ((pqm.ptv_vendor_code = vnd.vendor_id)))
+     JOIN prc_tender_vendor_status ptvs ON ((((pqm.ptm_number)::text = (ptvs.ptm_number)::text) AND (pqm.ptv_vendor_code = ptvs.pvs_vendor_code))));
+
+
