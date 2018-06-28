@@ -406,3 +406,50 @@ ALTER TABLE "public"."prc_tender_vendor"
 ALTER TABLE "public"."prc_tender_quo_main_hist" 
   ALTER COLUMN "pqm_guarantee_unit" TYPE varchar(32) USING "pqm_guarantee_unit"::varchar(32),
   ALTER COLUMN "pqm_deliverable_unit" TYPE varchar(32) USING "pqm_deliverable_unit"::varchar(32);
+
+
+DROP VIEW "public"."vw_prc_evaluation";
+
+CREATE VIEW "public"."vw_prc_evaluation" AS  SELECT prc_tender_eval.ptm_number,
+    prc_tender_eval.ptv_vendor_code,
+    vw_vendor.lkp_description AS vendor_name,
+        CASE
+            WHEN (prc_tender_vendor_status.pvs_technical_status = 1) THEN 'Lulus'::text
+            ELSE 'Tidak Lulus'::text
+        END AS adm,
+    COALESCE(prc_tender_eval.pte_technical_value, (0)::double precision) AS pte_technical_value,
+    prc_tender_eval.pte_passing_grade,
+        CASE
+            WHEN (prc_tender_eval.pte_technical_value IS NULL) THEN '-'::text
+            WHEN (COALESCE(prc_tender_eval.pte_technical_value, (0)::double precision) >= prc_tender_eval.pte_passing_grade) THEN 'Lulus'::text
+            ELSE 'Tidak Lulus'::text
+        END AS pass,
+    prc_tender_eval.pte_technical_remark,
+    COALESCE(prc_tender_eval.pte_price_value, (0)::double precision) AS pte_price_value,
+    COALESCE(((prc_tender_eval.pte_technical_weight * prc_tender_eval.pte_technical_value) / (100)::double precision), (0)::double precision) AS pte_technical_weight,
+        CASE
+            WHEN ((vnd_header.npwp_pkp)::text = 'YA'::text) THEN (tqi.amount * 1.1)
+            ELSE tqi.amount
+        END AS amount,
+    COALESCE(((prc_tender_eval.pte_price_weight * prc_tender_eval.pte_price_value) / (100)::double precision), (0)::double precision) AS pte_price_weight,
+    (COALESCE(((prc_tender_eval.pte_technical_weight * prc_tender_eval.pte_technical_value) / (100)::double precision), (0)::double precision) + COALESCE(((prc_tender_eval.pte_price_weight * prc_tender_eval.pte_price_value) / (100)::double precision), (0)::double precision)) AS total,
+    prc_tender_eval.pte_price_remark,
+    prc_tender_vendor_status.pvs_status,
+    prc_tender_vendor_status.pvs_is_winner,
+    prc_tender_vendor_status.pvs_is_negotiate,
+    prc_tender_eval.pte_validity_offer,
+    prc_tender_eval.pte_validity_bid_bond,
+    ptqm.pqm_id,
+		ptqm.pqm_type AS pqm_type,(case when ((coalesce(prc_tender_eval.pte_validity_offer,0) <> 0) and (coalesce(prc_tender_eval.pte_validity_bid_bond,0) <> 0)) then 'Lulus' when (prc_tender_eval.pte_validity_offer IS NULL or prc_tender_eval.pte_validity_bid_bond IS NULL) then '' else 'Tidak Lulus' end) AS pass_price
+   FROM (((((vw_vendor
+     LEFT JOIN prc_tender_eval ON ((vw_vendor.lkp_id = prc_tender_eval.ptv_vendor_code)))
+     LEFT JOIN prc_tender_vendor_status ON ((((prc_tender_vendor_status.ptm_number)::text = (prc_tender_eval.ptm_number)::text) AND (prc_tender_vendor_status.pvs_vendor_code = prc_tender_eval.ptv_vendor_code))))
+     LEFT JOIN prc_tender_quo_main ptqm ON ((((ptqm.ptm_number)::text = (prc_tender_eval.ptm_number)::text) AND (ptqm.ptv_vendor_code = prc_tender_eval.ptv_vendor_code))))
+     LEFT JOIN ( SELECT ptqm1.ptm_number,
+            ptqm1.ptv_vendor_code,
+            sum(((vw_prc_quotation_item.pqi_quantity)::numeric * vw_prc_quotation_item.pqi_price)) AS amount
+           FROM (vw_prc_quotation_item
+             JOIN prc_tender_quo_main ptqm1 ON ((vw_prc_quotation_item.pqm_id = ptqm1.pqm_id)))
+          GROUP BY ptqm1.ptm_number, ptqm1.ptv_vendor_code) tqi ON ((((tqi.ptm_number)::text = (prc_tender_vendor_status.ptm_number)::text) AND (tqi.ptv_vendor_code = prc_tender_eval.ptv_vendor_code))))
+     JOIN vnd_header ON ((vnd_header.vendor_id = prc_tender_eval.ptv_vendor_code)))
+  ORDER BY ptqm.ptm_number, ptqm.pqm_type, ptqm.ptv_vendor_code;
