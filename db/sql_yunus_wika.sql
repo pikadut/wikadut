@@ -128,7 +128,9 @@ ALTER TABLE "public"."vw_daftar_pekerjaan_sppbj" OWNER TO "postgres";
 
 -------------
 ---28/06/2018
-CREATE VIEW "public"."vw_prc_evaluation" AS SELECT prc_tender_eval.ptm_number,
+DROP VIEW "public"."vw_prc_evaluation";
+
+CREATE VIEW "public"."vw_prc_evaluation" AS  SELECT prc_tender_eval.ptm_number,
     prc_tender_eval.ptv_vendor_code,
     vw_vendor.lkp_description AS vendor_name,
         CASE
@@ -157,7 +159,8 @@ CREATE VIEW "public"."vw_prc_evaluation" AS SELECT prc_tender_eval.ptm_number,
     prc_tender_vendor_status.pvs_is_negotiate,
     prc_tender_eval.pte_validity_offer,
     prc_tender_eval.pte_validity_bid_bond,
-    ptqm.pqm_id
+    ptqm.pqm_id,
+		ptqm.pqm_type AS pqm_type,(case when ((coalesce(prc_tender_eval.pte_validity_offer,0) <> 0) and (coalesce(prc_tender_eval.pte_validity_bid_bond,0) <> 0)) then 'Lulus' when (prc_tender_eval.pte_validity_offer IS NULL or prc_tender_eval.pte_validity_bid_bond IS NULL) then '' else 'Tidak Lulus' end) AS pass_price
    FROM (((((vw_vendor
      LEFT JOIN prc_tender_eval ON ((vw_vendor.lkp_id = prc_tender_eval.ptv_vendor_code)))
      LEFT JOIN prc_tender_vendor_status ON ((((prc_tender_vendor_status.ptm_number)::text = (prc_tender_eval.ptm_number)::text) AND (prc_tender_vendor_status.pvs_vendor_code = prc_tender_eval.ptv_vendor_code))))
@@ -169,4 +172,4 @@ CREATE VIEW "public"."vw_prc_evaluation" AS SELECT prc_tender_eval.ptm_number,
              JOIN prc_tender_quo_main ptqm1 ON ((vw_prc_quotation_item.pqm_id = ptqm1.pqm_id)))
           GROUP BY ptqm1.ptm_number, ptqm1.ptv_vendor_code) tqi ON ((((tqi.ptm_number)::text = (prc_tender_vendor_status.ptm_number)::text) AND (tqi.ptv_vendor_code = prc_tender_eval.ptv_vendor_code))))
      JOIN vnd_header ON ((vnd_header.vendor_id = prc_tender_eval.ptv_vendor_code)))
-  ORDER BY ptqm.ptm_number, ptqm.pqm_type, ptqm.ptv_vendor_code
+  ORDER BY ptqm.ptm_number, ptqm.pqm_type, ptqm.ptv_vendor_code;
