@@ -487,4 +487,34 @@ CREATE VIEW "public"."vw_prc_tender_quo_tech" AS  SELECT pqt.pqt_id,
      JOIN vnd_header vnd ON ((pqm.ptv_vendor_code = vnd.vendor_id)))
      JOIN prc_tender_vendor_status ptvs ON ((((pqm.ptm_number)::text = (ptvs.ptm_number)::text) AND (pqm.ptv_vendor_code = ptvs.pvs_vendor_code))));
 
+DROP VIEW "public"."vw_prc_quotation_item"; --CASCADE
 
+CREATE VIEW "public"."vw_prc_quotation_item" AS  SELECT prc_tender_item.tit_code,
+    prc_tender_quo_item.pqm_id,
+    prc_tender_item.tit_description,
+    prc_tender_item.tit_quantity,
+    prc_tender_item.tit_unit,
+    prc_tender_quo_item.pqi_description,
+    COALESCE((prc_tender_quo_item.pqi_quantity)::double precision, prc_tender_item.tit_quantity) AS pqi_quantity,
+    prc_tender_quo_item.pqi_price,
+		prc_tender_quo_item.pqi_ppn,
+		prc_tender_quo_item.pqi_pph,
+		prc_tender_quo_item.pqi_guarantee,
+		prc_tender_quo_item.pqi_guarantee_type,
+		prc_tender_quo_item.pqi_deliverable,
+		prc_tender_quo_item.pqi_deliverable_type,
+    prc_tender_item.tit_id,
+    vnd_header.vendor_name,
+    prc_tender_quo_main.ptm_number,
+    prc_tender_quo_main.ptv_vendor_code,
+    vw_com_catalog.last_price AS catalog_price,
+    vw_com_catalog.short_description,
+    vw_com_catalog.long_description,
+    prc_tender_item.tit_price,
+    vnd_header.vendor_id,
+    vw_com_catalog.catalog_type
+   FROM ((((prc_tender_quo_item
+     JOIN prc_tender_item ON ((prc_tender_quo_item.tit_id = prc_tender_item.tit_id)))
+     JOIN prc_tender_quo_main ON ((prc_tender_quo_main.pqm_id = prc_tender_quo_item.pqm_id)))
+     JOIN vnd_header ON ((vnd_header.vendor_id = prc_tender_quo_main.ptv_vendor_code)))
+     LEFT JOIN vw_com_catalog ON (((prc_tender_item.tit_code)::text = (vw_com_catalog.catalog_code)::text)));
