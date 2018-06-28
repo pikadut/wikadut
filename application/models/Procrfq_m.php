@@ -609,7 +609,7 @@ class Procrfq_m extends CI_Model {
 
 		public function getVendorQuoHistRFQ($code = "",$tender = ""){
 
-			$this->db->select("vw_prc_quo_vnd_hist.*,DATE_FORMAT(pqm_created_date,'%d-%m-%Y / %T') as pqm_created_date_format");
+			$this->db->select("vw_prc_quo_vnd_hist.*,to_date(pqm_created_date::text,'%d-%m-%Y / %T'::text) as pqm_created_date_format");
 
 		if(!empty($code)){
 
