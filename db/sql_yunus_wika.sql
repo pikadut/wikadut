@@ -173,3 +173,60 @@ CREATE VIEW "public"."vw_prc_evaluation" AS  SELECT prc_tender_eval.ptm_number,
           GROUP BY ptqm1.ptm_number, ptqm1.ptv_vendor_code) tqi ON ((((tqi.ptm_number)::text = (prc_tender_vendor_status.ptm_number)::text) AND (tqi.ptv_vendor_code = prc_tender_eval.ptv_vendor_code))))
      JOIN vnd_header ON ((vnd_header.vendor_id = prc_tender_eval.ptv_vendor_code)))
   ORDER BY ptqm.ptm_number, ptqm.pqm_type, ptqm.ptv_vendor_code;
+  
+  
+  -------------
+  ---29/06/2018
+  DROP VIEW "public"."vw_prc_bidder_list";
+CREATE VIEW "public"."vw_prc_bidder_list" AS SELECT prc_tender_vendor_status.ptm_number,
+    prc_tender_vendor_status.pvs_vendor_code,
+    vnd_header.vendor_name,
+        CASE
+            WHEN (prc_tender_vendor_status.pvs_technical_status = 0) THEN 'Disqualified'::text
+            WHEN (prc_tender_vendor_status.pvs_technical_status = 1) THEN 'Qualified'::text
+            WHEN (prc_tender_vendor_status.pvs_technical_status = '-1'::integer) THEN '-'::text
+            ELSE 'Belum diverifikasi'::text
+        END AS pvs_technical_status,
+    prc_tender_vendor_status.pvs_technical_remark,
+        CASE
+            WHEN (prc_tender_vendor_status.pvs_commercial_status = 0) THEN 'Disqualified'::text
+            WHEN (prc_tender_vendor_status.pvs_commercial_status = 1) THEN 'Qualified'::text
+            WHEN (prc_tender_vendor_status.pvs_commercial_status = '-1'::integer) THEN '-'::text
+            ELSE 'Belum diverifikasi'::text
+        END AS pvs_commercial_status,
+    prc_tender_vendor_status.pvs_commercial_remark,
+    prc_tender_vendor_status.pvs_status AS pvs_status_code,
+    z_bidder_status.lkp_description AS pvs_status,
+        CASE
+            WHEN ((vnd_header.npwp_pkp)::text = 'YA'::text) THEN (tqi.amount * 1.1)
+            ELSE tqi.amount
+        END AS amount,
+    vnd_header.email_address,
+        CASE
+            WHEN (prc_tender_vendor.ptv_is_attend = 1) THEN 'Yes'::text
+            ELSE 'No'::text
+        END AS is_attend,
+    vnd_header.fin_class,
+        CASE
+            WHEN (prc_tender_vendor.ptv_is_attend_2 = 1) THEN 'Yes'::text
+            ELSE 'No'::text
+        END AS is_attend_2
+   FROM ((((vnd_header
+     JOIN prc_tender_vendor_status ON ((vnd_header.vendor_id = prc_tender_vendor_status.pvs_vendor_code)))
+     LEFT JOIN z_bidder_status ON ((COALESCE(prc_tender_vendor_status.pvs_status, 0) = z_bidder_status.lkp_id)))
+     LEFT JOIN prc_tender_vendor ON ((((prc_tender_vendor.ptm_number)::text = (prc_tender_vendor_status.ptm_number)::text) AND (prc_tender_vendor.ptv_vendor_code = vnd_header.vendor_id))))
+     LEFT JOIN ( SELECT prc_tender_quo_main.ptm_number,
+            prc_tender_quo_main.ptv_vendor_code,
+            sum(((vw_prc_quotation_item.pqi_quantity)::numeric * vw_prc_quotation_item.pqi_price)) AS amount
+           FROM (vw_prc_quotation_item
+             JOIN prc_tender_quo_main ON ((vw_prc_quotation_item.pqm_id = prc_tender_quo_main.pqm_id)))
+          GROUP BY prc_tender_quo_main.ptm_number, prc_tender_quo_main.ptv_vendor_code) tqi ON (((prc_tender_vendor_status.pvs_vendor_code = tqi.ptv_vendor_code) AND ((prc_tender_vendor_status.ptm_number)::text = (tqi.ptm_number)::text))));
+
+		  
+DROP VIEW "public"."vw_quo_main_item";
+CREATE VIEW "public"."vw_quo_main_item" AS SELECT prc_tender_quo_main.ptm_number,
+    prc_tender_quo_main.ptv_vendor_code,
+    sum((vw_prc_quotation_item.pqi_quantity * (vw_prc_quotation_item.pqi_price)::double precision)) AS amount
+   FROM (vw_prc_quotation_item
+     JOIN prc_tender_quo_main ON ((vw_prc_quotation_item.pqm_id = prc_tender_quo_main.pqm_id)))
+  GROUP BY prc_tender_quo_main.ptm_number, prc_tender_quo_main.ptv_vendor_code
