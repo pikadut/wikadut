@@ -110,11 +110,12 @@ class Welcome_db extends MY_Controller {
 										$this->session->set_userdata('nama_vendor', $data["vendor_name"]);
 										$this->session->set_userdata('login_id', $data["login_id"]);
 
-										$this->db->where("login_id",$data["login_id"])->update("vnd_session",array(
-											"last_access"	=> time(),
-											"session_id"	=> session_id(),
-											"ip_address"	=> $_SERVER['REMOTE_ADDR']
-											));
+										// $this->db->where("login_id",$data["login_id"])->update("vnd_session",array(
+										// 	"last_access"	=> time(),
+										// 	"session_id"	=> session_id(),
+										// 	"ip_address"	=> $_SERVER['REMOTE_ADDR']
+										// 	));
+										$this->db->query("UPDATE vnd_session SET last_access = date_trunc('second', now()), session_id = '".session_id()."', ip_address = '".$_SERVER['REMOTE_ADDR']."' WHERE login_id = '".$data["login_id"]."'");
 
 									}
 
