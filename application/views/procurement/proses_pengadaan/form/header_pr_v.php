@@ -153,7 +153,7 @@
           <div class="col-sm-4">
             <div class="checkbox">
               <?php $curval = set_value("swakelola_inp"); ?>
-              <input type="checkbox" class="" name="swakelola_inp" id="swakelola_inp" value="1">
+              <input type="checkbox" onclick="swakelola_confirm()" class="" name="swakelola_inp" id="swakelola_inp" value="1">
             </div>
           </div>
         </div>
@@ -211,5 +211,20 @@
     });
 
 });
+
+  function swakelola_confirm(){
+     
+     if ($('[name=swakelola_inp]')[0].checked == true) {
+
+        if (confirm('Anda yakin untuk melakukan pembelian langsung bukan melalui pelelangan/RFQ?')) {
+          $('[name=swakelola_inp]').prop('checked', true);
+        } else {
+          $('[name=swakelola_inp]').prop('checked', false);
+
+        }
+
+     }
+      
+     }
 
 </script>
