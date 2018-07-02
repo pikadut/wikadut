@@ -78,7 +78,9 @@
         </div>
         <div class="ibox-content">
           <div class="flot-chart">
-            <div class="flot-chart-pie-content" id="top_five_graph"></div>
+           <!--  <div class="flot-chart-pie-content" id="top_five_graph"></div> -->
+            <div class="flot-chart-pie-content" id="top_five_graph" style="float:left; position:absolute "></div>
+            <div class="flot-chart-pie-content" id="top_five_graph_legend" style="float:right;"></div>
           </div>
         </div>
       </div>
@@ -192,7 +194,7 @@ var data = [
 <?php 
 //haqim
 // $color = array("d3d3d3","bababa","79d2c0","1ab394","#2f4050");
-$color = array("c9cbcc","8fb5c9","529dc4","2284b7","#00a5ff");
+$color = array("c9cbcc","8fb5c9","529dc4","2284b7","1f77a5");
 foreach ($top_commodity as $key => $value) { ?>
  {
   label: "<?php echo quotes_to_entities($value['code'].' - '.$value['short_description']) ?>",
@@ -208,6 +210,11 @@ var plotObj = $.plot($("#top_five_graph"), data, {
     pie: {
       show: true
     }
+  },
+  legend: {
+    show: true,
+    position: 'sw',
+    container: $("#top_five_graph_legend")
   },
   grid: {
     hoverable: true
