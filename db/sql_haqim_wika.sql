@@ -399,7 +399,7 @@ CREATE OR REPLACE VIEW "public"."vw_prc_plan_main" AS  SELECT prc_plan_main.ppm_
     prc_plan_main.ppm_next_pos_id
    FROM prc_plan_main;
 
-28/06/2018
+--28/06/2018
 ALTER TABLE "public"."prc_tender_vendor" 
   ALTER COLUMN "ptv_is_attend_2" SET DEFAULT 0;
 
@@ -487,7 +487,7 @@ CREATE VIEW "public"."vw_prc_tender_quo_tech" AS  SELECT pqt.pqt_id,
      JOIN vnd_header vnd ON ((pqm.ptv_vendor_code = vnd.vendor_id)))
      JOIN prc_tender_vendor_status ptvs ON ((((pqm.ptm_number)::text = (ptvs.ptm_number)::text) AND (pqm.ptv_vendor_code = ptvs.pvs_vendor_code))));
 
-DROP VIEW "public"."vw_prc_quotation_item"; --CASCADE
+DROP VIEW "public"."vw_prc_quotation_item"; --CASCADE create kembali vw_prc_evaluation
 
 CREATE VIEW "public"."vw_prc_quotation_item" AS  SELECT prc_tender_item.tit_code,
     prc_tender_quo_item.pqm_id,
@@ -518,3 +518,34 @@ CREATE VIEW "public"."vw_prc_quotation_item" AS  SELECT prc_tender_item.tit_code
      JOIN prc_tender_quo_main ON ((prc_tender_quo_main.pqm_id = prc_tender_quo_item.pqm_id)))
      JOIN vnd_header ON ((vnd_header.vendor_id = prc_tender_quo_main.ptv_vendor_code)))
      LEFT JOIN vw_com_catalog ON (((prc_tender_item.tit_code)::text = (vw_com_catalog.catalog_code)::text)));
+
+---02/07/2018
+ALTER TABLE adm_auth_hie_5
+RENAME TO adm_auth_hie_rkp;
+
+ALTER TABLE adm_auth_hie_6
+RENAME TO adm_auth_hie_rkap;
+
+ALTER TABLE adm_auth_hie_7
+RENAME TO adm_auth_hie_pr_proyek;
+
+ALTER TABLE adm_auth_hie
+RENAME TO adm_auth_hie_pr_non_proyek;
+
+ALTER TABLE adm_auth_hie_8
+RENAME TO adm_auth_hie_rfq_proyek;
+
+ALTER TABLE adm_auth_hie_2
+RENAME TO adm_auth_hie_rfq_non_proyek;
+
+ALTER TABLE adm_auth_hie_9
+RENAME TO adm_auth_hie_pemenang_proyek;
+
+ALTER TABLE adm_auth_hie_3
+RENAME TO adm_auth_hie_pemenang_non_proyek;
+
+ALTER TABLE adm_auth_hie_10
+RENAME TO adm_auth_hie_kontrak_proyek;
+
+ALTER TABLE adm_auth_hie_11
+RENAME TO adm_auth_hie_kontrak_non_proyek;

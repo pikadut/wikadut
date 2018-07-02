@@ -139,13 +139,11 @@ if ($this->form_validation->run() == FALSE || $error){
 
 } else {
 
-  // var_dump($post);
-  // exit;
   $this->db->trans_begin();
 
-  $next_jobtitle = $this->Procedure_m->getNextJobTitlePlan($userdata['pos_id'],'',$post['jenis_rencana']);
+  $next_jobtitle = $this->Procedure_m->getNextJobTitlePlan($userdata['pos_id'],$post['pagu_anggaran_inp'],$post['jenis_rencana']);
 
-  $next_pos_id = $status == '1' ? $next_jobtitle[0]['hap_pos_parent'] : $userdata['pos_id'];
+  $next_pos_id = $status == '1' ? ($next_jobtitle != null ? $next_jobtitle : 212) : $userdata['pos_id'];
 
   $input['ppm_next_pos_id'] = $next_pos_id;
 
@@ -171,7 +169,7 @@ if ($this->form_validation->run() == FALSE || $error){
     
   //hlmifzi
     $this->Comment_m->insertProcurementPlan($last_id,$com,$response,$activity,$dateopen,$next_pos_id);
-
+    
     foreach ($input_comment as $key => $value) {
       $value['ppm_id'] = $last_id;
       $act = $this->Procplan_m->insertDokumenPerencanaan($value);
@@ -180,7 +178,7 @@ if ($this->form_validation->run() == FALSE || $error){
     //haqim mail drp send
     if ($status == '1') {
 
-      $this->Procedure_m->prc_plan_comment_complete($position['pos_id'],$input['ppm_dept_name'],$input['ppm_planner_pos_name'],"PEMBUATAN PERENCANAAN PENGADAAN ".strtoupper($post['nama_rencana_pekerjaan_inp']),"PIC USER",$next_jobtitle[0]['hap_pos_parent']); 
+      $this->Procedure_m->prc_plan_comment_complete($position['pos_id'],$input['ppm_dept_name'],$input['ppm_planner_pos_name'],"PEMBUATAN PERENCANAAN PENGADAAN ".strtoupper($post['nama_rencana_pekerjaan_inp']),"PIC USER",$next_jobtitle); 
     }
     //end
 

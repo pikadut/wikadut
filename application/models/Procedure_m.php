@@ -359,17 +359,57 @@ class Procedure_m extends MY_Model {
 
 	public function getNextJobTitlePlan($pos_id,$anggaran="",$plan_type){
 
-		$this->db->where('hap_pos_code', $pos_id);
-		if (!empty($anggaran)) {
-			$this->db->where('hap_amount >=', floatval(str_replace(",00", '', str_replace(".", "", $anggaran))));
-		}
+		// $this->db->where('hap_pos_code', $pos_id);
+		// if (!empty($anggaran)) {
+		// 	$this->db->where('hap_amount >=', floatval(str_replace(",00", '', str_replace(".", "", $anggaran))));
+		// }
+		// if ($plan_type == 'rkp') {
+		// 	$table = 'vw_prc_hierarchy_approval_5';
+		// } elseif ($plan_type == 'rkap') {
+		// 	$table = 'vw_prc_hierarchy_approval_6';
+		// }
+
+		// return $this->db->get($table)->result_array();
+
 		if ($plan_type == 'rkp') {
 			$table = 'vw_prc_hierarchy_approval_5';
 		} elseif ($plan_type == 'rkap') {
 			$table = 'vw_prc_hierarchy_approval_6';
 		}
 
-		return $this->db->get($table)->result_array();
+	$this->db->select('hap_amount');
+    $this->db->where('hap_pos_code', $pos_id);
+	$last_pos = $this->db->get($table)->result_array();
+    $min_amount = $last_pos[0]['hap_amount'];
+
+    if (floatval(str_replace(",00", '', str_replace(".", "", $anggaran))) > $min_amount) {
+        $this->db->select('hap_pos_parent');
+        $this->db->where('hap_pos_code', $pos_id);
+        $parents = $this->db->get($table)->result_array();
+
+        // var_dump($parents);
+
+        if (count($parents) > 0) {
+           foreach ($parents as $key => $value) {
+            
+            $this->db->select('hap_pos_code');
+            $this->db->where('hap_pos_code', $value['hap_pos_parent']);
+            // $this->db->where('hap_amount >=', 1000000000);
+            $parents = $this->db->get($table)->result_array();
+            if (count($parents) == 1) {
+              $next_pos_id = $parents[0]['hap_pos_code'];
+              break;
+            }
+
+          }
+        } else {
+          $next_pos_id = null;
+      }
+    } else{
+      $next_pos_id = null;
+    }
+
+		return $next_pos_id;
 	}
 
 	//send drp mail
