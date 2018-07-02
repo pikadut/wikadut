@@ -2155,7 +2155,7 @@ class Pengadaan extends MY_Controller {
 									"pqm_number"=>$post["nopenawaran"],
 									"pqm_type"=>$post["tipepenawaran"],
 									"pqm_bid_bond_value"=>$post["bid_bond_input"],
-									"pqm_local_content"=>$post["kandunganlokal"],
+									"pqm_local_content"=>!empty($post["kandunganlokal"]) ? $post["kandunganlokal"] : null,
 									"pqm_deliverable_time"=>$post["penyerahan_t"],
 									"pqm_deliverable_unit"=>$post["penyerahan_u"],
 									"pqm_guarantee_time"=>$post["garansi_t"],
