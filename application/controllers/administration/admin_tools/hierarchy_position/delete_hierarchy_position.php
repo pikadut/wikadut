@@ -5,43 +5,43 @@ $type = $this->uri->segment(6, 0);
 
 switch ($type) {
 	case 'rkp':
-	$tabel = "adm_auth_hie_5";
+	$tabel = "adm_auth_hie_rkp";
 	break;
 
 	case 'rkap':
-	$tabel = "adm_auth_hie_6"; 
+	$tabel = "adm_auth_hie_rkap"; 
 	break;
 
 	case 'pr-proyek':
-	$tabel = "adm_auth_hie_7";
+	$tabel = "adm_auth_hie_pr_proyek";
 	break;
 
 	case "pr-non-proyek":
-	$tabel = "adm_auth_hie";
+	$tabel = "adm_auth_hie_pr_non_proyek";
 	break;
 
 	case 'rfq-proyek':
-	$tabel = "adm_auth_hie_8";
+	$tabel = "adm_auth_hie_rfq_proyek";
 	break;
 
 	case 'rfq-non-proyek':
-	$tabel = "adm_auth_hie_2";
+	$tabel = "adm_auth_hie_rfq_non_proyek";
 	break;
 
 	case 'pemenang-proyek':
-	$tabel = "adm_auth_hie_9";
+	$tabel = "adm_auth_hie_pemenang_proyek";
 	break;
 
 	case 'pemenang-non-proyek':
-	$tabel = "adm_auth_hie_3";
+	$tabel = "adm_auth_hie_pemenang_non_proyek";
 	break;
 
 	case 'kontrak-proyek':
-	$tabel = "adm_auth_hie_10";
+	$tabel = "adm_auth_hie_kontrak_proyek";
 	break;
 
 	case 'kontrak-non-proyek':
-	$tabel = "adm_auth_hie_11";
+	$tabel = "adm_auth_hie_kontrak_non_proyek";
 	break;
 
 	// case 'inventory':

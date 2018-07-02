@@ -40,12 +40,13 @@ $input_comment = array();
 
 $next_jobtitle = $this->Procedure_m->getNextJobTitlePlan($userdata['pos_id'],$post['pagu_anggaran_inp'],$post['jenis_rencana']);
 
-$next_pos_id = $status == '3' || $status == '2' ? ($next_jobtitle[0]['hap_pos_parent'] != null ? $next_jobtitle[0]['hap_pos_parent'] : 212) : $userdata['pos_id'];
+// $next_pos_id = $status == '3' || $status == '2' ? ($next_jobtitle[0]['hap_pos_parent'] != null ? $next_jobtitle[0]['hap_pos_parent'] : 212) : $get['ppm_planner_pos_code'];
+$next_pos_id = $status == '3' || $status == '2' ? ($next_jobtitle != null ? $next_jobtitle : 212) : $get['ppm_planner_pos_code'];
+
 
 $input['ppm_next_pos_id'] = $next_pos_id;
 
 $activity = "Permintaan Persetujuan ".$userdata['pos_name'];
-
 
 
 if ($this->form_validation->run() == FALSE){
@@ -72,7 +73,7 @@ if ($this->form_validation->run() == FALSE){
 
       // $this->Procedure_m->prc_plan_comment_complete($last_id,$get['ppm_dept_name'],$get['ppm_planner_pos_name'],"APPROVAL PERENCANAAN PENGADAAN",$get['ppm_planner'],$status[0]);
 
-      $this->Procedure_m->prc_plan_comment_complete($userdata['pos_id'],$get['ppm_dept_name'],$get['ppm_planner_pos_name'],"APPROVAL PERENCANAAN PENGADAAN ".strtoupper($get['ppm_subject_of_work']),"PIC USER",$next_jobtitle[0]['hap_pos_parent']); 
+      $this->Procedure_m->prc_plan_comment_complete($userdata['pos_id'],$get['ppm_dept_name'],$get['ppm_planner_pos_name'],"APPROVAL PERENCANAAN PENGADAAN ".strtoupper($get['ppm_subject_of_work']),"PIC USER",$next_jobtitle); 
     
     //end
 
