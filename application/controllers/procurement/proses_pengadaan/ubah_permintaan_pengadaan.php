@@ -59,5 +59,7 @@ $data['item'] = $this->Procpr_m->getItemPR("",$pr_number)->result_array();
 
 $data['penata_perencana'] = $this->Administration_m->getUserByJob("PENATA PERENCANAAN")->result_array();
 
+$data['pr_type'] = array("KONSOLIDASI" => "KONSOLIDASI", "NON KONSOLIDASI" => "NON KONSOLIDASI", "MATERIAL STRATEGIS" => "MATERIAL STRATEGIS"); //y tipe pr
+
 //$this->template($view,$activity['awa_name'],$data);
 $this->template($view,$activity['awa_name']." (".$activity['awa_id'].")",$data);

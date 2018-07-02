@@ -32,7 +32,7 @@
 							<div class="col-lg-6 m-l-n"><input id="lampiran_bidbond" name="lampiran_bidbond" type="file" class="file"><a><?php if(isset($header)){ echo $header["pqm_att"]; } ?></a></div>
 						</div>
 						<div class="form-group"><label class="col-sm-2 control-label"><?php echo $this->lang->line('Kandungan Lokal'); ?></label>
-							<div class="col-md-2 m-l-n"><input id="kandunganlokal" name="kandunganlokal" placeholder="%" type="number" min="0" max="100" class="form-control" required value="<?php if(isset($header)) { echo $header["pqm_local_content"]; } ?>"></div>
+							<div class="col-md-2 m-l-n"><input id="kandunganlokal" name="kandunganlokal" placeholder="%" type="number" min="0" max="100" class="form-control" required value="<?php if(isset($header)) { echo $header["pqm_local_content"] ? $header["pqm_local_content"] : 0; } ?>"></div>
 						</div>
 						<div class="form-group"><label class="col-sm-2 control-label"><?php echo $this->lang->line('Jangka Waktu Pelaksanaan'); ?></label>
 							<div class="col-md-2 m-l-n"><input id="jangkawaktu" name="jangkawaktu" type="number" class="form-control" required value="<?php if(isset($header)) { echo $header["pqm_delivery_time"]; } ?>">

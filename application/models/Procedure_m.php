@@ -623,19 +623,62 @@ class Procedure_m extends MY_Model {
 
 					} else {
 
-						$nextjobtitle = 'PIC ANGGARAN';
+						// $nextjobtitle = 'PIC ANGGARAN';
 						
-						$getdata = $this->getNextState(
-							"pos_id",
-							"pos_name",
-							"adm_pos",
-							array("job_title"=>$nextjobtitle));
+						// $getdata = $this->getNextState(
+						// 	"pos_id",
+						// 	"pos_name",
+						// 	"adm_pos",
+						// 	array("job_title"=>$nextjobtitle));
 
-						$nextPosCode = $getdata['nextPosCode'];
-						$nextPosName = $getdata['nextPosName'];
+						// $nextPosCode = $getdata['nextPosCode'];
+						// $nextPosName = $getdata['nextPosName'];
 
 
-						$nextActivity = 1020;
+						// $nextActivity = 1020;
+
+						$newNumber = $this->movePRtoRFQ($pr_number);
+
+						if(!empty($newNumber)){
+
+							//$nextjobtitle = 'VP PENGADAAN';
+							$nextjobtitle = 'PELAKSANA PENGADAAN'; //y rfq kembali ke pic user (PR[approval PR] -> RFQ[PIC User PR as Buyer])
+
+							$getdata = $this->getNextState(
+								"pos_id",
+								"pos_name",
+								"adm_pos",
+								array("job_title"=>$nextjobtitle));
+
+							$nextPosCode = $getdata['nextPosCode'];
+							$nextPosName = $getdata['nextPosName'];
+
+							$nextActivity = 1040;
+
+						//=======================================================
+							//y get pr planner sebagai rfq buyer
+							$buyers = $this->getNextState(
+								"pr_requester_id",
+								"pr_requester_name",
+								"prc_pr_main",
+								array("pr_number"=>$pr_number));
+
+							$buyerdata = $this->getNextState(
+								"pos_id",
+								"pos_name",
+								"vw_employee",
+								array("pos_name"=>"BUYER"));
+							
+						    $inputbuyer['ptm_buyer_id'] = $buyers['nextPosCode'];
+							$inputbuyer['ptm_buyer'] = $buyers['nextPosName'];
+						    $inputbuyer['ptm_buyer_pos_code'] = $buyerdata['nextPosCode'];
+						    $inputbuyer['ptm_buyer_pos_name'] = $buyerdata['nextPosName'];
+							
+							$this->db->where('ptm_number', $newNumber)->update('prc_tender_main', $inputbuyer);
+							
+							//y end
+						//======================================================
+						} 
 
 					}
 
@@ -668,7 +711,7 @@ class Procedure_m extends MY_Model {
 					if(!empty($newNumber)){
 
 						//$nextjobtitle = 'VP PENGADAAN';
-						$nextjobtitle = 'PELAKSANA PENGADAAN'; //y rfq kembali ke pic user (PR[approval PR] -> RFQ[PIC User PR])
+						$nextjobtitle = 'PELAKSANA PENGADAAN'; //y rfq kembali ke pic user (PR[approval PR] -> RFQ[PIC User PR as Buyer])
 
 						$getdata = $this->getNextState(
 							"pos_id",
@@ -679,7 +722,7 @@ class Procedure_m extends MY_Model {
 						$nextPosCode = $getdata['nextPosCode'];
 						$nextPosName = $getdata['nextPosName'];
 
-						$nextActivity = 1040;
+						$nextActivity = 1040; //1029
 
 					//=======================================================
 						//y get pr planner sebagai rfq buyer
