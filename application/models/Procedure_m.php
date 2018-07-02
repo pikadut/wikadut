@@ -547,7 +547,8 @@ class Procedure_m extends MY_Model {
 
 			$amount = $this->db
 			->select("max_amount")
-			->from("adm_auth_hie")
+			->from("adm_auth_hie_pr_non_proyek")
+			// ->from("adm_auth_hie")
 			->where("pos_id",$lastPosCode)
 			->get()->row_array();
 			if(!empty($amount)){
@@ -927,11 +928,12 @@ class Procedure_m extends MY_Model {
 		$totalOE = $this->db->select("sum((tit_price*tit_quantity)*(1+(COALESCE(tit_pph::integer,0)/100)+(COALESCE(tit_ppn::integer,0)/100))) as total")->from("prc_tender_item")
 		->where("ptm_number",$ptm_number)->get()->row()->total;
 
-		$max_amount = $this->db->select("max_amount")->from("adm_auth_hie")
+		// $max_amount = $this->db->select("max_amount")->from("adm_auth_hie")
+		$max_amount = $this->db->select("max_amount")->from("adm_auth_hie_pr_non_proyek")
 		->where("pos_id",$lastPosCode)->get()->row();
 
 		//start code hlmifzi
-		$max_amount_2 = $this->db->select("max_amount")->from("adm_auth_hie_2")
+		$max_amount_2 = $this->db->select("max_amount")->from("adm_auth_hie_rfq_non_proyek")
 		->where("pos_id",$lastPosCode)->get()->row();
 // ubah $pr_number jadi ptm_number
 		$totalOE_2 = $this->db
