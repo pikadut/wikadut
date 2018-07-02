@@ -481,46 +481,54 @@ class Administration_m extends CI_Model {
 	public function getParentId($id = "",$type = "pr"){
 
 		switch ($type) {
-			case 'rkp':
-			$tabel = "adm_auth_hie_5";
-			break;
+				case 'rkp':
+				$tabel = "adm_auth_hie_rkp";
+				// $tabel = "adm_auth_hie_5";
+				break;
 
-			case 'rkap':
-			$tabel = "adm_auth_hie_6"; 
-			break;
+				case 'rkap':
+				$tabel = "adm_auth_hie_rkap"; 
+				// $tabel = "adm_auth_hie_6"; 
+				break;
 
-			case 'pr-proyek':
-			$tabel = "adm_auth_hie_7";
-			break;
+				case 'pr-proyek':
+				$tabel = "adm_auth_hie_pr_proyek";
+				// $tabel = "adm_auth_hie_7";
+				break;
 
-			case "pr-non-proyek":
-			$tabel = "adm_auth_hie";
-			break;
+				case "pr-non-proyek":
+				$tabel = "adm_auth_hie_pr_non_proyek";
+				break;
 
-			case 'rfq-proyek':
-			$tabel = "adm_auth_hie_8";
-			break;
+				case 'rfq-proyek':
+				$tabel = "adm_auth_hie_rfq_proyek";
+				// $tabel = "adm_auth_hie_8";
+				break;
 
-			case 'rfq-non-proyek':
-			$tabel = "adm_auth_hie_2";
-			break;
+				case 'rfq-non-proyek':
+				$tabel = "adm_auth_hie_rfq_non_proyek";
+				// $tabel = "adm_auth_hie_2";
+				break;
 
-			case 'pemenang-proyek':
-			$tabel = "adm_auth_hie_9";
-			break;
+				case 'pemenang-proyek':
+				$tabel = "adm_auth_hie_pemenang_proyek";
+				// $tabel = "adm_auth_hie_9";
+				break;
 
-			case 'pemenang-non-proyek':
-			$tabel = "adm_auth_hie_3";
-			break;
+				case 'pemenang-non-proyek':
+				// $tabel = "adm_auth_hie_3";
+				$tabel = "adm_auth_hie_pemenang_non_proyek";
+				break;
 
-			case 'kontrak-proyek':
-			$tabel = "adm_auth_hie_10";
-			break;
+				case 'kontrak-proyek':
+				$tabel = "adm_auth_hie_kontrak_proyek";
+				// $tabel = "adm_auth_hie_10";
+				break;
 
-			case 'kontrak-non-proyek':
-			$tabel = "adm_auth_hie_11";
-			break;
-			
+				case 'kontrak-non-proyek':
+				$tabel = "adm_auth_hie_kontrak_non_proyek";
+				// $tabel = "adm_auth_hie_11";
+				break;
 			// case 'inventory':
 			// $tabel = "adm_auth_hie_4";
 			// break;
