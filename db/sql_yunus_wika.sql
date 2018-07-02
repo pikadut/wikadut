@@ -230,3 +230,31 @@ CREATE VIEW "public"."vw_quo_main_item" AS SELECT prc_tender_quo_main.ptm_number
    FROM (vw_prc_quotation_item
      JOIN prc_tender_quo_main ON ((vw_prc_quotation_item.pqm_id = prc_tender_quo_main.pqm_id)))
   GROUP BY prc_tender_quo_main.ptm_number, prc_tender_quo_main.ptv_vendor_code
+  
+  
+  
+ -------------
+ ---07/02/2018 
+ DROP VIEW "public"."vw_prc_item_sum";
+
+CREATE VIEW "public"."vw_prc_item_sum" AS SELECT SUM
+	( prc_tender_item.tit_quantity ) AS total,
+	prc_tender_item.tit_code AS code,
+	vw_com_catalog.short_description 
+FROM
+	(
+	prc_tender_item
+	JOIN vw_com_catalog ON (((
+	vw_com_catalog.catalog_code 
+	) :: TEXT = ( prc_tender_item.tit_code ) :: TEXT 
+	))) 
+GROUP BY
+	prc_tender_item.tit_code,
+	vw_com_catalog.short_description 
+ORDER BY
+	(
+	SUM ( prc_tender_item.tit_quantity )) DESC;
+
+ALTER TABLE "public"."vw_prc_item_sum" OWNER TO "postgres";
+
+COMMENT ON VIEW "public"."vw_prc_item_sum" IS 'Get summary of item';
