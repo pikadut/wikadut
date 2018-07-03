@@ -88,6 +88,12 @@
 
                             </span> 
                           </div>
+                           <div class="col-sm-0" style="font-size: 11px">
+                            <i>Max file 5 MB 
+                            <br>
+                              Tipe file : doc, docx, xls, xlsx, ppt, pptx, pdf, jpg, jpeg, PNG, Zip, rar, tgz, 7zip, tar
+                            </i>
+                          </div>
                         </div>
                         <div class="col-sm-3">
                           <?php $curval = (isset($v['ptd_type'])) ? $v['ptd_type'] :  set_value("doc_type_inp[$k]"); ?>
@@ -175,6 +181,12 @@
                             <i class="fa fa-share"></i>
                           </button> 
                         </span> 
+                      </div>
+                       <div class="col-sm-0" style="font-size: 11px">
+                        <i>Max file 5 MB 
+                        <br>
+                          Tipe file : doc, docx, xls, xlsx, ppt, pptx, pdf, jpg, jpeg, PNG, Zip, rar, tgz, 7zip, tar
+                        </i>
                       </div>
                     </div>
                     <div class="col-sm-3">
