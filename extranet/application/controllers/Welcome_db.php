@@ -97,7 +97,7 @@ class Welcome_db extends MY_Controller {
 					if(!empty($data["vendor_id"])){
 						if($data["reg_isactivate"] == '1'){
 							if(($data["status"] == '9' && $data["reg_status_id"] == '8') || ($data["status"] == '5' && $data["reg_status_id"] == '6')){
-								$session = $this->db->query("select last_access + interval '60 minute' as last_access, NOW() as nows from vnd_session where login_id = '".$data["login_id"]."'")->row_array();
+								$session = $this->db->query("select last_access + '60 minutes'::interval as last_access, NOW() as nows from vnd_session where login_id = '".$data["login_id"]."'")->row_array();
 								if(!empty($session)){
 
 									if($session["last_access"] > $session["nows"]){
@@ -167,7 +167,7 @@ class Welcome_db extends MY_Controller {
 							if(!empty($data["vendor_id"])){
 								if($data["reg_isactivate"] == '1'){
 									if(($data["status"] == '9' && $data["reg_status_id"] == '8') || ($data["status"] == '5' && $data["reg_status_id"] == '6')){
-										$session = $this->db->query("select last_access + interval 60 minute as last_access, NOW() as nows from vnd_session where login_id = '".$data["login_id"]."'")->row_array();
+										$session = $this->db->query("select last_access + '60 minutes'::interval as last_access, NOW() as nows from vnd_session where login_id = '".$data["login_id"]."'")->row_array();
 										if(!empty($session)){
 											if($session["last_access"] > $session["nows"]){
 												echo "0";
