@@ -613,7 +613,7 @@ class Contract_m extends CI_Model {
 
 		}
 
-		$this->db->join("ctr_po_header B","B.po_id = A.po_id","LEFT");
+		$this->db->join("ctr_po_header B","B.po_id =". (int)"A.po_id","LEFT");
 
 		$this->db->join("ctr_contract_header D","D.contract_id = A.contract_id","LEFT");
 
@@ -625,7 +625,7 @@ class Contract_m extends CI_Model {
 
 		$this->db->group_start();
 		$this->db->where("A.cwo_user",null);
-		$this->db->or_where("A.cwo_user",$user);
+		$this->db->or_where("A.cwo_user",!empty($user) ? $user : null);
 		$this->db->group_end();
 
 		return $this->db->get("ctr_po_comment A");
