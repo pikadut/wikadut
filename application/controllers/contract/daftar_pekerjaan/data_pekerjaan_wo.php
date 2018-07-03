@@ -56,7 +56,7 @@ if(!empty($limit)){
 
 $this->db->where_not_in("awa_id",array(2013,2014,2015));
 
-$this->db->select("cwo_id,po_number,contract_number,po_notes,B.vendor_name,contract_type,awa_name as activity,DATE_FORMAT(cwo_start_date,'%d/%m/%Y %H:%i') as waktu");
+$this->db->select("cwo_id,po_number,contract_number,po_notes,B.vendor_name,contract_type,awa_name as activity,to_date(cwo_start_date::text,'DD/MM/YYYY HH24:MI'::text) as waktu");
 
 $rows = $this->Contract_m->getPekerjaanWO($id)->result_array();
 
