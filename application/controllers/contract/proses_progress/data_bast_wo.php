@@ -16,7 +16,7 @@ $field_order = (isset($get['sort']) && !empty($get['sort'])) ? $get['sort'] : "p
 if(!empty($userdata['pos_id'])){
   $this->db->group_start();
   $this->db->where("c.current_approver_id",$userdata['employee_id'],false);
-  $this->db->or_where("c.current_approver_pos",$userdata['pos_id'],false);
+  $this->db->or_where((int)"c.current_approver_pos",$userdata['pos_id'],false);
   $this->db->group_end();
 } else {
   $this->db->where("po_id","");
@@ -40,7 +40,7 @@ $data['total'] = $this->db->get("ctr_po_header c")->num_rows();
 if(!empty($userdata['pos_id'])){
   $this->db->group_start();
   $this->db->where("c.current_approver_id",$userdata['employee_id'],false);
-  $this->db->or_where("c.current_approver_pos",$userdata['pos_id'],false);
+  $this->db->or_where((int)"c.current_approver_pos",$userdata['pos_id'],false);
   $this->db->group_end();
 } else {
   $this->db->where("po_id","");
@@ -63,7 +63,7 @@ if(!empty($limit)){
 }
 
 $this->db->select("po_id,contract_number,po_notes,progress_percentage,
-  CASE c.bastp_status 
+  CASE c.bastp_status::integer 
       WHEN 1 THEN 'Persetujuan BAST WO'  
       WHEN 2 THEN 'Persetujuan BAST WO' 
       WHEN 3 THEN 'Persetujuan BAST WO' 

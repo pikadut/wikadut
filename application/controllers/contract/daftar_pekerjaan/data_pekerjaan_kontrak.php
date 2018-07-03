@@ -53,7 +53,7 @@ if(!empty($limit)){
   $this->db->limit($limit,$offset);
 }
 
-$this->db->select("ccc_id,A.ptm_number,contract_number,subject_work,vendor_name,contract_type,awa_name as activity,DATE_FORMAT(ccc_start_date,'%d/%m/%Y %H:%i') as waktu");
+$this->db->select("ccc_id,A.ptm_number,contract_number,subject_work,vendor_name,contract_type,awa_name as activity,to_date(ccc_start_date::text,'DD/MM/YYYY HH24:MI'::text) as waktu");
 
 $rows = $this->Contract_m->getPekerjaan($id,$userdata['employee_id'])->result_array();
 

@@ -63,7 +63,7 @@ if(!empty($limit)){
 }
 
 $this->db->select("b.*,c.po_number,
-  CASE b.status 
+  CASE b.status::integer 
       WHEN 1 THEN 'Menunggu Persetujuan PIC User' 
       WHEN 2 THEN 'Menunggu Persetujuan Manajer User'
       WHEN 3 THEN 'Menunggu Persetujuan VP USER'

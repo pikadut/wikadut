@@ -31,7 +31,7 @@ if(!empty($search)){
 }
 
 $this->db->select("progress_id")
-->where("COALESCE(b.status,0)",0)
+->where("COALESCE(b.status::integer,0)",0)
 ->join("ctr_contract_milestone c","c.milestone_id=b.milestone_id")
 ->join("ctr_contract_header a","a.contract_id=c.contract_id");
 
@@ -63,7 +63,7 @@ if(!empty($limit)){
 }
 
 $this->db->select("b.*,a.contract_number,
-  CASE c.progress_status 
+  CASE c.progress_status::integer 
       WHEN 1 THEN 'Menunggu Persetujuan PIC User' 
       WHEN 2 THEN 'Menunggu Persetujuan Manajer User'
       WHEN 3 THEN 'Menunggu Persetujuan VP USER'
@@ -73,7 +73,7 @@ $this->db->select("b.*,a.contract_number,
       WHEN 99 THEN 'Revisi'
   ELSE 'Aktif' END AS activity,vendor_name
   ");
-$this->db->where("COALESCE(b.status,0)",0)
+$this->db->where("COALESCE(b.status::integer,0)",0)
 ->join("ctr_contract_milestone c","c.milestone_id=b.milestone_id")
 ->join("ctr_contract_header a","a.contract_id=c.contract_id");
 

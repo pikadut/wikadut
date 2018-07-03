@@ -63,7 +63,7 @@ if(!empty($limit)){
 }
 
 $this->db->select("milestone_id,description,percentage,a.contract_number,
-  CASE c.bastp_status 
+  CASE c.bastp_status::integer 
       WHEN 1 THEN 'Persetujuan BAST Milestone'  
       WHEN 2 THEN 'Persetujuan BAST Milestone' 
       WHEN 3 THEN 'Persetujuan BAST Milestone' 

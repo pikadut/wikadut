@@ -15,7 +15,7 @@ $field_order = (isset($get['sort']) && !empty($get['sort'])) ? $get['sort'] : "p
 
 if(!empty($userdata['pos_id'])){
   $this->db->group_start();
-  $this->db->where("c.current_approver_id",$userdata['employee_id'],false);
+  $this->db->where((int)"c.current_approver_id",$userdata['employee_id'],false);
   $this->db->or_where("c.current_approver_pos",$userdata['pos_id'],false);
   $this->db->group_end();
 } else {
@@ -39,7 +39,7 @@ $data['total'] = $this->db->get("ctr_invoice_header c")->num_rows();
 
 if(!empty($userdata['pos_id'])){
   $this->db->group_start();
-  $this->db->where("c.current_approver_id",$userdata['employee_id'],false);
+  $this->db->where((int)"c.current_approver_id",$userdata['employee_id'],false);
   $this->db->or_where("c.current_approver_pos",$userdata['pos_id'],false);
   $this->db->group_end();
 } else {
