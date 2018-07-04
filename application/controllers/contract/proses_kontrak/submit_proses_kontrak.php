@@ -326,7 +326,7 @@ if ($this->form_validation->run() == FALSE || $error){
     foreach ($post['tax_ppn'] as $key => $value) {
       $getitem = $this->db->where("contract_item_id",$key)->get("ctr_contract_item")->row_array();
       $ppn = $value;
-      $pph = $post['tax_pph'][$key];
+      $pph = (!empty($post['tax_pph'][$key])) ? $post['tax_pph'][$key] : NULL;
       $input['sub_total'] = (1+(($ppn+$pph)/100))*($getitem['price']*$getitem['qty']);
       $input = array("ppn"=>$ppn,"pph"=>$pph);
       if(isset($post['min_qty'])){
