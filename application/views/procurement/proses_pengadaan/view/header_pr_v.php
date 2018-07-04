@@ -50,7 +50,6 @@
       <p class="form-control-static" id="nama_pekerjaan"><?php echo $curval ?></p>
 
     </div>
-
   </div>
 
   <?php $curval = $permintaan["pr_scope_of_work"]; ?>
@@ -61,6 +60,21 @@
 
     </div>
   </div>
+
+  <!-- haqim -->
+  <?php $curval = $permintaan['pr_project_name']; 
+    if (!empty($curval)) { ?>
+     <div class="form-group">
+    <label class="col-sm-2 control-label">Nama Proyek *</label>
+    <div class="col-sm-10">
+      <p class="form-control-static" id="deskripsi_pekerjaan"><?php echo $curval ?></p>
+
+    </div>
+  </div>
+<?php    }
+  ?>
+
+  <!-- end -->
 
   <?php $curval = $permintaan["pr_mata_anggaran"]." - ".$permintaan["pr_nama_mata_anggaran"]; ?>
   <div class="form-group">
