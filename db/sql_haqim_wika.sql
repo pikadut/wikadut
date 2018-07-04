@@ -619,3 +619,67 @@ CREATE VIEW "public"."vw_daftar_pekerjaan_rfq" AS  SELECT a.ptc_id,
      LEFT JOIN adm_wkf_activity c ON ((c.awa_id = a.ptc_activity)))
   WHERE ((a.ptc_name IS NULL) AND (a.ptc_end_date IS NULL) AND (a.ptc_activity <> ALL (ARRAY[1901, 1903]))
 
+DROP VIEW "public"."vw_prc_pr_monitor";
+
+CREATE VIEW "public"."vw_prc_pr_monitor" AS  SELECT pr.pr_number,
+    pr."isSwakelola",
+    pr.pr_requester_name,
+    pr.pr_requester_pos_code,
+    pr.pr_requester_pos_name,
+    pr.pr_created_date,
+    pr.pr_subject_of_work,
+    pr.pr_scope_of_work,
+    pr.pr_district_id,
+    pr.pr_district,
+    pr.pr_delivery_point_id,
+    pr.pr_delivery_point,
+    pr.pr_delivery_time,
+    pr.pr_delivery_unit,
+    pr.pr_buyer,
+    pr.pr_buyer_pos_code,
+    pr.pr_buyer_pos_name,
+    pr.pr_currency,
+    pr.pr_contract_type,
+    pr.pr_last_participant,
+    pr.pr_last_participant_code,
+    pr.pr_status,
+    pr.pr_dept_id,
+    pr.pr_dept_name,
+    pr.pr_mata_anggaran,
+    pr.pr_nama_mata_anggaran,
+    pr.pr_sub_mata_anggaran,
+    pr.pr_nama_sub_mata_anggaran,
+    pr.pr_pagu_anggaran,
+    pr.pr_sisa_anggaran,
+    pr.pr_requester_id,
+    pr.ppm_id,
+    pr.pr_type,
+    ( SELECT adm_wkf_activity.awa_name
+           FROM adm_wkf_activity
+          WHERE (adm_wkf_activity.awa_id = ( SELECT ppc.ppc_activity
+                   FROM prc_pr_comment ppc
+                  WHERE ((ppc.pr_number)::text = (pr.pr_number)::text)
+                  ORDER BY ppc.ppc_id DESC
+                 LIMIT 1))) AS status,
+    ( SELECT ppc.ppc_activity
+           FROM prc_pr_comment ppc
+          WHERE (((ppc.pr_number)::text = (pr.pr_number)::text) AND (ppc.ppc_name IS NOT NULL))
+          ORDER BY ppc.ppc_id DESC
+         LIMIT 1) AS last_status,
+    ( SELECT ppc.ppc_position
+           FROM prc_pr_comment ppc
+          WHERE (((ppc.pr_number)::text = (pr.pr_number)::text) AND (ppc.ppc_name IS NOT NULL))
+          ORDER BY ppc.ppc_id DESC
+         LIMIT 1) AS last_pos,
+		pr.pr_project_name,
+    pr.pr_type_of_plan
+   FROM prc_pr_main pr;
+
+COMMENT ON VIEW "public"."vw_prc_pr_monitor" IS 'Monitor PR';
+
+
+--- blm di push
+ALTER TABLE "public"."prc_tender_main" 
+  ADD COLUMN "pr_type" varchar(255),
+  ADD COLUMN "ptm_type_of_plan" varchar(255),
+  ADD COLUMN "ptm_project_name" varchar(255);
