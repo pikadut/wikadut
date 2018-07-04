@@ -136,7 +136,6 @@ foreach ($post as $key => $value) {
 }
 
 $error = false;
-
 //y validasi tipe pr
 if($post['tipe_pr'] == "NON KONSOLIDASI" ){
   if ($post['total_alokasi_ppn_inp'] > 25000000) {
@@ -157,9 +156,6 @@ if($post['tipe_pr'] == "NON KONSOLIDASI" ){
     $error = true;
   }elseif ($input['pr_type_of_plan'] == "rkp" and $post['total_alokasi_ppn_inp'] < 200000000000) {
     $this->setMessage("Tipe PR material strategis proyek harus > 200 milyar");
-    $error = true;
-  }else{
-    $this->setMessage("Tipe proyek tidak ada");
     $error = true;
   }
 }else{
