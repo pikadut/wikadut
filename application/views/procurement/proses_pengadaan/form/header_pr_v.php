@@ -3,7 +3,7 @@
       <div class="col-lg-12">
         <div class="ibox float-e-margins">
           <div class="ibox-title">
-            <h5>HEADLINE</h5>
+            <h5>HEADLINExxx</h5>
             <div class="ibox-tools">
               <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
@@ -60,6 +60,16 @@
             <textarea type="text" class="form-control" id="deskripsi_pekerjaan" name="deskripsi_pekerjaan"><?php echo $curval ?></textarea>
           </div>
         </div>
+
+        <!-- haqim -->
+        <?php $curval = (isset($permintaan['pr_project_name'])) ? $permintaan["pr_scope_of_work"] : set_value("nama_proyek"); ?>
+        <div class="form-group" id="nama_proyek_div">
+          <label class="col-sm-2 control-label">Nama Proyek</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="nama_pekerjaan" id="nama_proyek" value="<?php echo $curval ?>" disabled>
+          </div>
+        </div>
+        <!-- end -->
 
         <?php $curval = (isset($permintaan['pr_mata_anggaran']) && isset($permintaan['pr_nama_mata_anggaran'])) ? $permintaan["pr_mata_anggaran"]." - ".$permintaan["pr_nama_mata_anggaran"] : ""; ?>
         <div class="form-group">
@@ -184,6 +194,14 @@
 
   $(document).ready(function(){
 
+  <?php if (isset($permintaan['pr_project_name'])) { ?>
+    $("#nama_proyek_div").show();
+  <?php  } else { ?> 
+    $("#nama_proyek_div").hide(); 
+  <?php } ?>
+
+    
+
     function check_plan_tender(){
       var id = $("#perencanaan_pengadaan_inp").val();
       var url = "<?php echo site_url('Procurement/data_perencanaan_pengadaan') ?>";
@@ -200,6 +218,14 @@
           $("#sisa_anggaran,#sisa_pagu").text(mydata.ppm_sisa_anggaran);
           $("#total_pagu_inp").val(moneytoint(mydata.ppm_pagu_anggaran));
           $("#total_sisa_inp").val(moneytoint(mydata.ppm_sisa_anggaran));
+          if (mydata.ppm_project_name != null) {
+            $("#nama_proyek_div").show();
+            $("#nama_proyek").val(mydata.ppm_project_name);
+          } else{
+            $("#nama_proyek_div").hide();
+
+          }
+          
         }
       });
     }

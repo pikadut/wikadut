@@ -20,9 +20,17 @@ if(!$position){
   $this->noAccess("Hanya PIC USER yang dapat membuat permintaan pengadaan");
 }
 
-$perencanaan_id = (isset($post['perencanaan_pengadaan_inp'])) ? $post['perencanaan_pengadaan_inp'] : $tender['ppm_id'];
+//haqim
+$permintaan = $this->Procpr_m->getPR($pr_number)->row_array();
+
+// $perencanaan_id = (isset($post['perencanaan_pengadaan_inp'])) ? $post['perencanaan_pengadaan_inp'] : $tender['ppm_id'];
+$perencanaan_id = (isset($post['perencanaan_pengadaan_inp'])) ? $post['perencanaan_pengadaan_inp'] : (!empty($permintaan) ? $permintaan['ppm_id'] : $tender['ppm_id']);
+//end
+
+
 $perencanaan = $this->Procplan_m->getPerencanaanPengadaan($perencanaan_id)->row_array();
 
+  
 $error = false;
 
 if($last_comment['activity'] == 1000){
@@ -31,6 +39,11 @@ $input['pr_subject_of_work']= (isset($post['nama_pekerjaan'])) ? $post['nama_pek
 $input['pr_scope_of_work']= (isset($post['deskripsi_pekerjaan'])) ? $post['deskripsi_pekerjaan'] : $perencanaan['ppm_scope_of_work'];
 $input['pr_pagu_anggaran']= (isset($post['total_pagu_inp'])) ? $post['total_pagu_inp'] : $perencanaan['ppm_pagu_anggaran'];
 $input['pr_sisa_anggaran']= (isset($post['sisa_pagu_inp'])) ? $post['sisa_pagu_inp'] : $perencanaan['ppm_sisa_anggaran'];
+//haqim
+$input['pr_project_name']=$perencanaan['ppm_project_name']; //y
+$input['pr_type_of_plan']=$perencanaan['ppm_type_of_plan']; //y
+$input['pr_type']=$post['tipe_pr'];//y
+//end
 
   if(isset($post['perencanaan_pengadaan_inp'])){
     $this->form_validation->set_rules("perencanaan_pengadaan_inp", "Nomor Perencanaan Pengadaan", 'required|max_length['.DEFAULT_MAXLENGTH.']');
@@ -217,7 +230,7 @@ if ($this->form_validation->run() == FALSE || $error){
     $this->db->where('pr_number', $pr_number);
     $isSwakelola = $this->db->get()->row_array();
 
-    $return = $this->Procedure_m->prc_pr_comment_complete($pr_number,$userdata['complete_name'],$last_comment['activity'],$response,$com,$attachment,$last_comment['comment_id'],$perencanaan_id,$userdata['employee_id'],$isSwakelola['isSwakelola']);
+    $return = $this->Procedure_m->prc_pr_comment_complete($pr_number,$userdata['complete_name'],$last_comment['activity'],$response,$com,$attachment,$last_comment['comment_id'],$perencanaan_id,$userdata['employee_id'],$isSwakelola['isSwakelola'],$perencanaan['ppm_type_of_plan']);
 
     if(!empty($return['nextactivity'])){
 

@@ -471,8 +471,17 @@ class Procedure_m extends MY_Model {
 		$ptcId = 0,
 		$perencanaan_id = 0,
 		$user_id = null,
-		$isSwakelola=""
+		$isSwakelola="",
+		$type_of_plan
 	) {
+
+		if ($type_of_plan =='rkap') {
+			$tbl = "adm_auth_hie_pr_non_proyek";
+			$view = "vw_prc_hierarchy_approval";
+		} elseif ($type_of_plan =='rkp') {
+			$tbl = "adm_auth_hie_pr_proyek";
+			$view = "vw_prc_hierarchy_approval_7";
+		}
 
 		if(is_numeric($response)){
 			$response_real = $this->getResponseName($response);
@@ -547,7 +556,8 @@ class Procedure_m extends MY_Model {
 
 			$amount = $this->db
 			->select("max_amount")
-			->from("adm_auth_hie_pr_non_proyek")
+			// ->from("adm_auth_hie_pr_non_proyek")
+			->from($tbl)
 			// ->from("adm_auth_hie")
 			->where("pos_id",$lastPosCode)
 			->get()->row_array();
@@ -573,12 +583,18 @@ class Procedure_m extends MY_Model {
 
 				if($response == url_title('Lanjutkan',"_",true)){
 
+					// $getdata = $this->getNextState(
+					// 	"hap_pos_code",
+					// 	"hap_pos_name",
+					// 	"vw_prc_hierarchy_approval",
+					// 	"hap_pos_code = (select distinct hap_pos_parent 
+					// 		from vw_prc_hierarchy_approval where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
 					$getdata = $this->getNextState(
 						"hap_pos_code",
 						"hap_pos_name",
-						"vw_prc_hierarchy_approval",
+						$view,
 						"hap_pos_code = (select distinct hap_pos_parent 
-							from vw_prc_hierarchy_approval where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+							from ".$view." where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
 
 					$nextPosCode = $getdata['nextPosCode'];
 					$nextPosName = $getdata['nextPosName'];
@@ -598,15 +614,23 @@ class Procedure_m extends MY_Model {
 
 					//$this->setMessage("OE : ".$totalOE." = MAX : ".$max_amount);
 
+					// $getdata = $this->getNextState(
+					// 	"hap_pos_code",
+					// 	"hap_pos_name",
+					// 	"vw_prc_hierarchy_approval",
+					// 	"hap_pos_code = (select distinct hap_pos_parent 
+					// 		from vw_prc_hierarchy_approval where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+
 					$getdata = $this->getNextState(
 						"hap_pos_code",
 						"hap_pos_name",
-						"vw_prc_hierarchy_approval",
+						$view,
 						"hap_pos_code = (select distinct hap_pos_parent 
-							from vw_prc_hierarchy_approval where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+							from ".$view." where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
 
 					$hap = $this->db->select('hap_amount')->where('hap_pos_code',$lastPosCode)
-					->get('vw_prc_hierarchy_approval')
+					// ->get('vw_prc_hierarchy_approval')
+					->get($view)
 					->row_array();
 
 					$next_hap = 0;

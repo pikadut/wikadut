@@ -37,7 +37,7 @@ $input['pr_requester_pos_name']=$position['pos_name'];
 $input['pr_requester_id']=$userdata['employee_id'];
 $input['pr_project_name']=$perencanaan['ppm_project_name']; //y
 $input['pr_type_of_plan']=$perencanaan['ppm_type_of_plan']; //y
-$input['pr_type']=$post['tipe_pr'];
+$input['pr_type']=$post['tipe_pr'];//y
 //start code hlmifzi
 if (empty($post['swakelola_inp'])){
     $swakelola_inp = null;
@@ -225,7 +225,7 @@ if ($this->form_validation->run() == FALSE || $error){
 
     $last_id = $this->db->insert_id();
 
-    $return = $this->Procedure_m->prc_pr_comment_complete($pr_number,$userdata['complete_name'],1000,$response,$com,$attachment,$last_id,$perencanaan_id,$userdata['employee_id']);
+    $return = $this->Procedure_m->prc_pr_comment_complete($pr_number,$userdata['complete_name'],1000,$response,$com,$attachment,$last_id,$perencanaan_id,$userdata['employee_id'],$swakelola_inp,$perencanaan['ppm_type_of_plan']);
 
     if(!empty($return['nextactivity'])){
 

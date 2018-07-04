@@ -549,3 +549,73 @@ RENAME TO adm_auth_hie_kontrak_proyek;
 
 ALTER TABLE adm_auth_hie_11
 RENAME TO adm_auth_hie_kontrak_non_proyek;
+
+--- 03/07/2018
+
+DROP VIEW "public"."vw_daftar_pekerjaan_sppbj";
+
+CREATE VIEW "public"."vw_daftar_pekerjaan_sppbj" AS  SELECT prc_pr_main.pr_number,
+    prc_pr_main."isSwakelola",
+    prc_pr_main.pr_requester_name,
+    prc_pr_main.pr_requester_pos_code,
+    prc_pr_main.pr_requester_pos_name,
+    prc_pr_main.pr_created_date,
+    prc_pr_main.pr_subject_of_work,
+    prc_pr_main.pr_scope_of_work,
+    prc_pr_main.pr_district_id,
+    prc_pr_main.pr_district AS pr_district_name,
+    prc_pr_main.pr_delivery_point_id,
+    prc_pr_main.pr_delivery_point,
+    prc_pr_main.pr_delivery_time,
+    prc_pr_main.pr_delivery_unit,
+    prc_pr_main.pr_buyer,
+    prc_pr_main.pr_buyer_pos_code,
+    prc_pr_main.pr_buyer_pos_name,
+    prc_pr_main.pr_currency,
+    prc_pr_main.pr_contract_type,
+    prc_pr_main.pr_last_participant,
+    prc_pr_main.pr_last_participant_code,
+    prc_pr_main.pr_status,
+    prc_pr_main.pr_dept_id,
+    prc_pr_main.pr_dept_name,
+    prc_pr_main.pr_mata_anggaran,
+    prc_pr_main.pr_nama_mata_anggaran,
+    prc_pr_main.pr_sub_mata_anggaran,
+    prc_pr_main.pr_nama_sub_mata_anggaran,
+    prc_pr_main.pr_pagu_anggaran,
+    prc_pr_main.pr_sisa_anggaran,
+    prc_pr_main.pr_requester_id,
+    prc_pr_main.ppm_id,
+    prc_pr_main.pr_type,
+    COALESCE(( SELECT adm_wkf_activity.awa_name
+           FROM adm_wkf_activity
+          WHERE (adm_wkf_activity.awa_id = ( SELECT prc_pr_comment.ppc_activity
+                   FROM prc_pr_comment
+                  WHERE (((prc_pr_comment.pr_number)::text = (prc_pr_main.pr_number)::text) AND (prc_pr_comment.ppc_name IS NULL))))), 'Permintaan dilanjutkan ke RFQ-Undangan'::character varying) AS status,
+    COALESCE((( SELECT format((sum(((prc_pr_item.ppi_quantity * (prc_pr_item.ppi_price)::double precision) * (1.1)::double precision)))::text, 2) AS jumlah
+           FROM prc_pr_item
+          WHERE ((prc_pr_item.pr_number)::text = (prc_pr_main.pr_number)::text)
+          GROUP BY prc_pr_item.pr_number))::double precision, (0)::double precision) AS nilai,
+		prc_pr_main.pr_project_name,
+		prc_pr_main.pr_type_of_plan
+   FROM prc_pr_main;
+
+DROP VIEW "public"."vw_daftar_pekerjaan_rfq";
+
+CREATE VIEW "public"."vw_daftar_pekerjaan_rfq" AS  SELECT a.ptc_id,
+    a.ptm_number,
+    a.ptc_user,
+    b.ptm_buyer_id,
+    b.ptm_requester_name,
+    b.ptm_subject_of_work,
+    b.ptm_delivery_point,
+    b.ptm_requester_pos_name,
+    b.ptm_status,
+    c.awa_name AS activity,
+    to_date((a.ptc_start_date)::text, 'YYYY-MM-DD HH24:MI:SS'::text) AS waktu,
+    a.ptc_pos_code
+   FROM ((prc_tender_comment a
+     LEFT JOIN prc_tender_main b ON (((b.ptm_number)::text = (a.ptm_number)::text)))
+     LEFT JOIN adm_wkf_activity c ON ((c.awa_id = a.ptc_activity)))
+  WHERE ((a.ptc_name IS NULL) AND (a.ptc_end_date IS NULL) AND (a.ptc_activity <> ALL (ARRAY[1901, 1903]))
+

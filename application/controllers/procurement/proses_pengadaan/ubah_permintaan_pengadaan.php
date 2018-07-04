@@ -39,6 +39,7 @@ $pr_number = $last_comment['tender_id'];
 
 $permintaan = $this->Procpr_m->getPR($pr_number)->row_array();
 
+
 $data['last_comment'] = $last_comment;
 
 $data['permintaan'] = $permintaan;
