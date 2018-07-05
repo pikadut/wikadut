@@ -209,7 +209,7 @@ class Log extends Telescoope_Controller {
 				$root = str_replace("application","",APPPATH);
 				$dir = $root."/uploads/".$loc;
 				$dir = str_replace(array("\\","//"), "/", $dir);
-				$config['allowed_types'] = '*';
+				$config['allowed_types'] = 'jpg|gif|png|doc|docx|xls|xlsx|ppt|pptx|pdf|jpeg|zip|rar|tgz|7zip|tar';
 				$config['overwrite'] = false;
 
 				if (!file_exists($dir)){
@@ -218,6 +218,7 @@ class Log extends Telescoope_Controller {
 
 				$config['upload_path'] = $dir;
 				$config['encrypt_name'] = true;
+				$config['max_size'] = 5120; //y max file upload
 
 				$this->load->library('upload', $config);
 
@@ -255,8 +256,9 @@ class Log extends Telescoope_Controller {
 
 			$config = array(
 				'upload_path'   => $path,
-				'allowed_types' => 'jpg|gif|png',
-				'overwrite'     => 1,                       
+				'allowed_types' => 'jpg|gif|png|doc|docx|xls|xlsx|ppt|pptx|pdf|jpeg|zip|rar|tgz|7zip|tar',
+				'overwrite'     => 1,
+				'max_size'		=> 5120, //y max file upload                    
 			);
 
 			$this->load->library('upload', $config);
