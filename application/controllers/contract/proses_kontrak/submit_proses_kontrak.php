@@ -86,7 +86,7 @@ if($last_activity == 2001){
 
 $status_id = $post['status_inp'][0];
 
-if(in_array($last_activity, array(2030))){
+if(in_array($last_activity, array(2010, 2030))){
 
   $this->form_validation->set_rules("nama_bank_inp", "Institusi Keuangan", 
     'required|max_length['.DEFAULT_MAXLENGTH.']');
@@ -378,13 +378,14 @@ foreach ($penilaian as $key => $value) {
   if(!empty($return['nextactivity'])){
 
       //haqim
-      if ($response == '445') {
+      //if ($response == '445') {
         $ccc_user = null;
-      } else {
-        $ccc_user = $pelaksana_id;
-      }
+      // } else {
+      //   $ccc_user = $pelaksana_id;
+      // }
 
       // print_r($return);
+      // die();
       $comment = $this->Comment_m->insertContract($ptm_number,$return['nextactivity'],"","","",$return['nextposcode'],$return['nextposname'],$contract_id,$ccc_user);
 
     //previous

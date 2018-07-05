@@ -307,3 +307,65 @@ CREATE VIEW "public"."vw_daftar_pekerjaan_sppbj" AS  SELECT prc_pr_main.pr_numbe
    FROM prc_pr_main;
 
 ALTER TABLE "public"."vw_daftar_pekerjaan_sppbj" OWNER TO "scm-admin";
+
+
+-------------
+---06/07/2018
+INSERT INTO "public"."adm_wkf_activity" VALUES (2021, 'Review Dokumen Kontrak', 'Review Legal', 3, 'CTR', 1, NULL);
+INSERT INTO "public"."adm_wkf_activity" VALUES (2022, 'Review Dokumen Kontrak', 'Manager Terkait', 3, 'CTR', 1, NULL);
+INSERT INTO "public"."adm_wkf_activity" VALUES (2023, 'Persetujuan Dokumen Kontrak', 'Manager Terkait', 3, 'CTR', 1, NULL);
+INSERT INTO "public"."adm_wkf_activity" VALUES (2024, 'Persetujuan Dokumen Kontrak', 'GM Korporasi', 3, 'CTR', 1, NULL);
+INSERT INTO "public"."adm_wkf_activity" VALUES (2025, 'Review Dokumen Kontrak', 'GM Korporasi', 3, 'CTR', 1, NULL);
+INSERT INTO "public"."adm_wkf_activity" VALUES (2026, 'Persetujuan Dokumen Kontrak', 'Direksi', 3, 'CTR', 1, NULL);
+
+INSERT INTO "public"."adm_wkf_content" VALUES (2021, 'milestone_v', 6, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2021, 'header_v', 1, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2021, 'lampiran_v', 7, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2021, 'item_v', 5, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2021, 'tunjuk_pelaksana_v', 3, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2021, 'jaminan_v', 4, 'view');
+
+INSERT INTO "public"."adm_wkf_content" VALUES (2022, 'milestone_v', 6, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2022, 'header_v', 1, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2022, 'lampiran_v', 7, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2022, 'item_v', 5, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2022, 'tunjuk_pelaksana_v', 3, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2022, 'jaminan_v', 4, 'view');
+
+INSERT INTO "public"."adm_wkf_content" VALUES (2023, 'milestone_v', 6, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2023, 'header_v', 1, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2023, 'lampiran_v', 7, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2023, 'item_v', 5, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2023, 'tunjuk_pelaksana_v', 3, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2023, 'jaminan_v', 4, 'view');
+
+INSERT INTO "public"."adm_wkf_content" VALUES (2024, 'milestone_v', 6, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2024, 'header_v', 1, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2024, 'lampiran_v', 7, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2024, 'item_v', 5, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2024, 'tunjuk_pelaksana_v', 3, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2024, 'jaminan_v', 4, 'view');
+
+INSERT INTO "public"."adm_wkf_content" VALUES (2025, 'milestone_v', 6, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2025, 'header_v', 1, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2025, 'lampiran_v', 7, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2025, 'item_v', 5, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2025, 'tunjuk_pelaksana_v', 3, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2025, 'jaminan_v', 4, 'view');
+
+INSERT INTO "public"."adm_wkf_content" VALUES (2026, 'milestone_v', 6, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2026, 'header_v', 1, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2026, 'lampiran_v', 7, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2026, 'item_v', 5, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2026, 'tunjuk_pelaksana_v', 3, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2026, 'jaminan_v', 4, 'view');
+
+INSERT INTO "public"."adm_wkf_response" VALUES (590, 2021, 'Lanjutkan', 1);
+INSERT INTO "public"."adm_wkf_response" VALUES (591, 2022, 'Lanjutkan', 1);
+INSERT INTO "public"."adm_wkf_response" VALUES (592, 2023, 'Setuju', 1);
+INSERT INTO "public"."adm_wkf_response" VALUES (593, 2023, 'Revisi', 1);
+INSERT INTO "public"."adm_wkf_response" VALUES (594, 2024, 'Setuju', 1);
+INSERT INTO "public"."adm_wkf_response" VALUES (595, 2024, 'Revisi', 1);
+INSERT INTO "public"."adm_wkf_response" VALUES (596, 2025, 'Lanjutkan', 1);
+INSERT INTO "public"."adm_wkf_response" VALUES (597, 2026, 'Setuju', 1);
+INSERT INTO "public"."adm_wkf_response" VALUES (598, 2026, 'Revisi', 1);

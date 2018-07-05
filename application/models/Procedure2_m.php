@@ -20,6 +20,17 @@ class Procedure2_m extends CI_Model {
 
 	}
 
+	public function getContractAmmount($ptm = ""){
+		
+		if(!empty($ptm)){
+	
+			$this->db->where("ptm_number", $ptm);
+	
+		}
+	
+		return $this->db->get("ctr_contract_header")->row_array();
+	}
+
 	public function getActivity($id = ""){
 
 		if(!empty($id)){
@@ -559,6 +570,193 @@ class Procedure2_m extends CI_Model {
 
 				}
 
+			//y start my code
+			// review legal fix
+			} else if($activity == 2021){
+
+				if($response == url_title('Lanjutkan',"_",true)){
+
+					$ctrvalue = $this->getContractAmmount($ptm_number);
+
+					$getdata = $this->getNextState(
+						"hap_pos_code",
+						"hap_pos_name",
+						"vw_prc_hierarchy_approval_11",
+						"hap_pos_code = (select distinct hap_pos_parent 
+							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+
+					$nextPosCode = $getdata['nextPosCode'];
+					$nextPosName = $getdata['nextPosName'];
+					
+					if($ctrvalue <= 2000000000){
+						$nextActivity = 2022;
+					}else{
+						$nextActivity = 2023;
+					}
+
+				}
+
+			// review manager terkait
+			} else if($activity == 2022){
+
+				if($response == url_title('Lanjutkan',"_",true)){
+
+					$ctrvalue = $this->getContractAmmount($ptm_number);
+
+					$getdata = $this->getNextState(
+						"hap_pos_code",
+						"hap_pos_name",
+						"vw_prc_hierarchy_approval_11",
+						"hap_pos_code = (select distinct hap_pos_parent 
+							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+
+					$nextPosCode = $getdata['nextPosCode'];
+					$nextPosName = $getdata['nextPosName'];
+					
+					$nextActivity = 2024;
+				}
+
+
+			// approval manager terkait
+			} else if($activity == 2023){
+
+				if($response == url_title('Setuju',"_",true)){
+
+					$getdata = $this->getNextState(
+						"hap_pos_code",
+						"hap_pos_name",
+						"vw_prc_hierarchy_approval_11",
+						"hap_pos_code = (select distinct hap_pos_parent 
+							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+
+					$nextPosCode = $getdata['nextPosCode'];
+					$nextPosName = $getdata['nextPosName'];
+
+					$nextActivity = 2025;
+
+				} else if($response == url_title('Revisi',"_",true)){
+
+					$getdata = $this->getNextState(
+						"hap_pos_code",
+						"hap_pos_name",
+						"vw_prc_hierarchy_approval_11",
+						"hap_pos_code = (select distinct hap_pos_parent 
+							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+
+					$nextPosCode = $getdata['nextPosCode'];
+					$nextPosName = $getdata['nextPosName'];
+
+					$nextActivity = 2010;
+
+					$this->db->where("contract_id",$contract_id)
+					->update("ctr_contract_header",array("contract_number"=>null,"ctr_spe_employee"=>null,"contract_type_2"=>null,"start_date"=>null,"end_date"=>null));
+
+					$this->db->where("contract_id",$contract_id)->delete("ctr_contract_doc");
+
+					$this->db->where("contract_id",$contract_id)->delete("ctr_contract_milestone");
+
+				} 
+
+			// approval gm korporasi
+			} else if($activity == 2024){
+
+				if($response == url_title('Lanjutkan',"_",true)){
+
+					$getdata = $this->getNextState(
+						"hap_pos_code",
+						"hap_pos_name",
+						"vw_prc_hierarchy_approval_11",
+						"hap_pos_code = (select distinct hap_pos_parent 
+							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+
+					$nextPosCode = $getdata['nextPosCode'];
+					$nextPosName = $getdata['nextPosName'];
+
+					$nextActivity = 2026;
+
+				} else if($response == url_title('Revisi',"_",true)){
+
+					$getdata = $this->getNextState(
+						"hap_pos_code",
+						"hap_pos_name",
+						"vw_prc_hierarchy_approval_11",
+						"hap_pos_code = (select distinct hap_pos_parent 
+							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+
+					$nextPosCode = $getdata['nextPosCode'];
+					$nextPosName = $getdata['nextPosName'];
+
+					$nextActivity = 2010;
+
+					$this->db->where("contract_id",$contract_id)
+					->update("ctr_contract_header",array("contract_number"=>null,"ctr_spe_employee"=>null,"contract_type_2"=>null,"start_date"=>null,"end_date"=>null));
+
+					$this->db->where("contract_id",$contract_id)->delete("ctr_contract_doc");
+
+					$this->db->where("contract_id",$contract_id)->delete("ctr_contract_milestone");
+
+				}
+
+			// approval gm korporasi
+			} else if($activity == 2025){
+
+				if($response == url_title('Lanjutkan',"_",true)){
+
+					$getdata = $this->getNextState(
+						"hap_pos_code",
+						"hap_pos_name",
+						"vw_prc_hierarchy_approval_11",
+						"hap_pos_code = (select distinct hap_pos_parent 
+							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+
+					$nextPosCode = $getdata['nextPosCode'];
+					$nextPosName = $getdata['nextPosName'];
+
+					$nextActivity = 2026;
+
+				}
+
+			// review direksi
+			} else if($activity == 2026){
+
+				if($response == url_title('Setuju',"_",true)){
+
+					$getdata = $this->getNextState(
+						"hap_pos_code",
+						"hap_pos_name",
+						"vw_prc_hierarchy_approval_11",
+						"hap_pos_code = (select distinct hap_pos_parent 
+							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+
+					$nextPosCode = $getdata['nextPosCode'];
+					$nextPosName = $getdata['nextPosName'];
+
+					$nextActivity = 2030;
+
+				} else if($response == url_title('Revisi',"_",true)){
+
+					$getdata = $this->getNextState(
+						"ctr_man_pos",
+						"ctr_man_pos_name",
+						"ctr_contract_header",
+						array("ptm_number"=>$ptm_number));
+
+					$nextPosCode = $getdata['nextPosCode'];
+					$nextPosName = $getdata['nextPosName'];
+
+					$nextActivity = 2010;
+
+					$this->db->where("contract_id",$contract_id)
+					->update("ctr_contract_header",array("contract_number"=>null,"ctr_spe_employee"=>null,"contract_type_2"=>null,"start_date"=>null,"end_date"=>null));
+
+					$this->db->where("contract_id",$contract_id)->delete("ctr_contract_doc");
+
+					$this->db->where("contract_id",$contract_id)->delete("ctr_contract_milestone");
+
+				} 
+			//y endy my code
+
+
 			} else if($activity == 2001){
 
 				if($response == url_title('Lanjutkan',"_",true)){
@@ -593,16 +791,23 @@ class Procedure2_m extends CI_Model {
 
 				if($response == url_title('Simpan dan Lanjutkan',"_",true)){
 
+					// $getdata = $this->getNextState(
+					// 	"ctr_spe_pos",
+					// 	"ctr_spe_pos_name",
+					// 	"ctr_contract_header",
+					// 	array("contract_id"=>$contract_id));
+
 					$getdata = $this->getNextState(
-						"ctr_spe_pos",
-						"ctr_spe_pos_name",
-						"ctr_contract_header",
-						array("contract_id"=>$contract_id));
+						"hap_pos_code",
+						"hap_pos_name",
+						"vw_prc_hierarchy_approval_11",
+						"hap_pos_code = (select distinct hap_pos_parent 
+							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
 
 					$nextPosCode = $getdata['nextPosCode'];
 					$nextPosName = $getdata['nextPosName'];
 
-					$nextActivity = 2030;
+					$nextActivity = 2021;
 
 				} else if($response == url_title('Revisi Pelaksana',"_",true)){
 

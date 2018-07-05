@@ -5,8 +5,19 @@ $check = $this->db
 ->result_array();
 
 $getdata = $this->db->select("pos_id,pos_name")
-->where(array("job_title"=>"VP PENGADAAN"))
+->where(array("job_title"=>"PENGELOLA KONTRAK")) //vp pengadaan
 ->get("adm_pos")->row_array();
+
+//y manager kontrak
+$getman = $this->db->select("pos_id, pos_name, employee_id")
+->where(array("job_title"=>"MANAJER PENGADAAN",
+"user_name NOT LIKE" => '%proyek%'))
+->get("user_login_rule")->row_array();
+
+//y pengelola kontrak
+$getspe = $this->db->select("pos_id, pos_name, employee_id")
+->where(array("job_title"=>"PENGELOLA KONTRAK"))
+->get("user_login_rule")->row_array();
 
 foreach ($check as $key => $value) {
 
@@ -19,6 +30,16 @@ foreach ($check as $key => $value) {
 	$input['contract_type'] = $value['ptm_contract_type'];
 	$input['completed_tender_date'] = $value['ptm_completed_date'];
 	$input['contract_amount'] = $value['total_contract'];
+
+	//y insert manager kontrak dan pengelola kontrak
+	$input['ctr_spe_employee'] = $getspe['employee_id'];
+	$input['ctr_spe_pos'] = $getspe['pos_id'];
+	$input['ctr_spe_pos_name'] = $getspe['pos_name'];
+
+	$input['ctr_man_employee'] = $getman['employee_id'];
+	$input['ctr_man_pos'] = $getman['pos_id'];
+	$input['ctr_man_pos_name'] = $getman['pos_name'];
+	//y end
 
 	$this->db->insert("ctr_contract_header",$input);
 
@@ -56,7 +77,7 @@ foreach ($check as $key => $value) {
 	$this->db->insert("ctr_contract_comment",array(
 		"ptm_number"=>$value['ptm_number'],
 		"contract_id"=>$contract_id,
-		"ccc_activity"=>2000,
+		"ccc_activity"=>2010, //2000
 		"ccc_position"=>$getdata['pos_name'],
 		"ccc_pos_code"=>$getdata['pos_id'],
 		"ccc_start_date"=>date("Y-m-d H:i:s"),
