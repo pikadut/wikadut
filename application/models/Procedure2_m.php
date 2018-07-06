@@ -637,24 +637,15 @@ class Procedure2_m extends CI_Model {
 				} else if($response == url_title('Revisi',"_",true)){
 
 					$getdata = $this->getNextState(
-						"hap_pos_code",
-						"hap_pos_name",
-						"vw_prc_hierarchy_approval_11",
-						"hap_pos_code = (select distinct hap_pos_parent 
-							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+						"ctr_spe_pos",
+						"ctr_spe_pos_name",
+						"ctr_contract_header",
+						array("ptm_number"=>$ptm_number));
 
 					$nextPosCode = $getdata['nextPosCode'];
 					$nextPosName = $getdata['nextPosName'];
 
 					$nextActivity = 2010;
-
-					$this->db->where("contract_id",$contract_id)
-					->update("ctr_contract_header",array("contract_number"=>null,"ctr_spe_employee"=>null,"contract_type_2"=>null,"start_date"=>null,"end_date"=>null));
-
-					$this->db->where("contract_id",$contract_id)->delete("ctr_contract_doc");
-
-					$this->db->where("contract_id",$contract_id)->delete("ctr_contract_milestone");
-
 				} 
 
 			// approval gm korporasi
@@ -677,24 +668,15 @@ class Procedure2_m extends CI_Model {
 				} else if($response == url_title('Revisi',"_",true)){
 
 					$getdata = $this->getNextState(
-						"hap_pos_code",
-						"hap_pos_name",
-						"vw_prc_hierarchy_approval_11",
-						"hap_pos_code = (select distinct hap_pos_parent 
-							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+						"ctr_spe_pos",
+						"ctr_spe_pos_name",
+						"ctr_contract_header",
+						array("ptm_number"=>$ptm_number));
 
 					$nextPosCode = $getdata['nextPosCode'];
 					$nextPosName = $getdata['nextPosName'];
 
 					$nextActivity = 2010;
-
-					$this->db->where("contract_id",$contract_id)
-					->update("ctr_contract_header",array("contract_number"=>null,"ctr_spe_employee"=>null,"contract_type_2"=>null,"start_date"=>null,"end_date"=>null));
-
-					$this->db->where("contract_id",$contract_id)->delete("ctr_contract_doc");
-
-					$this->db->where("contract_id",$contract_id)->delete("ctr_contract_milestone");
-
 				}
 
 			// approval gm korporasi
@@ -736,8 +718,8 @@ class Procedure2_m extends CI_Model {
 				} else if($response == url_title('Revisi',"_",true)){
 
 					$getdata = $this->getNextState(
-						"ctr_man_pos",
-						"ctr_man_pos_name",
+						"ctr_spe_pos",
+						"ctr_spe_pos_name",
 						"ctr_contract_header",
 						array("ptm_number"=>$ptm_number));
 
@@ -745,14 +727,6 @@ class Procedure2_m extends CI_Model {
 					$nextPosName = $getdata['nextPosName'];
 
 					$nextActivity = 2010;
-
-					$this->db->where("contract_id",$contract_id)
-					->update("ctr_contract_header",array("contract_number"=>null,"ctr_spe_employee"=>null,"contract_type_2"=>null,"start_date"=>null,"end_date"=>null));
-
-					$this->db->where("contract_id",$contract_id)->delete("ctr_contract_doc");
-
-					$this->db->where("contract_id",$contract_id)->delete("ctr_contract_milestone");
-
 				} 
 			//y endy my code
 
