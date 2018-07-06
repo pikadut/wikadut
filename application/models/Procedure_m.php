@@ -2178,13 +2178,13 @@ class Procedure_m extends MY_Model {
 							"vw_prc_hierarchy_approval_2",
 							"hap_pos_code = (select distinct hap_pos_parent 
 								from vw_prc_hierarchy_approval_2 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
-
+ 
 						$nextPosCode = $getdata['nextPosCode'];
 						$nextPosName = $getdata['nextPosName'];
 
 						$nextjobtitle = $this->getNextJobTitle($nextPosCode);
 
-						$nextActivity = 1150;
+						$nextActivity = 1160; //1150; entah kenapa ke 1150 lagi
 
 					} else {
 
