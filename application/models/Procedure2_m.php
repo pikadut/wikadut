@@ -648,10 +648,10 @@ class Procedure2_m extends CI_Model {
 					$nextActivity = 2010;
 				} 
 
-			// approval gm korporasi
+			// revisi gm korporasi
 			} else if($activity == 2024){
 
-				if($response == url_title('Lanjutkan',"_",true)){
+				if($response == url_title('Setuju',"_",true)){
 
 					$getdata = $this->getNextState(
 						"hap_pos_code",
@@ -663,7 +663,7 @@ class Procedure2_m extends CI_Model {
 					$nextPosCode = $getdata['nextPosCode'];
 					$nextPosName = $getdata['nextPosName'];
 
-					$nextActivity = 2026;
+					$nextActivity = 2030;
 
 				} else if($response == url_title('Revisi',"_",true)){
 
