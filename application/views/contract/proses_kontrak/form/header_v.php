@@ -24,7 +24,7 @@
                <?php echo $curval ?>
              </a>
 
-             (<?php echo ($tipe_pengadaan) ? "Pusat" : "Cabang"; ?>) 
+            <!--  (<?php //echo ($tipe_pengadaan) ? "Pusat" : "Cabang"; ?>) //y hide cabang --> 
            </p>
          </div>
        </div>
