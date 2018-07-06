@@ -318,7 +318,7 @@ INSERT INTO "public"."adm_wkf_activity" VALUES (2024, 'Persetujuan Dokumen Kontr
 INSERT INTO "public"."adm_wkf_activity" VALUES (2025, 'Review Dokumen Kontrak', 'GM Korporasi', 3, 'CTR', 1, NULL);
 INSERT INTO "public"."adm_wkf_activity" VALUES (2026, 'Persetujuan Dokumen Kontrak', 'Direksi', 3, 'CTR', 1, NULL);
 
-INSERT INTO "public"."adm_wkf_content" VALUES (2010, 'jaminan_v', 4, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2010, 'jaminan_v', 4, 'form');
 
 INSERT INTO "public"."adm_wkf_content" VALUES (2021, 'milestone_v', 6, 'view');
 INSERT INTO "public"."adm_wkf_content" VALUES (2021, 'header_v', 1, 'view');
