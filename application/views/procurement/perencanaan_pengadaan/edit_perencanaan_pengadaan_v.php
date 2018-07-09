@@ -59,7 +59,7 @@
 
           <?php $curval = (isset($perencanaan['ppm_subject_of_work'])) ? $perencanaan['ppm_subject_of_work'] : set_value("nama_rencana_pekerjaan_inp"); ?>
           <div class="form-group">
-            <label class="col-sm-2 control-label">Nama Rencana Pekerjaan *</label>
+            <label class="col-sm-2 control-label">Nama Program *</label>
             <div class="col-sm-10">
              <input type="text" class="form-control" maxlength="120" required name="nama_rencana_pekerjaan_inp" value="<?php echo $curval ?>">
            </div>

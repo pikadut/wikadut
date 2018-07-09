@@ -56,7 +56,7 @@
 
           <?php $curval = $perencanaan["ppm_subject_of_work"]; ?>
           <div class="form-group">
-            <label class="col-sm-2 control-label">Nama Rencana Pekerjaan *</label>
+            <label class="col-sm-2 control-label">Nama Program *</label>
             <div class="col-sm-10">
              <input type="text" disabled class="form-control" name="nama_rencana_pekerjaan_inp" value="<?php echo $curval ?>">
            </div>

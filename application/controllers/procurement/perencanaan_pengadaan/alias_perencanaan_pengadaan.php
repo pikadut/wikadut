@@ -2,7 +2,7 @@
 
 $alias = array(
     array("field"=>"ppm_id","alias"=>"Kode Perencanaan Pengadaan"),
-    array("field"=>"ppm_subject_of_work","alias"=>"Nama Rencana Pekerjaan"),
+    array("field"=>"ppm_subject_of_work","alias"=>"Nama Program"),
     array("field"=>"ppm_scope_of_work","alias"=>"Deskripsi Rencana Pekerjaan"),
     array("field"=>"ppm_mata_anggaran","alias"=>"Kode Mata Anggaran"),
     array("field"=>"ppm_nama_mata_anggaran","alias"=>"Nama Mata Anggaran"),
