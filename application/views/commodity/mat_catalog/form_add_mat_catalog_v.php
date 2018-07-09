@@ -170,9 +170,9 @@
           $curval = set_value("uom_inp[$i]");
           ?>
 		  <div class="form-group">
-			<label class="col-sm-2 control-label">Satuan</label>
+			<label class="col-sm-2 control-label">Satuan *</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" name="uom_inp[<?php echo $i ?>]" value="<?php echo $curval ?>">
+				<input required type="text" class="form-control" name="uom_inp[<?php echo $i ?>]" value="<?php echo $curval ?>">
 			</div>
 		  </div>
 		  
