@@ -688,16 +688,16 @@ class Procedure_m extends MY_Model {
 								"prc_pr_main",
 								array("pr_number"=>$pr_number));
 
-							$buyerdata = $this->getNextState(
-								"pos_id",
-								"pos_name",
-								"vw_employee",
-								array("pos_name"=>"BUYER"));
+							// $buyerdata = $this->getNextState(
+							// 	"pos_id",
+							// 	"pos_name",
+							// 	"adm_employee_pos",
+							// 	array("pos_name"=>"BUYER"));
 							
 						    $inputbuyer['ptm_buyer_id'] = $buyers['nextPosCode'];
 							$inputbuyer['ptm_buyer'] = $buyers['nextPosName'];
-						    $inputbuyer['ptm_buyer_pos_code'] = $buyerdata['nextPosCode'];
-						    $inputbuyer['ptm_buyer_pos_name'] = $buyerdata['nextPosName'];
+						    $inputbuyer['ptm_buyer_pos_code'] = 13; //$buyerdata['nextPosCode'];
+						    $inputbuyer['ptm_buyer_pos_name'] = 'BUYER'; //$buyerdata['nextPosName'];
 							
 							$this->db->where('ptm_number', $newNumber)->update('prc_tender_main', $inputbuyer);
 							
