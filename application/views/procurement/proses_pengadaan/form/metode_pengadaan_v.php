@@ -43,13 +43,15 @@ if($prep['ptp_prequalify'] == 2){
               <?php } ?>
             </select>
           </div>
-          <label class="col-sm-1 control-label">E-Auction</label>
-          <div class="col-sm-1">
+          <div id="eauction_cont">
+          <label class="col-sm-1 control-label eauction_cont">E-Auction</label>
+          <div class="col-sm-1 eauction_cont">
             <div class="checkbox">
               <?php $curval = (!empty($prep['ptp_eauction'])) ? "checked" : ""; ?>
               <input type="checkbox" name="eauction_inp" <?php echo $curval ?> value="1">
             </div>
           </div>
+        </div>
           <label class="col-sm-2 control-label pq_cont">Pra Kualifikasi</label>
           <div class="col-sm-1 pq_cont">
             <div class="checkbox">
@@ -136,6 +138,7 @@ if($prep['ptp_prequalify'] == 2){
     var keterangan = $("#keterangan_metode_cont");
     var sampul = $("#sistem_sampul_cont");
     var vendor = $("#vendor_container");
+    var eauction = $("#eauction_cont");
       //var panitia_pelelangan = $("#panitia_pelelangan_cont");
       if(metode == 0){
         template_evaluasi.show();
@@ -151,6 +154,8 @@ if($prep['ptp_prequalify'] == 2){
         keterangan.show();
         sampul.show();
         vendor.show();
+        eauction.hide();
+        $("input[name='eauction_inp']").prop('checked',false);
         //panitia_pelelangan.hide();
       } else if(metode == 2){
         template_evaluasi.show();
@@ -158,6 +163,8 @@ if($prep['ptp_prequalify'] == 2){
         keterangan.show();
         sampul.show();
         vendor.hide();
+        eauction.show();
+
         //panitia_pelelangan.show();
       } else {
         template_evaluasi.hide();
