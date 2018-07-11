@@ -177,6 +177,7 @@ if(!empty($filtering)){
   case 'approved':
   $this->db->where('ppm_next_pos_id', 212);
   $this->db->where("ppm_status",3);
+  $this->db->where("ppm_dept_id", $userdata['dept_id']); //y hany departemen
   break;
 
   case 'update':
@@ -226,5 +227,4 @@ foreach ($rows as $key => $value) {
 }
 
 $data['rows'] = $rows;
-
 echo json_encode($data);
