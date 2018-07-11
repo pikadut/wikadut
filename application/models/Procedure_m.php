@@ -708,8 +708,8 @@ class Procedure_m extends MY_Model {
 							} elseif($type_of_plan == 'rkp') {
 
 								$this->db->join($view_rfq." a", 'a.hap_pos_code = b.pos_id');
-								$this->db->where('job_title','PELAKSANA PENGADAAN');
-								$this->db->where('dept_id', $dept_id);
+								$this->db->where('b.job_title','PELAKSANA PENGADAAN');
+								$this->db->where('b.dept_id', $dept_id);
 								
 								$buyer = $this->db->get('vw_employee b')->row_array();
 								$inputbuyer['ptm_buyer_id'] = $buyer['id'];
