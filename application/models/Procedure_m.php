@@ -478,12 +478,19 @@ class Procedure_m extends MY_Model {
 		$type_of_plan
 	) {
 
+		$this->db->select('pr_dept_id');
+		$this->db->where('pr_number', $pr_number);
+		$get_dept_id = $this->db->get('prc_pr_main')->row_array();
+		$dept_id = $get_dept_id['pr_dept_id'];
+
 		if ($type_of_plan =='rkap') {
 			$tbl = "adm_auth_hie_pr_non_proyek";
 			$view = "vw_prc_hierarchy_approval";
+
 		} elseif ($type_of_plan =='rkp') {
 			$tbl = "adm_auth_hie_pr_proyek";
 			$view = "vw_prc_hierarchy_approval_7";
+			$view_rfq = "vw_prc_hierarchy_approval_8";
 		}
 
 		if(is_numeric($response)){
@@ -687,7 +694,7 @@ class Procedure_m extends MY_Model {
 									"pos_id",
 									"pos_name",
 									"vw_employee",
-									array("pos_name"=>"BUYER NON PROYEK"));
+									array("job_title"=>"PELAKSANA PENGADAAN","dept_id"=>$dept_id));
 
 								$inputbuyer['ptm_buyer_id'] = $buyers['nextPosCode'];
 								$inputbuyer['ptm_buyer'] = $buyers['nextPosName'];
@@ -700,12 +707,11 @@ class Procedure_m extends MY_Model {
 							    //haqim
 							} elseif($type_of_plan == 'rkp') {
 
-
-								$this->db->where('pos_name','BUYER PROYEK');
-								if (isset($dept_id)) {
-									$this->db->where('dept_id', $dept_id);
-								}
-								$buyer = $this->db->get('vw_employee')->row_array();
+								$this->db->join($view." a", 'a.hap_pos_code = b.pos_id', 'left');
+								$this->db->where('job_title','PELAKSANA PENGADAAN');
+								$this->db->where('dept_id', $dept_id);
+								
+								$buyer = $this->db->get('vw_employee b')->row_array();
 								$inputbuyer['ptm_buyer_id'] = $buyer['id'];
 								$inputbuyer['ptm_buyer'] = $buyer['fullname'];
 							    $inputbuyer['ptm_buyer_pos_code'] = $buyer['pos_id'];
@@ -932,6 +938,10 @@ class Procedure_m extends MY_Model {
 			$view_pemenang = 'vw_prc_hierarchy_approval_3';
 			$view_kontrak = 'vw_prc_hierarchy_approval_11';
 		}
+
+		$this->db->select('ptm_dept_id');
+		$this->db->where('ptm_number', $ptm_number);
+		$dept_id = $this->db->get('prc_tender_main')->row_array();
 
 		if(is_numeric($response)){
 			$response_real = $this->getResponseName($response);
