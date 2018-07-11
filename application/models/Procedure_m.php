@@ -707,7 +707,7 @@ class Procedure_m extends MY_Model {
 							    //haqim
 							} elseif($type_of_plan == 'rkp') {
 
-								$this->db->join($view." a", 'a.hap_pos_code = b.pos_id', 'left');
+								$this->db->join($view_rfq." a", 'a.hap_pos_code = b.pos_id');
 								$this->db->where('job_title','PELAKSANA PENGADAAN');
 								$this->db->where('dept_id', $dept_id);
 								
