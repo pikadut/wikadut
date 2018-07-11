@@ -980,32 +980,40 @@ if($last_activity == 1090){
 
 if($last_activity == 1140){
 
-  if(isset($post['msg_nego_inp']) && !empty($post['msg_nego_inp'])){
+  if ($post['status_inp'][0] == 319) {
+      if(isset($post['msg_nego_inp']) && !empty($post['msg_nego_inp'])){
 
-    $vnd_id = $post['vendor_nego_inp'];
+      $vnd_id = $post['vendor_nego_inp'];
 
-    $inp = array(
-      "ptm_number"=>$ptm_number,
-      "awa_id"=>$last_activity,
-      "pbm_vendor_code"=> $vnd_id,
-      "pbm_message"=>$post['msg_nego_inp'],
-      "pbm_date"=>date("Y-m-d H:i:s"),
-      "pbm_mode"=>null,
-      "pbm_user"=>$userdata['complete_name'],
-      );
+      $inp = array(
+        "ptm_number"=>$ptm_number,
+        "awa_id"=>$last_activity,
+        "pbm_vendor_code"=> $vnd_id,
+        "pbm_message"=>$post['msg_nego_inp'],
+        "pbm_date"=>date("Y-m-d H:i:s"),
+        "pbm_mode"=>null,
+        "pbm_user"=>$userdata['complete_name'],
+        );
 
-    $msg = $this->Procrfq_m->insertMessageRFQ($inp);
+      $msg = $this->Procrfq_m->insertMessageRFQ($inp);
 
-    if($msg){
+      if($msg){
 
-      $this->db->where(array("ptm_number"=>$ptm_number,"pvs_vendor_code !="=>$vnd_id))
-      ->update("prc_tender_vendor_status",array("pvs_is_negotiate"=>0));
-      $this->db->where(array("ptm_number"=>$ptm_number,"pvs_vendor_code"=>$vnd_id))
-      ->update("prc_tender_vendor_status",array("pvs_is_negotiate"=>1,"pvs_status"=>10));
+        $this->db->where(array("ptm_number"=>$ptm_number,"pvs_vendor_code !="=>$vnd_id))
+        ->update("prc_tender_vendor_status",array("pvs_is_negotiate"=>0));
+        $this->db->where(array("ptm_number"=>$ptm_number,"pvs_vendor_code"=>$vnd_id))
+        ->update("prc_tender_vendor_status",array("pvs_is_negotiate"=>1,"pvs_status"=>10));
 
+      }
+
+    } else{
+    $this->setMessage("Silahkan pilih vendor dan isi pesan negosiasi terlebih dahulu");
+    if(!$error){
+      $error = true;
     }
-
   }
+  }
+  
 
 }
 
@@ -1038,7 +1046,7 @@ $com = $post['comment_inp'][0];
 
 $attachment = $post['comment_attachment_inp'][0];
 
-$return = $this->Procedure_m->prc_tender_comment_complete($ptm_number,$userdata['complete_name'],$last_activity,$response,$com,$attachment,$last_comment['comment_id'],$userdata['employee_id']);
+$return = $this->Procedure_m->prc_tender_comment_complete($ptm_number,$userdata['complete_name'],$last_activity,$response,$com,$attachment,$last_comment['comment_id'],$userdata['employee_id'],$tender['ptm_type_of_plan']);
 
 if(!empty($return['nextactivity'])){
 

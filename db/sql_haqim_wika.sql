@@ -678,8 +678,106 @@ CREATE VIEW "public"."vw_prc_pr_monitor" AS  SELECT pr.pr_number,
 COMMENT ON VIEW "public"."vw_prc_pr_monitor" IS 'Monitor PR';
 
 
---- blm di push
 ALTER TABLE "public"."prc_tender_main" 
   ADD COLUMN "pr_type" varchar(255),
   ADD COLUMN "ptm_type_of_plan" varchar(255),
   ADD COLUMN "ptm_project_name" varchar(255);
+
+--- blm di push
+--06/07/2018
+CREATE OR REPLACE VIEW "public"."vw_prc_monitor" AS  SELECT ptm.pr_number,
+    ptp.ptm_number,
+    vnd.vendor_name,
+    vnd.vendor_id,
+    ptm.ptm_upreff,
+    ptm.ptm_downreff,
+    ptm.ptm_requester_name,
+    ptm.ptm_requester_pos_code,
+    ptm.ptm_requester_pos_name,
+    ptm.ptm_created_date,
+    ptm.ptm_subject_of_work,
+    ptm.ptm_scope_of_work,
+    ptm.ptm_district_id,
+    ptm.ptm_district,
+    ptm.ptm_delivery_point_id,
+    ptm.ptm_delivery_point,
+    ptm.ptm_delivery_time,
+    ptm.ptm_delivery_unit,
+    ptm.ptm_buyer,
+    ptm.ptm_buyer_pos_code,
+    ptm.ptm_buyer_pos_name,
+    ptm.ptm_currency,
+    ptm.ptm_contract_type,
+    ptm.ptm_last_participant,
+    ptm.ptm_last_participant_code,
+    ptm.ptm_is_contract_created,
+    ptm.ptm_rfq_no,
+    ptm.ptm_status,
+    ptm.ptm_completed_date,
+    ptm.ptm_tender_id,
+    ptm.ptm_is_manual,
+    ptm.ptm_dept_id,
+    ptm.ptm_dept_name,
+    ptm.ptm_mata_anggaran,
+    ptm.ptm_nama_mata_anggaran,
+    ptm.ptm_sub_mata_anggaran,
+    ptm.ptm_nama_sub_mata_anggaran,
+    ptm.ptm_pagu_anggaran,
+    ptm.ptm_sisa_anggaran,
+    ptm.ptm_requester_id,
+    ptp.ptp_id,
+    ptp.ptp_tender_method,
+    ptp.ptp_submission_method,
+    ptp.ptp_evaluation_method,
+    ptp.ptp_reg_opening_date,
+    ptp.ptp_reg_closing_date,
+    ptp.ptp_prebid_date,
+    ptp.ptp_prebid_location,
+    ptp.ptp_quot_closing_date,
+    ptp.ptp_tech_bid_date,
+    ptp.ptp_quot_opening_date,
+    ptp.ptp_eauction,
+    ptp.ptp_inquiry_notes,
+    ptp.ptp_enabled_rank,
+    ptp.ptp_prequalify,
+    ptp.ptp_doc_open_date,
+    ptp.ptp_preq_info,
+    ptp.evt_id,
+    ptp.evt_description,
+    ptp.adm_bid_committee,
+    ptp.adm_bid_committee_name,
+    ptp.ppt_id,
+    ptp.ppt_name,
+    ptp.ptp_bid_opening2,
+    ptp.ptp_tgl_aanwijzing2,
+    ptp.ptp_lokasi_aanwijzing2,
+    ptp.ptp_klasifikasi_peserta,
+    ptp.ptp_aanwijzing_online,
+    ( SELECT adm_wkf_activity.awa_name
+           FROM adm_wkf_activity
+          WHERE (adm_wkf_activity.awa_id = ( SELECT ptc.ptc_activity
+                   FROM prc_tender_comment ptc
+                  WHERE ((ptc.ptm_number)::text = (ptm.ptm_number)::text)
+                  ORDER BY ptc.ptc_id DESC
+                 LIMIT 1))) AS status,
+    pqvs.total AS total_contract,
+    COALESCE(( SELECT ptc.ptc_activity
+           FROM prc_tender_comment ptc
+          WHERE ((ptc.ptm_number)::text = (ptm.ptm_number)::text)
+          ORDER BY ptc.ptc_id DESC
+         LIMIT 1), ptm.ptm_status) AS last_status,
+    ( SELECT ptc.ptc_position
+           FROM prc_tender_comment ptc
+          WHERE ((ptc.ptm_number)::text = (ptm.ptm_number)::text)
+          ORDER BY ptc.ptc_id DESC
+         LIMIT 1) AS last_pos,
+    pqm.pqm_currency,
+		ptm.pr_type,
+		ptm.ptm_type_of_plan,
+		ptm.ptm_project_name
+   FROM (((((prc_tender_main ptm
+     LEFT JOIN prc_tender_prep ptp ON (((ptp.ptm_number)::text = (ptm.ptm_number)::text)))
+     LEFT JOIN prc_tender_vendor_status ptvs ON ((((ptvs.ptm_number)::text = (ptm.ptm_number)::text) AND (ptvs.pvs_is_winner = 1))))
+     LEFT JOIN vnd_header vnd ON ((vnd.vendor_id = ptvs.pvs_vendor_code)))
+     LEFT JOIN prc_tender_quo_main pqm ON (((vnd.vendor_id = pqm.ptv_vendor_code) AND ((ptp.ptm_number)::text = (pqm.ptm_number)::text))))
+     LEFT JOIN vw_prc_quotation_vendor_sum pqvs ON (((vnd.vendor_id = pqvs.ptv_vendor_code) AND ((pqvs.ptm_number)::text = (ptm.ptm_number)::text))));

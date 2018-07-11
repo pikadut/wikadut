@@ -68,7 +68,7 @@ $data['item'] = $this->Procrfq_m->getItemRFQ("",$ptm_number)->result_array();
 
 $data['prep'] = $this->Procrfq_m->getPrepRFQ($ptm_number)->row_array();
 
-$manager_name = (!empty($permintaan['ptm_man_emp_id'])) ? $this->db->where("id",$permintaan['ptm_man_emp_id'])->get("adm_employee")->row()->fullname : "";
+$manager_name = (!empty($permintaan['ptm_man_emp_id'])) ? $this->db->where("id",$permintaan['ptm_man_emp_id'])->get("adm_employee")->row()->fullname : "-";
 
 $data['manager_name'] = $manager_name;
 

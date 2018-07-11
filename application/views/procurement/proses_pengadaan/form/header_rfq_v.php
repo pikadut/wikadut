@@ -62,6 +62,21 @@
       </div>
     </div>
 
+    <!-- haqim -->
+    <?php $curval = (isset($permintaan['ptm_project_name'])) ? $permintaan["ptm_project_name"] : set_value("nama_proyek"); 
+    if (isset($permintaan['ptm_project_name'])) { ?>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Nama Proyek</label>
+          <div class="col-sm-10">
+            <p class="form-control-static" id="deskripsi_pekerjaan"><?php echo $curval ?></p>
+
+          </div>
+        </div>
+   <?php  }
+      ?>
+
+    <!-- end -->
+
     <?php $curval = (isset($permintaan['ptm_mata_anggaran']) && isset($permintaan['ptm_nama_mata_anggaran'])) ? $permintaan["ptm_mata_anggaran"]." - ".$permintaan["ptm_nama_mata_anggaran"] : ""; ?>
     <div class="form-group">
       <label class="col-sm-2 control-label">Mata Anggaran</label>
@@ -126,6 +141,15 @@
               <button type="button" id="chatBtn" class="btn btn-primary" data-toggle="modal" data-target="#chatModal">Chatting</button>
           </div>
         </div>
+
+  <?php $curval = (isset($permintaan['pr_type'])) ? $permintaan["pr_type"] : set_value("Jenis PR"); ?>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Jenis PR</label>
+      <div class="col-sm-10">
+        <p class="form-control-static" id="deskripsi_pekerjaan"><?php echo $curval ?></p>
+
+      </div>
+    </div>
       <!-- end -->
 
     <?php $curval = (isset($permintaan['ptm_contract_type'])) ?  $permintaan["ptm_contract_type"] : set_value("jenis_kontrak_inp"); ?>
