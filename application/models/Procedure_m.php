@@ -690,19 +690,19 @@ class Procedure_m extends MY_Model {
 								"prc_pr_main",
 								array("pr_number"=>$pr_number));
 
-								$buyerdata = $this->getNextState(
+								$buyerpos = $this->getNextState(
 									"pos_id",
 									"pos_name",
-									"vw_employee",
+									"adm_pos",
 									array("job_title"=>"PELAKSANA PENGADAAN","dept_id"=>$dept_id));
 
 								$inputbuyer['ptm_buyer_id'] = $buyers['nextPosCode'];
 								$inputbuyer['ptm_buyer'] = $buyers['nextPosName'];
-							    $inputbuyer['ptm_buyer_pos_code'] = $buyerdata['nextPosCode'];
-							    $inputbuyer['ptm_buyer_pos_name'] = $buyerdata['nextPosName'];
+							    $inputbuyer['ptm_buyer_pos_code'] = $buyerpos['nextPosCode'];
+							    $inputbuyer['ptm_buyer_pos_name'] = $buyerpos['nextPosName'];
 
-							    $nextPosCode = $buyerdata['nextPosCode'];
-								$nextPosName = $buyerdata['nextPosName'];
+							    $nextPosCode = $buyerpos['nextPosCode'];
+								$nextPosName = $buyerpos['nextPosName'];
 
 							    //haqim
 							} elseif($type_of_plan == 'rkp') {
