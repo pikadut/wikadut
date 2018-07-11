@@ -68,7 +68,7 @@
               </span> 
               <input readonly type="text" class="form-control" id="jaminan_file_inp" name="jaminan_file_inp" value="<?php echo $curval ?>">
               <span class="input-group-btn">
-              <button type="button" data-url="<?php echo site_url("log/download_attachment/contract/".$curval) ?>" class="btn btn-primary preview_upload" id="preview_file"><i class="fa fa-share"></i></button> 
+              <button type="button" data-url="<?php echo site_url("log/download_attachment/contract/jaminan/".$curval) ?>" class="btn btn-primary preview_upload" id="preview_file"><i class="fa fa-share"></i></button> 
               </span> 
             </div>
           </div>

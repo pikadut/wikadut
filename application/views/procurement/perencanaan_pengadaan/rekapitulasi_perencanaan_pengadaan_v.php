@@ -141,7 +141,7 @@ function totalPriceFormatter(data) {
         valign: 'middle'
       }, {
         field: 'ppm_subject_of_work',
-        title: 'Nama Rencana Pekerjaan',
+        title: 'Nama Program',
         sortable:true,
         order:true,
         searchable:true,

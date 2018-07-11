@@ -72,7 +72,7 @@
           <label class="col-sm-2 control-label">Lampiran Jaminan</label>
           <div class="col-sm-5">
             <p class="form-control-static">
-              <a href="<?php echo site_url("log/download_attachment/contract/".$curval) ?>" target="_blank">
+              <a href="<?php echo site_url("log/download_attachment/contract/jaminan/".$curval) ?>" target="_blank">
                 <?php echo $curval ?>
               </a>
             </p>

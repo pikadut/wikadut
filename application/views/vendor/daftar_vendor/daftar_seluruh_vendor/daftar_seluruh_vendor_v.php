@@ -13,6 +13,9 @@
         </div>        
 
         <div class="ibox-content">
+          <div>
+          <a class="btn btn-primary btn-xs action" id="sinkron" href="<?php echo site_url('vendor/daftar_vendor/sinkron_vendor') ?>">Sinkron</a> 
+        </div>
 
           <div class="table-responsive">            
 

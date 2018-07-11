@@ -105,9 +105,17 @@ class Vendor extends Telescoope_Controller {
 
 }
 
+public function sinkron_vendor(){
+ include("vendor/daftar_vendor/daftar_seluruh_vendor/sinkron_vendor.php");
+}
+
 public function daftar_vendor($param1 = "" ,$param2 = ""){
 
   switch ($param1) {
+
+    case 'sinkron_vendor':
+    $this->sinkron_vendor();
+    break;
 
     case 'daftar_seluruh_vendor':
     $this->daftar_seluruh_vendor();

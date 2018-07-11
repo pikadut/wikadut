@@ -31,7 +31,7 @@ class Kontrak extends MY_Controller {
 		$data['list'] = $this->db->select("a.contract_id, ptm_number, a.contract_number, vendor_name, a.start_date, a.end_date, a.subject_work, a.contract_type, a.currency, a.contract_amount, awa_name as status_name,a.status")
 		->join("adm_wkf_activity","awa_id=status")
 		->join("ctr_ammend_header b","a.contract_id=b.contract_id","left")
-		->where(array("vendor_id"=>$this->session->userdata("userid"),"awa_id"=>2901,"COALESCE(b.ammend_id,'')"=>"","COALESCE(b.ammended_date,'')"=>""))
+		->where(array("vendor_id"=>$this->session->userdata("userid"),"awa_id"=>2901,"COALESCE(b.ammend_id,NULL)"=>NULL,"COALESCE(b.ammended_date,NULL)"=>NULL))
 		->get("ctr_contract_header a")->result_array();
 
 		$data['title'] = "List Kontrak Addendum";
@@ -197,7 +197,7 @@ class Kontrak extends MY_Controller {
 
 		$data["list_milestone"] = $this->db
 		->select("contract_number,a.description,a.percentage,a.target_date,progress_percentage,a.milestone_id, 
-			CASE a.progress_status 
+			CASE a.progress_status::integer 
 			WHEN 1 THEN 'Persetujuan Progress Milestone' 
 			WHEN 2 THEN 'Persetujuan Progress Milestone' 
 			WHEN 3 THEN 'Persetujuan Progress Milestone' 
@@ -206,41 +206,84 @@ class Kontrak extends MY_Controller {
 			WHEN 6 THEN 'Persetujuan Progress Milestone' 
 			WHEN 99 THEN 'Revisi'
 			ELSE 'Aktif' END AS activity")
-		->where(array("c.vendor_id"=>$this->session->userdata("userid"),"COALESCE(a.progress_status,null)"=>99))
+		->where(array("c.vendor_id"=>$this->session->userdata("userid"),"COALESCE(a.progress_status,null)::integer"=>99))
 		->join("ctr_contract_header c","c.contract_id=a.contract_id","left")
 		->get("ctr_contract_milestone a")
 		->result_array();
 
 		//start code hlmifzi
-		$data["list_wo"] = $this->db
-		->select("a.po_id,po_number,contract_number,po_notes,subject_work,contract_type,awa_name,
-			CASE e.status 
-			WHEN 1 THEN 'Persetujuan Progress WO'  
-			WHEN 2 THEN 'Persetujuan Progress WO' 
-			WHEN 3 THEN 'Persetujuan Progress WO' 
-			WHEN 4 THEN 'Persetujuan Progress WO' 
-			WHEN 5 THEN 'Persetujuan Progress WO' 
-			WHEN 6 THEN 'Persetujuan Progress WO' 
-			WHEN 99 THEN 'Revisi'
-			ELSE 'Aktif' END AS activity")
-		->where(array("a.vendor_id"=>$this->session->userdata("userid"),"cwo_end_date"=>null,"cwo_activity"=>2013,"COALESCE(e.status,null)"=>99))
-		->join("ctr_po_header a","a.po_id=b.po_id")
-		->join("ctr_contract_header c","c.contract_id=a.contract_id")
-		->join("adm_wkf_activity d","d.awa_id=b.cwo_activity")
-		->join("ctr_po_progress_header e","e.po_id=a.po_id","left")
-		->get("ctr_po_comment b")
-		->result_array();
-
+		// $data["list_wo"] = $this->db
+		// ->select("a.po_id,po_number,contract_number,po_notes,subject_work,contract_type,awa_name,
+		// 	CASE e.status::integer 
+		// 	WHEN 1 THEN 'Persetujuan Progress WO'  
+		// 	WHEN 2 THEN 'Persetujuan Progress WO' 
+		// 	WHEN 3 THEN 'Persetujuan Progress WO' 
+		// 	WHEN 4 THEN 'Persetujuan Progress WO' 
+		// 	WHEN 5 THEN 'Persetujuan Progress WO' 
+		// 	WHEN 6 THEN 'Persetujuan Progress WO' 
+		// 	WHEN 99 THEN 'Revisi'
+		// 	ELSE 'Aktif' END AS activity")
+		// ->where(array("a.vendor_id"=>$this->session->userdata("userid"),"cwo_end_date"=>null,"cwo_activity"=>2013,"COALESCE(e.status,null)"=>99))
+		// ->join("ctr_po_header a","a.po_id=b.po_id")
+		// ->join("ctr_contract_header c","c.contract_id=a.contract_id")
+		// ->join("adm_wkf_activity d","d.awa_id=b.cwo_activity")
+		// ->join("ctr_po_progress_header e","e.po_id=a.po_id","left")
+		// ->get("ctr_po_comment b")
+		// ->result_array();
 		//endcode
+
+
+		//y my code
+		$data['list_wo'] = $this->db->query("
+			SELECT
+			a.po_id,
+			po_number,
+			contract_number,
+			po_notes,
+			subject_work,
+			contract_type,
+			awa_name,
+		CASE
+			e.status::INTEGER 
+			WHEN 1 THEN
+			'Persetujuan Progress WO' 
+			WHEN 2 THEN
+			'Persetujuan Progress WO' 
+			WHEN 3 THEN
+			'Persetujuan Progress WO' 
+			WHEN 4 THEN
+			'Persetujuan Progress WO' 
+			WHEN 5 THEN
+			'Persetujuan Progress WO' 
+			WHEN 6 THEN
+			'Persetujuan Progress WO' 
+			WHEN 99 THEN
+			'Revisi' ELSE 'Aktif' 
+			END AS activity 
+		FROM
+			ctr_po_comment b
+			JOIN ctr_po_header a ON a.po_id::INTEGER = b.po_id::INTEGER 
+			JOIN ctr_contract_header c ON c.contract_id = a.contract_id
+			JOIN adm_wkf_activity d ON d.awa_id = b.cwo_activity
+			LEFT JOIN ctr_po_progress_header e ON e.po_id = a.po_id
+		WHERE
+			a.vendor_id ='".$this->session->userdata('userid')."'
+			AND cwo_end_date IS NULL 
+			AND cwo_activity = 2013 
+			AND COALESCE ( e.STATUS, NULL )::INTEGER = 99
+		")->result_array();
+		
+		//y end my code
+
 
 		$data['list_bast'] = $this->db
 		->query("SELECT po_id as id, contract_number,po_notes as description,b.vendor_name,progress_percentage, 'WO' as type FROM ctr_po_header b
 			LEFT JOIN ctr_contract_header a ON a.contract_id=b.contract_id 
-			WHERE b.vendor_id='".$this->session->userdata("userid")."' AND progress_percentage='100' AND COALESCE(bastp_status,0) IN (0,99) AND bastp_number IS NULL
+			WHERE b.vendor_id='".$this->session->userdata("userid")."' AND progress_percentage='100' AND COALESCE(bastp_status,'0')::INTEGER IN (0,99) AND bastp_number IS NULL
 			UNION ALL 
 			SELECT milestone_id as id, contract_number,b.description,vendor_name,progress_percentage, 'LUMPSUM' as type FROM ctr_contract_milestone b
 			LEFT JOIN ctr_contract_header a ON a.contract_id=b.contract_id 
-			WHERE a.vendor_id='".$this->session->userdata("userid")."' AND progress_percentage='100' AND COALESCE(bastp_status,0) IN (0,99) AND bastp_number IS NULL")
+			WHERE a.vendor_id='".$this->session->userdata("userid")."' AND progress_percentage='100' AND COALESCE(bastp_status,'0')::INTEGER IN (0,99) AND bastp_number IS NULL")
 		->result_array();
 
 		//start code hlmifzi
@@ -271,7 +314,7 @@ class Kontrak extends MY_Controller {
 	public function monitor_bast(){
 
 		$data['list'] = $this->db
-		->query("SELECT po_id as id, contract_number,po_notes as description,b.vendor_name,progress_percentage, 'WO' as type,bastp_number,CASE bastp_status 
+		->query("SELECT po_id as id, contract_number,po_notes as description,b.vendor_name,progress_percentage, 'WO' as type,bastp_number,CASE bastp_status ::INTEGER
 			WHEN 1 THEN 'Persetujuan BAST WO'  
 			WHEN 2 THEN 'Persetujuan BAST WO' 
 			WHEN 3 THEN 'Persetujuan BAST WO' 
@@ -283,7 +326,7 @@ class Kontrak extends MY_Controller {
 			LEFT JOIN ctr_contract_header a ON a.contract_id=b.contract_id 
 			WHERE b.vendor_id='".$this->session->userdata("userid")."' AND progress_percentage='100'
 			UNION ALL 
-			SELECT milestone_id as id, contract_number,b.description,vendor_name,progress_percentage, 'LUMPSUM' as type,bastp_number,CASE bastp_status 
+			SELECT milestone_id as id, contract_number,b.description,vendor_name,progress_percentage, 'LUMPSUM' as type,bastp_number,CASE bastp_status ::INTEGER
 			WHEN 1 THEN 'Persetujuan BAST Milestone'  
 			WHEN 2 THEN 'Persetujuan BAST Milestone' 
 			WHEN 3 THEN 'Persetujuan BAST Milestone' 
@@ -814,49 +857,123 @@ class Kontrak extends MY_Controller {
 	}
 
 	public function wo(){
-		$data["list"] = $this->db
-		->select("a.po_id,po_number,contract_number,po_notes,contract_type,awa_name,
-			CASE e.status 
-			WHEN 1 THEN 'Persetujuan Progress WO'   
-			WHEN 2 THEN 'Persetujuan Progress WO'  
-			WHEN 3 THEN 'Persetujuan Progress WO'  
-			WHEN 4 THEN 'Persetujuan Progress WO'  
-			WHEN 5 THEN 'Persetujuan Progress WO'  
-			WHEN 6 THEN 'Persetujuan Progress WO'  
-			WHEN 99 THEN 'Revisi'
-			ELSE 'Aktif' END AS activity")
-		->where(array("a.vendor_id"=>$this->session->userdata("userid"),"cwo_end_date"=>null,"cwo_activity"=>2013,"COALESCE(e.status,null)"=>null,
-			"COALESCE(e.progress_percentage,0) !="=>100))
-		->join("ctr_po_header a","a.po_id=b.po_id")
-		->join("ctr_contract_header c","c.contract_id=a.contract_id")
-		->join("adm_wkf_activity d","d.awa_id=b.cwo_activity")
-		->join("ctr_po_progress_header e","e.po_id=a.po_id","left")
-		->get("ctr_po_comment b")
-		->result_array();
+		$data["list"] = $this->db->query("
+			SELECT
+			a.po_id,
+			po_number,
+			contract_number,
+			po_notes,
+			contract_type,
+			awa_name,
+		CASE
+			e.STATUS ::INTEGER
+			WHEN 1 THEN
+			'Persetujuan Progress WO' 
+			WHEN 2 THEN
+			'Persetujuan Progress WO' 
+			WHEN 3 THEN
+			'Persetujuan Progress WO' 
+			WHEN 4 THEN
+			'Persetujuan Progress WO' 
+			WHEN 5 THEN
+			'Persetujuan Progress WO' 
+			WHEN 6 THEN
+			'Persetujuan Progress WO' 
+			WHEN 99 THEN
+			'Revisi' ELSE 'Aktif' 
+			END AS activity 
+		FROM
+			ctr_po_comment b
+			JOIN ctr_po_header a ON a.po_id::INTEGER = b.po_id::INTEGER
+			JOIN ctr_contract_header c ON c.contract_id = a.contract_id
+			JOIN adm_wkf_activity d ON d.awa_id = b.cwo_activity
+			LEFT JOIN ctr_po_progress_header e ON e.po_id = a.po_id 
+		WHERE
+			a.vendor_id = '".$this->session->userdata("userid")."' 
+			AND cwo_end_date IS NULL 
+			AND cwo_activity = 2013 
+			AND COALESCE ( e.STATUS, NULL ) IS NULL 
+			AND COALESCE ( e.progress_percentage, 0 ) != 100
+			")->result_array();
+		// $data["list"] = $this->db
+		// ->select("a.po_id,po_number,contract_number,po_notes,contract_type,awa_name,
+		// 	CASE e.status 
+		// 	WHEN 1 THEN 'Persetujuan Progress WO'   
+		// 	WHEN 2 THEN 'Persetujuan Progress WO'  
+		// 	WHEN 3 THEN 'Persetujuan Progress WO'  
+		// 	WHEN 4 THEN 'Persetujuan Progress WO'  
+		// 	WHEN 5 THEN 'Persetujuan Progress WO'  
+		// 	WHEN 6 THEN 'Persetujuan Progress WO'  
+		// 	WHEN 99 THEN 'Revisi'
+		// 	ELSE 'Aktif' END AS activity")
+		// ->where(array("a.vendor_id"=>$this->session->userdata("userid"),"cwo_end_date"=>null,"cwo_activity"=>2013,"COALESCE(e.status,null)"=>null,
+		// 	"COALESCE(e.progress_percentage,0) !="=>100))
+		// ->join("ctr_po_header a","a.po_id=b.po_id")
+		// ->join("ctr_contract_header c","c.contract_id=a.contract_id")
+		// ->join("adm_wkf_activity d","d.awa_id=b.cwo_activity")
+		// ->join("ctr_po_progress_header e","e.po_id=a.po_id","left")
+		// ->get("ctr_po_comment b")
+		// ->result_array();
 		//echo $this->db->last_query();
 		$data['judul'] = "List Progress WO";
 		$this->layout->view('listwo', $data);
 	}
 
 	public function monitor_wo(){
-		$data["list"] = $this->db
-		->select("a.po_id,po_number,contract_number,po_notes,contract_type,awa_name,
-			CASE e.status 
-			WHEN 1 THEN 'Persetujuan Progress WO'  
-			WHEN 2 THEN 'Persetujuan Progress WO' 
-			WHEN 3 THEN 'Persetujuan Progress WO' 
-			WHEN 4 THEN 'Persetujuan Progress WO' 
-			WHEN 5 THEN 'Persetujuan Progress WO' 
-			WHEN 6 THEN 'Persetujuan Progress WO' 
-			WHEN 99 THEN 'Revisi'
-			ELSE 'Aktif' END AS activity")
-		->where(array("a.vendor_id"=>$this->session->userdata("userid"),"cwo_end_date"=>null,"cwo_activity"=>2013))
-		->join("ctr_po_header a","a.po_id=b.po_id")
-		->join("ctr_contract_header c","c.contract_id=a.contract_id")
-		->join("adm_wkf_activity d","d.awa_id=b.cwo_activity")
-		->join("ctr_po_progress_header e","e.po_id=a.po_id","left")
-		->get("ctr_po_comment b")
-		->result_array();
+		$data["list"] = $this->db->query("
+			SELECT
+			a.po_id,
+			po_number,
+			contract_number,
+			po_notes,
+			contract_type,
+			awa_name,
+		CASE
+			e.STATUS ::INTEGER
+			WHEN 1 THEN
+			'Persetujuan Progress WO' 
+			WHEN 2 THEN
+			'Persetujuan Progress WO' 
+			WHEN 3 THEN
+			'Persetujuan Progress WO' 
+			WHEN 4 THEN
+			'Persetujuan Progress WO' 
+			WHEN 5 THEN
+			'Persetujuan Progress WO' 
+			WHEN 6 THEN
+			'Persetujuan Progress WO' 
+			WHEN 99 THEN
+			'Revisi' ELSE 'Aktif' 
+			END AS activity 
+		FROM
+			ctr_po_comment b
+			JOIN ctr_po_header a ON a.po_id::INTEGER = b.po_id::INTEGER
+			JOIN ctr_contract_header c ON c.contract_id = a.contract_id
+			JOIN adm_wkf_activity d ON d.awa_id = b.cwo_activity
+			LEFT JOIN ctr_po_progress_header e ON e.po_id = a.po_id 
+		WHERE
+			a.vendor_id = '".$this->session->userdata("userid")."' 
+			AND cwo_end_date IS NULL 
+			AND cwo_activity = 2013
+			")->result_array();
+		// $data["list"] = $this->db
+		// ->select("a.po_id,po_number,contract_number,po_notes,contract_type,awa_name,
+		// 	CASE e.status 
+		// 	WHEN 1 THEN 'Persetujuan Progress WO'  
+		// 	WHEN 2 THEN 'Persetujuan Progress WO' 
+		// 	WHEN 3 THEN 'Persetujuan Progress WO' 
+		// 	WHEN 4 THEN 'Persetujuan Progress WO' 
+		// 	WHEN 5 THEN 'Persetujuan Progress WO' 
+		// 	WHEN 6 THEN 'Persetujuan Progress WO' 
+		// 	WHEN 99 THEN 'Revisi'
+		// 	ELSE 'Aktif' END AS activity")
+		// ->where(array("a.vendor_id"=>$this->session->userdata("userid"),"cwo_end_date"=>null,"cwo_activity"=>2013))
+		// ->join("ctr_po_header a","a.po_id=b.po_id")
+		// ->join("ctr_contract_header c","c.contract_id=a.contract_id")
+		// ->join("adm_wkf_activity d","d.awa_id=b.cwo_activity")
+		// ->join("ctr_po_progress_header e","e.po_id=a.po_id","left")
+		// ->get("ctr_po_comment b")
+		// ->result_array();
 		$data['judul'] = "List Monitor WO";
 		$this->layout->view('listwo', $data);
 	}
@@ -864,7 +981,7 @@ class Kontrak extends MY_Controller {
 	public function monitor_milestone(){
 		$data["list"] = $this->db
 		->select("contract_number,a.description,a.percentage,a.target_date,progress_percentage,a.milestone_id, 
-			CASE a.progress_status 
+			CASE a.progress_status ::INTEGER
 			WHEN 1 THEN 'Persetujuan Progress Milestone'  
 			WHEN 2 THEN 'Persetujuan Progress Milestone' 
 			WHEN 3 THEN 'Persetujuan Progress Milestone' 
@@ -882,23 +999,56 @@ class Kontrak extends MY_Controller {
 	}
 
 	public function milestone(){
-		$data["list"] = $this->db
-		->select("contract_number,a.description,a.percentage,a.target_date,progress_percentage,a.milestone_id, 
-			CASE a.progress_status 
-			WHEN 1 THEN 'Persetujuan Progress Milestone'  
-			WHEN 2 THEN 'Persetujuan Progress Milestone' 
-			WHEN 3 THEN 'Persetujuan Progress Milestone' 
-			WHEN 4 THEN 'Persetujuan Progress Milestone' 
-			WHEN 5 THEN 'Persetujuan Progress Milestone' 
-			WHEN 6 THEN 'Persetujuan Progress Milestone' 
-			WHEN 99 THEN 'Revisi'
-			ELSE 'Aktif' END AS activity")
-		->where(array("c.vendor_id"=>$this->session->userdata("userid"),
-			"COALESCE(a.progress_status,0)"=>0,
-			"COALESCE(progress_percentage,0) !="=>100))
-		->join("ctr_contract_header c","c.contract_id=a.contract_id","left")
-		->get("ctr_contract_milestone a")
-		->result_array();
+		$data["list"] = $this->db->query("
+			SELECT
+			contract_number,
+			a.description,
+			a.percentage,
+			a.target_date,
+			progress_percentage,
+			a.milestone_id,
+		CASE
+			a.progress_status ::INTEGER
+			WHEN 1 THEN
+			'Persetujuan Progress Milestone' 
+			WHEN 2 THEN
+			'Persetujuan Progress Milestone' 
+			WHEN 3 THEN
+			'Persetujuan Progress Milestone' 
+			WHEN 4 THEN
+			'Persetujuan Progress Milestone' 
+			WHEN 5 THEN
+			'Persetujuan Progress Milestone' 
+			WHEN 6 THEN
+			'Persetujuan Progress Milestone' 
+			WHEN 99 THEN
+			'Revisi' ELSE 'Aktif' 
+			END AS activity 
+		FROM
+			ctr_contract_milestone a
+			LEFT JOIN ctr_contract_header c ON c.contract_id = a.contract_id 
+		WHERE
+			c.vendor_id = '".$this->session->userdata("userid")."' 
+			AND COALESCE ( a.progress_status, '0' )::INTEGER = 0 
+			AND COALESCE ( progress_percentage, 0 ) != 100
+			")->result_array();
+		// $data["list"] = $this->db
+		// ->select("contract_number,a.description,a.percentage,a.target_date,progress_percentage,a.milestone_id, 
+		// 	CASE a.progress_status 
+		// 	WHEN 1 THEN 'Persetujuan Progress Milestone'  
+		// 	WHEN 2 THEN 'Persetujuan Progress Milestone' 
+		// 	WHEN 3 THEN 'Persetujuan Progress Milestone' 
+		// 	WHEN 4 THEN 'Persetujuan Progress Milestone' 
+		// 	WHEN 5 THEN 'Persetujuan Progress Milestone' 
+		// 	WHEN 6 THEN 'Persetujuan Progress Milestone' 
+		// 	WHEN 99 THEN 'Revisi'
+		// 	ELSE 'Aktif' END AS activity")
+		// ->where(array("c.vendor_id"=>$this->session->userdata("userid"),
+		// 	"COALESCE(a.progress_status,0)"=>0,
+		// 	"COALESCE(progress_percentage,0) !="=>100))
+		// ->join("ctr_contract_header c","c.contract_id=a.contract_id","left")
+		// ->get("ctr_contract_milestone a")
+		// ->result_array();
 		$data['judul'] = "List Progress Milestone";
 		$this->layout->view('listmilestone', $data);
 	}

@@ -21,7 +21,7 @@ if(!$position){
   $this->form_validation->set_rules("nama_proyek", "Nama Proyek", 'max_length['.DEFAULT_MAXLENGTH.']');
 // end
 
-$this->form_validation->set_rules("nama_rencana_pekerjaan_inp", "Nama Rencana Pekerjaan", 'required|max_length['.DEFAULT_MAXLENGTH.']');
+$this->form_validation->set_rules("nama_rencana_pekerjaan_inp", "Nama Program", 'required|max_length['.DEFAULT_MAXLENGTH.']');
 $this->form_validation->set_rules("deskripsi_rencana_pekerjaan_inp", "Deskripsi Rencana Pekerjaan", 'required|max_length['.DEFAULT_MAXLENGTH_TEXT.']');
 // haqim
   $input['ppm_type_of_plan'] = $post['jenis_rencana'];
