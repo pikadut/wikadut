@@ -52,17 +52,24 @@ switch ($type) {
 	// $tabel = "adm_auth_hie";
 	// break;
 }
-
+// echo $id;
+// echo $type;
+// echo $tabel;
+// exit();
 $parent = $this->db->where('auth_hie_id', $id)->get($tabel)->row_array();
 $child = $this->db->where('parent_id', $id)->get($tabel)->result_array();
-
+var_dump($parent);echo "<br>";
+var_dump($child);
+exit();
 $delete = $this->db->where('auth_hie_id', $id)->delete($tabel); 
 
 if($delete){
 	if(!empty($child)){
 		foreach ($child as $key => $value) {
 			$this->db->where("auth_hie_id",$value['auth_hie_id'])
-			->update($type,array("parent_id"=>$parent['parent_id']));
+			// ->update($type,array("parent_id"=>$parent['parent_id']));
+			->update($tabel,array("parent_id"=>$parent['parent_id']));
+
 		}
 	}
 	$this->setMessage("Berhasil menghapus hirarki posisi");
