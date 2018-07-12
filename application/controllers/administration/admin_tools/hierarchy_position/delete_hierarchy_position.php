@@ -58,9 +58,7 @@ switch ($type) {
 // exit();
 $parent = $this->db->where('auth_hie_id', $id)->get($tabel)->row_array();
 $child = $this->db->where('parent_id', $id)->get($tabel)->result_array();
-var_dump($parent);echo "<br>";
-var_dump($child);
-exit();
+
 $delete = $this->db->where('auth_hie_id', $id)->delete($tabel); 
 
 if($delete){
