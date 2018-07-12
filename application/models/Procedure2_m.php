@@ -577,13 +577,20 @@ class Procedure2_m extends CI_Model {
 				if($response == url_title('Lanjutkan',"_",true)){
 
 					$ctrvalue = $this->getContractAmmount($ptm_number);
+					$spedept = $this->db->select('ctr_spe_employee')->where(array('ptm_number'=>$ptm_number))->get('ctr_contract_header')->row_array();
+					$userdept = $this->db->select('dept_id')
+								->where(array('employee_id'=>$spedept['ctr_spe_employee']))
+								->get('adm_employee_pos')->row_array();
+					$ctrdept = $this->db->select('pos_id')
+								->where(array('job_title' => 'MANAJER USER', 'dept_id' => $userdept['dept_id']))
+								->get('adm_pos')->row_array();
 
 					$getdata = $this->getNextState(
 						"hap_pos_code",
 						"hap_pos_name",
 						"vw_prc_hierarchy_approval_11",
 						"hap_pos_code = (select distinct hap_pos_parent 
-							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL AND hap_pos_parent = ".$ctrdept['pos_id'].")");
 
 					$nextPosCode = $getdata['nextPosCode'];
 					$nextPosName = $getdata['nextPosName'];
