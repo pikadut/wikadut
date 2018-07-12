@@ -771,35 +771,72 @@ class Procedure_m extends MY_Model {
 						//$nextjobtitle = 'VP PENGADAAN';
 						$nextjobtitle = 'PELAKSANA PENGADAAN'; //y rfq kembali ke pic user (PR[approval PR] -> RFQ[PIC User PR as Buyer])
 
-						$getdata = $this->getNextState(
-							"pos_id",
-							"pos_name",
-							"adm_pos",
-							array("job_title"=>$nextjobtitle));
+					// 	$getdata = $this->getNextState(
+					// 		"pos_id",
+					// 		"pos_name",
+					// 		"adm_pos",
+					// 		array("job_title"=>$nextjobtitle));
 
-						$nextPosCode = $getdata['nextPosCode'];
-						$nextPosName = $getdata['nextPosName'];
+					// 	$nextPosCode = $getdata['nextPosCode'];
+					// 	$nextPosName = $getdata['nextPosName'];
 
 						$nextActivity = 1040; //1029
 
-					//=======================================================
-						//y get pr planner sebagai rfq buyer
-						$buyers = $this->getNextState(
-							"pr_requester_id",
-							"pr_requester_name",
-							"prc_pr_main",
-							array("pr_number"=>$pr_number));
+					// //=======================================================
+					// 	//y get pr planner sebagai rfq buyer
+					// 	$buyers = $this->getNextState(
+					// 		"pr_requester_id",
+					// 		"pr_requester_name",
+					// 		"prc_pr_main",
+					// 		array("pr_number"=>$pr_number));
 
-						$buyerdata = $this->getNextState(
-							"pos_id",
-							"pos_name",
-							"vw_employee",
-							array("pos_name"=>"BUYER"));
+					// 	$buyerdata = $this->getNextState(
+					// 		"pos_id",
+					// 		"pos_name",
+					// 		"vw_employee",
+					// 		array("pos_name"=>"BUYER"));
 						
-					    $inputbuyer['ptm_buyer_id'] = $buyers['nextPosCode'];
-						$inputbuyer['ptm_buyer'] = $buyers['nextPosName'];
-					    $inputbuyer['ptm_buyer_pos_code'] = $buyerdata['nextPosCode'];
-					    $inputbuyer['ptm_buyer_pos_name'] = $buyerdata['nextPosName'];
+					//     $inputbuyer['ptm_buyer_id'] = $buyers['nextPosCode'];
+					// 	$inputbuyer['ptm_buyer'] = $buyers['nextPosName'];
+					//     $inputbuyer['ptm_buyer_pos_code'] = $buyerdata['nextPosCode'];
+					//     $inputbuyer['ptm_buyer_pos_name'] = $buyerdata['nextPosName'];
+
+					    if ($type_of_plan == 'rkap') {
+								$buyers = $this->getNextState(
+								"pr_requester_id",
+								"pr_requester_name",
+								"prc_pr_main",
+								array("pr_number"=>$pr_number));
+
+								$buyerpos = $this->getNextState(
+									"pos_id",
+									"pos_name",
+									"adm_pos",
+									array("job_title"=>"PELAKSANA PENGADAAN","dept_id"=>$dept_id));
+
+								$inputbuyer['ptm_buyer_id'] = $buyers['nextPosCode'];
+								$inputbuyer['ptm_buyer'] = $buyers['nextPosName'];
+							    $inputbuyer['ptm_buyer_pos_code'] = $buyerpos['nextPosCode'];
+							    $inputbuyer['ptm_buyer_pos_name'] = $buyerpos['nextPosName'];
+
+							    $nextPosCode = $buyerpos['nextPosCode'];
+								$nextPosName = $buyerpos['nextPosName'];
+
+							    //haqim
+							} elseif($type_of_plan == 'rkp') {
+
+								$this->db->join($view_rfq." a", 'a.hap_pos_code = b.pos_id');
+								$this->db->where('b.job_title','PELAKSANA PENGADAAN');
+								$this->db->where('b.dept_id', $dept_id);
+								
+								$buyer = $this->db->get('vw_employee b')->row_array();
+								$inputbuyer['ptm_buyer_id'] = $buyer['id'];
+								$inputbuyer['ptm_buyer'] = $buyer['fullname'];
+							    $inputbuyer['ptm_buyer_pos_code'] = $buyer['pos_id'];
+							    $inputbuyer['ptm_buyer_pos_name'] = $buyer['pos_name'];
+							    $nextPosCode = $buyer['pos_id'];
+								$nextPosName = $buyer['pos_name'];
+							}
 						
 						$this->db->where('ptm_number', $newNumber)->update('prc_tender_main', $inputbuyer);
 						
@@ -1131,12 +1168,12 @@ class Procedure_m extends MY_Model {
 
 					$nextjobtitle = 'VP PENGADAAN';
 
-					$this->db->join($view_pemenang." a", 'a.hap_pos_code = b.pos_id');
+					$this->db->join($view." a", 'a.hap_pos_code = b.pos_id');
 					$getdata = $this->getNextState(
 						"a.hap_pos_code",
 						"a.hap_pos_name",
 						"adm_pos b",
-						array("b.job_title"=>$nextjobtitle));
+						array("b.job_title"=>$nextjobtitle,'b.dept_id'=>$dept_id));
 
 					$nextPosCode = $getdata['nextPosCode'];
 					$nextPosName = $getdata['nextPosName'];
@@ -1488,12 +1525,17 @@ class Procedure_m extends MY_Model {
 					if($response == url_title('Simpan dan Lanjut',"_",true)){
 
 						$nextjobtitle = 'MANAJER PENGADAAN';
-
+						$this->db->join($view." a", 'a.hap_pos_code = b.pos_id');
 						$getdata = $this->getNextState(
-							"pos_id",
-							"pos_name",
-							"adm_pos",
-							array("job_title"=>$nextjobtitle));
+							"a.hap_pos_code",
+							"a.hap_pos_name",
+							"adm_pos b",
+							array("b.job_title"=>$nextjobtitle,'b.dept_id'=>$dept_id));
+						// $getdata = $this->getNextState(
+						// 	"pos_id",
+						// 	"pos_name",
+						// 	"adm_pos",
+						// 	array("job_title"=>$nextjobtitle));
 
 						$nextPosCode = $getdata['nextPosCode'];
 						$nextPosName = $getdata['nextPosName'];
@@ -1533,7 +1575,7 @@ class Procedure_m extends MY_Model {
 							"a.hap_pos_code",
 							"a.hap_pos_name",
 							"adm_pos b",
-							array("b.job_title"=>$nextjobtitle));
+							array("b.job_title"=>$nextjobtitle,'b.dept_id'=>$dept_id));
 
 						$nextPosCode = $getdata['nextPosCode'];
 						$nextPosName = $getdata['nextPosName'];
@@ -1733,12 +1775,17 @@ class Procedure_m extends MY_Model {
 
 							$nextjobtitle = 'VP PENGADAAN';
 						
+							// $getdata = $this->getNextState(
+							// 	"pos_id",
+							// 	"pos_name",
+							// 	"adm_pos",
+							// 	array("job_title"=>$nextjobtitle));
+							$this->db->join($view." a", 'a.hap_pos_code = b.pos_id');
 							$getdata = $this->getNextState(
-								"pos_id",
-								"pos_name",
-								"adm_pos",
-								array("job_title"=>$nextjobtitle));
-
+								"a.hap_pos_code",
+								"a.hap_pos_name",
+								"adm_pos b",
+								array("b.job_title"=>$nextjobtitle,'b.dept_id'=>$dept_id));
 							$nextPosCode = $getdata['nextPosCode'];
 							$nextPosName = $getdata['nextPosName'];
 							
@@ -1908,7 +1955,7 @@ class Procedure_m extends MY_Model {
 						"a.hap_pos_code",
 						"a.hap_pos_name",
 						"adm_pos b",
-						array("b.job_title"=>$nextjobtitle));
+						array("b.job_title"=>$nextjobtitle,'b.dept_id'=>$dept_id));
 
 					// $getdata = $this->getNextState(
 					// 	"pos_id",
@@ -1956,11 +2003,17 @@ class Procedure_m extends MY_Model {
 
 						$nextjobtitle = 'VP PENGADAAN';
 						
+						// $getdata = $this->getNextState(
+						// 	"pos_id",
+						// 	"pos_name",
+						// 	"adm_pos",
+						// 	array("job_title"=>$nextjobtitle));
+						// $this->db->join($view." a", 'a.hap_pos_code = b.pos_id');
 						$getdata = $this->getNextState(
 							"pos_id",
 							"pos_name",
-							"adm_pos",
-							array("job_title"=>$nextjobtitle));
+							"adm_pos b",
+							array("b.job_title"=>$nextjobtitle,'b.dept_id'=>$dept_id));
 
 						$nextPosCode = $getdata['nextPosCode'];
 						$nextPosName = $getdata['nextPosName'];
@@ -2391,7 +2444,7 @@ class Procedure_m extends MY_Model {
 								"a.hap_pos_code",
 								"a.hap_pos_name",
 								"adm_pos b",
-								array("b.job_title"=>$nextjobtitle));
+								array("b.job_title"=>$nextjobtitle,'b.dept_id'=>$dept_id));
 
 							$nextPosCode = $getdata['nextPosCode'];
 							$nextPosName = $getdata['nextPosName'];
@@ -2542,12 +2595,17 @@ class Procedure_m extends MY_Model {
 					*/
 
 					$nextjobtitle = 'VP PENGADAAN';
-
+					$this->db->join($view_pemenang." a", 'a.hap_pos_code = b.pos_id');
 					$getdata = $this->getNextState(
-						"pos_id",
-						"pos_name",
-						"adm_pos",
-						array("job_title"=>$nextjobtitle));
+						"a.hap_pos_code",
+						"a.hap_pos_name",
+						"adm_pos b",
+						array("b.job_title"=>$nextjobtitle,'b.dept_id'=>$dept_id));
+					// $getdata = $this->getNextState(
+					// 	"pos_id",
+					// 	"pos_name",
+					// 	"adm_pos",
+					// 	array("job_title"=>$nextjobtitle));
 
 					$nextPosCode = $getdata['nextPosCode'];
 					$nextPosName = $getdata['nextPosName'];
@@ -2587,7 +2645,7 @@ class Procedure_m extends MY_Model {
 					// haqim
 					$this->db->join($view_kontrak." a", 'a.hap_pos_code = b.pos_id');
 					$getdata = $this->db->select("a.hap_pos_code as pos_id,a.hap_pos_name as pos_name")
-					->where(array("b.job_title"=>"PENGELOLA KONTRAK")) //vp pengadaan
+					->where(array("b.job_title"=>"PENGELOLA KONTRAK","b.dept_id"=>$dept_id)) //vp pengadaan
 					->get("adm_pos b")->row_array();
 					// end
 					// $getdata = $this->db->select("pos_id,pos_name")
@@ -2598,7 +2656,7 @@ class Procedure_m extends MY_Model {
 					//haqim		
 					$this->db->join($view_kontrak." a", 'a.hap_pos_code = b.pos_id');
 					$getpos = $this->db->select('a.hap_pos_code as pos_id, a.hap_pos_name as pos_name')
-					->where(array('b.job_title'=>'MANAJER PENGADAAN'))
+					->where(array('b.job_title'=>'MANAJER PENGADAAN',"b.dept_id"=>$dept_id))
 					->get('adm_pos b')->row_array();
 
 					$this->db->select('pos_id, pos_name, employee_id');
@@ -2615,7 +2673,7 @@ class Procedure_m extends MY_Model {
 					//haqim
 					$this->db->join($view_kontrak." a", 'a.hap_pos_code = b.pos_id');
 					$getpos = $this->db->select('a.hap_pos_code as pos_id, a.hap_pos_name as pos_name')
-					->where(array('b.job_title'=>'PENGELOLA KONTRAK'))
+					->where(array('b.job_title'=>'PENGELOLA KONTRAK',"b.dept_id"=>$dept_id))
 					->get('adm_pos b')->row_array();
 
 					$this->db->select('pos_id, pos_name, employee_id');
