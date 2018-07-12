@@ -13,7 +13,9 @@ if(!$position){
 
 $this->form_validation->set_rules("perencanaan_pengadaan_inp", "Nomor Perencanaan Pengadaan", 'required|max_length['.DEFAULT_MAXLENGTH.']');
 /*$this->form_validation->set_rules("lokasi_kebutuhan_inp", "Lokasi Kebutuhan", 'required|max_length['.DEFAULT_MAXLENGTH_TEXT.']');*/
-$this->form_validation->set_rules("lokasi_pengiriman_inp", "Lokasi Pengiriman", 'required|max_length['.DEFAULT_MAXLENGTH.']');
+//haqim
+// $this->form_validation->set_rules("lokasi_pengiriman_inp", "Lokasi Pengiriman", 'required|max_length['.DEFAULT_MAXLENGTH.']');
+//end
 $this->form_validation->set_rules("tipe_pr", "Jenis PR", 'required|max_length['.DEFAULT_MAXLENGTH.']'); //y jenis pr
 
 $perencanaan_id = $post['perencanaan_pengadaan_inp'];

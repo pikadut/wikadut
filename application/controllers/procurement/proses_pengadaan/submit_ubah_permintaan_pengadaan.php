@@ -54,8 +54,9 @@ $input['pr_type']=$post['tipe_pr'];//y
     $input['pr_district_id']=$post['lokasi_kebutuhan_inp'];
   }
   if(isset($post['lokasi_pengiriman_inp'])){
-
-    $this->form_validation->set_rules("lokasi_pengiriman_inp", "Lokasi Pengiriman", 'required|max_length['.DEFAULT_MAXLENGTH.']');
+    // haqim
+    // $this->form_validation->set_rules("lokasi_pengiriman_inp", "Lokasi Pengiriman", 'required|max_length['.DEFAULT_MAXLENGTH.']');
+    //end
     $input['pr_delivery_point_id']=$post['lokasi_pengiriman_inp'];
   }
   if(isset($post['jenis_kontrak_inp'])){

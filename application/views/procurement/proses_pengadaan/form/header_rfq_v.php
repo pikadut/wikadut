@@ -126,13 +126,16 @@
     </div>
     */ ?>
 
- <?php $curval = $permintaan["ptm_delivery_point"]; ?>
+      <?php /*
+      <?php $curval = $permintaan["ptm_delivery_point"]; ?>
         <div class="form-group">
           <label class="col-sm-2 control-label">Lokasi Pengiriman</label>
           <div class="col-sm-10">
             <p class="form-control-static" id="lokasi_pengiriman"><?php echo $curval ?></p>
           </div>
         </div>
+      */ ?>
+
 
         <!-- haqim -->
         <div class="form-group">

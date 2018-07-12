@@ -62,7 +62,7 @@
   </div>
 
   <!-- haqim -->
-  <?php $curval = $permintaan['pr_project_name']; 
+  <?php $curval = $permintaan['pr_project_name'];
     if (!empty($curval)) { ?>
      <div class="form-group">
     <label class="col-sm-2 control-label">Nama Proyek *</label>
@@ -126,13 +126,15 @@
         </div>
         */ ?>
 
+        <?php /*haqim
         <?php $curval = $permintaan["pr_delivery_point"]; ?>
         <div class="form-group">
           <label class="col-sm-2 control-label">Lokasi Pengiriman *</label>
           <div class="col-sm-10">
             <p class="form-control-static" id="lokasi_pengiriman"><?php echo $curval ?></p>
           </div>
-        </div>
+        </div>*/
+        ?>
 
          <?php $curval = $permintaan["pr_type"]; ?>
         <div class="form-group">

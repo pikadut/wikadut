@@ -122,7 +122,7 @@
           </div>
         </div>
         */ ?>
-
+        <?php /* haqim
         <?php $curval = (isset($permintaan['pr_delivery_point_id'])) ? $permintaan["pr_delivery_point_id"] : set_value("lokasi_pengiriman_inp"); ?>
         <div class="form-group">
           <label class="col-sm-2 control-label">Lokasi Pengiriman *</label>
@@ -138,7 +138,8 @@
               <?php } ?>
             </select>
           </div>
-        </div>
+        </div>*/
+        ?>
 
         <!-- //y tambah jenis pr -->        
         <?php $curval = (isset($permintaan['pr_type'])) ?  $permintaan["pr_type"] : set_value("tipe_pr"); ?>
