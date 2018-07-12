@@ -35,6 +35,10 @@ $error = false;
 
 if($last_comment['activity'] == 1000){
 
+if ($post['status_inp'][0] == '287') {
+  $this->form_validation->set_rules("tipe_pr", "Jenis PR", 'required|max_length['.DEFAULT_MAXLENGTH.']'); 
+}
+
 $input['pr_subject_of_work']= (isset($post['nama_pekerjaan'])) ? $post['nama_pekerjaan'] : $perencanaan['ppm_subject_of_work'];
 $input['pr_scope_of_work']= (isset($post['deskripsi_pekerjaan'])) ? $post['deskripsi_pekerjaan'] : $perencanaan['ppm_scope_of_work'];
 $input['pr_pagu_anggaran']= (isset($post['total_pagu_inp'])) ? $post['total_pagu_inp'] : $perencanaan['ppm_pagu_anggaran'];
@@ -66,6 +70,37 @@ $input['pr_type']=$post['tipe_pr'];//y
 if($input['pr_sisa_anggaran'] < 0){
   $this->setMessage("Sisa anggaran tidak boleh kurang dari 0");
   $error = true;
+}
+
+if ($post['status_inp'][0] == '287') {
+  
+//y validasi tipe pr
+if($post['tipe_pr'] == "NON KONSOLIDASI" ){
+  if ($post['total_alokasi_ppn_inp'] > 25000000) {
+    $this->setMessage("Tipe PR non konsolidasi harus <= 25 juta");
+    $error= true;
+  }
+}elseif ($post['tipe_pr'] == "KONSOLIDASI") {
+  if($post['total_alokasi_ppn_inp'] <= 25000000){
+    $this->setMessage("Tipe PR konsolidasi harus lebih dari 25 juta");
+    $error = true;
+  }elseif ($post['total_alokasi_ppn_inp'] > 20000000000) {
+    $this->setMessage("Tipe PR konsolidasi harus <= 20 milyar");
+    $error= true;
+  }
+}elseif ($post['tipe_pr'] == "MATERIAL STRATEGIS") {
+  if($input['pr_type_of_plan'] == "rkap" and $post['total_alokasi_ppn_inp'] < 20000000000){
+    $this->setMessage("Tipe PR material strategis non proyek harus > 20 milyar");
+    $error = true;
+  }elseif ($input['pr_type_of_plan'] == "rkp" and $post['total_alokasi_ppn_inp'] < 200000000000) {
+    $this->setMessage("Tipe PR material strategis proyek harus > 200 milyar");
+    $error = true;
+  }
+}else{
+  $this->setMessage("Tipe perencanaan harus dipilih");
+  $error = true;
+}
+//end
 }
 
 if($post['status_inp'][0] != '289'){ //Menambahkan eksepsi validasi untuk pembuatan draft permintaan pengadaan
