@@ -16,7 +16,9 @@ $this->form_validation->set_rules("perencanaan_pengadaan_inp", "Nomor Perencanaa
 //haqim
 // $this->form_validation->set_rules("lokasi_pengiriman_inp", "Lokasi Pengiriman", 'required|max_length['.DEFAULT_MAXLENGTH.']');
 //end
-$this->form_validation->set_rules("tipe_pr", "Jenis PR", 'required|max_length['.DEFAULT_MAXLENGTH.']'); //y jenis pr
+if ($post['status_inp'][0] == 287) {
+  $this->form_validation->set_rules("tipe_pr", "Jenis PR", 'required|max_length['.DEFAULT_MAXLENGTH.']'); //y jenis pr
+}
 
 $perencanaan_id = $post['perencanaan_pengadaan_inp'];
 $perencanaan = $this->Procplan_m->getPerencanaanPengadaan($perencanaan_id)->row_array();
@@ -138,6 +140,8 @@ foreach ($post as $key => $value) {
 }
 
 $error = false;
+if ($post['status_inp'][0] == 287) {
+  
 //y validasi tipe pr
 if($post['tipe_pr'] == "NON KONSOLIDASI" ){
   if ($post['total_alokasi_ppn_inp'] > 25000000) {
@@ -165,6 +169,7 @@ if($post['tipe_pr'] == "NON KONSOLIDASI" ){
   $error = true;
 }
 //end
+}
 
 if($input['pr_sisa_anggaran'] < 0){
   $this->setMessage("Sisa anggaran tidak boleh kurang dari 0");
