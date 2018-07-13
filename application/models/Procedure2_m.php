@@ -576,14 +576,18 @@ class Procedure2_m extends CI_Model {
 
 				if($response == url_title('Lanjutkan',"_",true)){
 
-					$ctrvalue = $this->getContractAmmount($ptm_number);
-					$spedept = $this->db->select('ctr_spe_employee')->where(array('ptm_number'=>$ptm_number))->get('ctr_contract_header')->row_array();
+					$ctrvalue = $this->db->select('price, qty, ppn, pph')
+								->where(array('ptm_number'=>$ptm_number))
+								->join('ctr_contract_header b', 'b.contract_id = a.contract_id')
+								->get('ctr_contract_item a')->result_array();
+
+					$spedept = $this->db->select('ctr_spe_employee')->where(array('ptm_number'=>$ptm_number))->get('ctr_contract_header')->row_array(); 
 					$userdept = $this->db->select('dept_id')
 								->where(array('employee_id'=>$spedept['ctr_spe_employee']))
-								->get('adm_employee_pos')->row_array();
+								->get('adm_employee_pos')->row_array(); 
 					$ctrdept = $this->db->select('pos_id')
-								->where(array('job_title' => 'MANAJER USER', 'dept_id' => $userdept['dept_id']))
-								->get('adm_pos')->row_array();
+								->where(array('job_title' => 'MANAJER PENGADAAN', 'dept_id' => $userdept['dept_id']))
+								->get('adm_pos')->row_array(); 
 
 					$getdata = $this->getNextState(
 						"hap_pos_code",
@@ -591,11 +595,15 @@ class Procedure2_m extends CI_Model {
 						"vw_prc_hierarchy_approval_11",
 						"hap_pos_code = (select distinct hap_pos_parent 
 							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL AND hap_pos_parent = ".$ctrdept['pos_id'].")");
-
+				
+					foreach ($ctrvalue as $k => $v) {
+						$ctrprice[] = $v['price'] * $v['qty'] + ($v['price'] * $v['qty'] * $v['ppn'] / 100) + ($v['price'] * $v['qty'] * $v['pph'] / 100) ;
+					}
+					
 					$nextPosCode = $getdata['nextPosCode'];
 					$nextPosName = $getdata['nextPosName'];
 					
-					if($ctrvalue <= 2000000000){
+					if(array_sum($ctrprice) <= 2000000000){
 						$nextActivity = 2022;
 					}else{
 						$nextActivity = 2023;
