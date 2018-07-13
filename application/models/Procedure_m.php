@@ -978,7 +978,8 @@ class Procedure_m extends MY_Model {
 
 		$this->db->select('ptm_dept_id');
 		$this->db->where('ptm_number', $ptm_number);
-		$dept_id = $this->db->get('prc_tender_main')->row_array();
+		$get_dept_id = $this->db->get('prc_tender_main')->row_array();
+		$dept_id = $get_dept_id['ptm_dept_id'];
 
 		if(is_numeric($response)){
 			$response_real = $this->getResponseName($response);
@@ -1955,7 +1956,9 @@ class Procedure_m extends MY_Model {
 						"a.hap_pos_code",
 						"a.hap_pos_name",
 						"adm_pos b",
-						array("b.job_title"=>$nextjobtitle,'b.dept_id'=>$dept_id));
+						array("b.job_title"=>$nextjobtitle,"b.dept_id"=>$dept_id)
+
+					);
 
 					// $getdata = $this->getNextState(
 					// 	"pos_id",
