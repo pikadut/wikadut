@@ -373,7 +373,7 @@ class Procedure_m extends MY_Model {
 		// }
 
 		// return $this->db->get($table)->result_array();
-
+		
 		if ($plan_type == 'rkp') {
 			$table = 'vw_prc_hierarchy_approval_5';
 		} elseif ($plan_type == 'rkap') {
@@ -409,7 +409,8 @@ class Procedure_m extends MY_Model {
           $next_pos_id = null;
       }
     } else{
-      $next_pos_id = null;
+    	$nextpos = $this->db->select('hap_pos_parent')->where(array('hap_pos_code' => $pos_id, 'hap_pos_parent !=' => NULL))->get($table)->row_array(); 
+    	$next_pos_id = $nextpos['hap_pos_parent'];
     }
 
 		return $next_pos_id;
