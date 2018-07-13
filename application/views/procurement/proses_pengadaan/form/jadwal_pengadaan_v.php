@@ -21,7 +21,7 @@
               <?php if(!$jadwal_tahap_2){ ?>
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <?php } ?>
-              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_pembukaan_pendaftaran_inp" class="form-control datetimepicker" value="<?php echo $curval ?>">
+              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_pembukaan_pendaftaran_inp" class="form-control tgl_pembukaan_pendaftaran_inp" value="<?php echo $curval ?>">
             </div>
           </div>
 
@@ -32,7 +32,7 @@
               <?php if(!$jadwal_tahap_2){ ?>
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <?php } ?>
-              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_mulai_penawaran_inp" class="form-control datetimepicker" value="<?php echo $curval ?>">
+              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_mulai_penawaran_inp" class="form-control  tgl_mulai_penawaran_inp"  value="<?php echo $curval ?>" >
             </div>
           </div>
 
@@ -48,7 +48,7 @@
               <?php if(!$jadwal_tahap_2){ ?>
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <?php } ?>
-              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_penutupan_pendaftaran_inp" class="form-control datetimepicker" value="<?php echo $curval ?>">
+              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_penutupan_pendaftaran_inp" class="form-control  tgl_penutupan_pendaftaran_inp" value="<?php echo $curval ?>"  >
             </div>
 
           </div>
@@ -61,7 +61,7 @@
               <?php if(!$jadwal_tahap_2){ ?>
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <?php } ?>
-              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_akhir_penawaran_inp" class="form-control datetimepicker" value="<?php echo $curval ?>">
+              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_akhir_penawaran_inp" class="form-control tgl_akhir_penawaran_inp" value="<?php echo $curval ?>" >
             </div>
 
           </div>
@@ -77,7 +77,7 @@
               <?php if(!$jadwal_tahap_2){ ?>
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <?php } ?>
-              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_aanwijzing_inp" class="form-control datetimepicker" value="<?php echo $curval ?>">
+              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_aanwijzing_inp" class="form-control tgl_aanwijzing_inp" value="<?php echo $curval ?>"  >
             </div>
           </div>
 
@@ -90,7 +90,7 @@
               <?php if(!$jadwal_tahap_2){ ?>
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <?php } ?>
-              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_pembukaan_dok_penawaran_inp" class="form-control datetimepicker" value="<?php echo $curval ?>">
+              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_pembukaan_dok_penawaran_inp" class="form-control tgl_pembukaan_dok_penawaran_inp" value="<?php echo $curval ?>" >
             </div>
 
           </div>
@@ -167,3 +167,143 @@
 
   </div>
 </div>
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+
+  // var date1 = '2015-08-20 09:38:20';
+  // var date2 = '2015-08-20 08:00:00';
+  // var date1Updated = new Date(date1.replace(/-/g,'/'));  
+  // var date2Updated = new Date(date2.replace(/-/g,'/'));
+  // console.log(date1Updated > date2Updated);
+
+  // $('#tgl_penutupan_pendaftaran_inp').change(function(){
+  //   alert('hello')
+  // })
+
+  // $('.datetimepicker').click(function(){
+
+  //     var tgl_pembukaan_pendaftaran_inp = $('[name=tgl_pembukaan_pendaftaran_inp]');
+  //     var tgl_penutupan_pendaftaran_inp = $('[name=tgl_penutupan_pendaftaran_inp]');
+  //     var tgl_aanwijzing_inp = $('[name=tgl_aanwijzing_inp]');
+  //     var tgl_mulai_penawaran_inp = $('[name=tgl_mulai_penawaran_inp]');
+  //     var tgl_akhir_penawaran_inp = $('[name=tgl_akhir_penawaran_inp]');
+  //     var tgl_pembukaan_dok_penawaran_inp = $('[name=tgl_pembukaan_dok_penawaran_inp]');
+
+  //   if (tgl_pembukaan_pendaftaran_inp.val() != "") {
+  //     tgl_penutupan_pendaftaran_inp.attr('readonly', false);
+  //   }
+
+  //   // alert($('[name=tgl_pembukaan_pendaftaran_inp]').val());
+  //    if ( convert_date(tgl_pembukaan_pendaftaran_inp.val()) > convert_date(tgl_penutupan_pendaftaran_inp.val()) ) {
+  //     alert('Tanggal penutupan pendaftaran tidak boleh lebih dari tanggal pembukaan pendaftaran');
+  //     tgl_aanwijzing_inp.attr('readonly', true);
+  //     tgl_aanwijzing_inp.val('');
+  //    } else if(convert_date(tgl_pembukaan_pendaftaran_inp.val()) < convert_date(tgl_penutupan_pendaftaran_inp.val())) {
+  //     tgl_aanwijzing_inp.attr('readonly', false);
+  //    }
+
+  //    if ( convert_date(tgl_penutupan_pendaftaran_inp.val()) > convert_date(tgl_aanwijzing_inp.val()) ) {
+  //     alert('Tanggal aanwijzing tidak boleh lebih dari tanggal penutupan pendaftaran')
+  //     tgl_mulai_penawaran_inp.attr('readonly', true);
+  //     tgl_mulai_penawaran_inp.val('');
+  //    } else if( convert_date(tgl_penutupan_pendaftaran_inp.val()) < convert_date(tgl_aanwijzing_inp.val()) ) {
+  //     tgl_mulai_penawaran_inp.attr('readonly', false);
+  //    }
+
+  //    if ( convert_date(tgl_aanwijzing_inp.val()) > convert_date(tgl_mulai_penawaran_inp.val()) ) {
+  //     alert('Tanggal mulai kirim penawaran tidak boleh lebih dari tanggal aanwijzing')
+  //     tgl_akhir_penawaran_inp.attr('readonly', true);
+  //     tgl_akhir_penawaran_inp.val('');
+  //    } else if( convert_date(tgl_aanwijzing_inp.val()) < convert_date(tgl_mulai_penawaran_inp.val()) ) {
+  //     tgl_akhir_penawaran_inp.attr('readonly', false);
+  //    }
+
+  //    if ( convert_date(tgl_mulai_penawaran_inp.val()) > convert_date(tgl_akhir_penawaran_inp.val()) ) {
+  //     alert('Tanggal akhir kirim penawaran tidak boleh lebih dari tanggal awal kirim penawaran')
+  //     tgl_pembukaan_dok_penawaran_inp.attr('readonly', true);
+  //     tgl_pembukaan_dok_penawaran_inp.val('');
+  //    } else if(convert_date(tgl_mulai_penawaran_inp.val()) < convert_date(tgl_akhir_penawaran_inp.val())) {
+  //     tgl_pembukaan_dok_penawaran_inp.attr('readonly', false);
+  //    }
+
+  //    if ( convert_date(tgl_akhir_penawaran_inp.val()) > convert_date(tgl_pembukaan_dok_penawaran_inp.val()) ) {
+  //     alert('Tanggal pembukaan dokumen tidak boleh lebih dari tanggal akhir kirim penawaran')
+  //    } 
+
+
+  // })
+
+  // function convert_date(date){
+  //   return new Date(date.replace(/-/g,'/'));
+  // }
+
+
+
+
+  $('.tgl_pembukaan_pendaftaran_inp').datetimepicker({format:"YYYY-MM-DD HH:mm:ss"})
+  $('.tgl_penutupan_pendaftaran_inp').datetimepicker({format:"YYYY-MM-DD HH:mm:ss"})
+  $('.tgl_aanwijzing_inp').datetimepicker({format:"YYYY-MM-DD HH:mm:ss"})
+  $('.tgl_mulai_penawaran_inp').datetimepicker({format:"YYYY-MM-DD HH:mm:ss"})
+  $('.tgl_akhir_penawaran_inp').datetimepicker({format:"YYYY-MM-DD HH:mm:ss"})
+  $('.tgl_pembukaan_dok_penawaran_inp').datetimepicker({format:"YYYY-MM-DD HH:mm:ss"})
+
+  $('.tgl_pembukaan_pendaftaran_inp').on("dp.change",function (e) {
+            $('.tgl_penutupan_pendaftaran_inp').data("DateTimePicker").minDate(e.date);
+  });
+
+  $('.tgl_penutupan_pendaftaran_inp').on("dp.change",function (e) {
+            $('.tgl_aanwijzing_inp').data("DateTimePicker").minDate(e.date);
+  });
+
+  $('.tgl_aanwijzing_inp').on("dp.change",function (e) {
+            $('.tgl_mulai_penawaran_inp').data("DateTimePicker").minDate(e.date);
+  });
+
+  $('.tgl_mulai_penawaran_inp').on("dp.change",function (e) {
+            $('.tgl_akhir_penawaran_inp').data("DateTimePicker").minDate(e.date);
+  });
+
+  $('.tgl_akhir_penawaran_inp').on("dp.change",function (e) {
+            $('.tgl_pembukaan_dok_penawaran_inp').data("DateTimePicker").minDate(e.date);
+  });
+
+  
+
+  // $('.tgl_akhir_penawaran_inp').on("dp.change",function (j) {
+  //           $('.tgl_pembukaan_dok_penawaran_inp').data("DateTimePicker").minDate(j.date);
+  // });
+        
+      
+
+ 
+
+  // $(this).click(function(){
+  //   var tgl_pembukaan_pendaftaran_inp = $('[name=tgl_pembukaan_pendaftaran_inp]').val();
+
+  //   console.log(tgl_pembukaan_pendaftaran_inp);
+  //   $('.tgl_penutupan_pendaftaran_inp').datetimepicker({
+  //     format:"YYYY-MM-DD HH:mm:ss",
+  //     startDate: "2018-07-04 17:13:11"
+  //   });
+  // })
+
+   function prevDate($name){
+    return $("[name="+$name+"]").val()
+  }
+
+  // $('.tgl_penutupan_pendaftaran_inp').click(function(){
+  //   var tgl_pembukaan_pendaftaran_inp = $('[name=tgl_pembukaan_pendaftaran_inp]').val();
+
+  //   console.log(tgl_pembukaan_pendaftaran_inp);
+  //   $('.tgl_penutupan_pendaftaran_inp').datetimepicker({
+  //     format:"YYYY-MM-DD HH:mm:ss",
+  //     startDate: tgl_pembukaan_pendaftaran_inp
+  //   });
+  // })
+
+
+  })
+
+</script>
