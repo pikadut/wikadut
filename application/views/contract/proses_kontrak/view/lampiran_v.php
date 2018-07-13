@@ -32,7 +32,7 @@
                 <td><?php echo $k+1 ?></td>
                 <td><?php echo $v['description'] ?></td>
                 <td><?php echo ($v['publish']) ? "Ya" : "Tidak" ?></td>
-                <td><a href="<?php echo site_url("log/download_attachment/contract/".$v['filename']) ?>" target="_blank"><?php echo $v['filename'] ?></a></td>
+                <td><a href="<?php echo site_url("log/download_attachment/contract/document/".$v['filename']) ?>" target="_blank"><?php echo $v['filename'] ?></a></td>
               </tr>
 
               <?php } } } ?>

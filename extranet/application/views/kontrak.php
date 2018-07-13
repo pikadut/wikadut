@@ -91,7 +91,8 @@
 					</div>
 					<br>
 					<div class="form-group"><label class="col-sm-4 control-label"><?php echo $this->lang->line('Lampiran'); ?></label>
-						<div class="col-lg-6 m-l-n"><a target="_blank" href="<?php echo site_url('kontrak/download/jaminan/'.$this->umum->forbidden($this->encryption->encrypt($header["pf_attachment"]), 'enkrip')); ?>"><?php echo $header["pf_attachment"] ?></a></div>
+						<!-- <div class="col-lg-6 m-l-n"><a target="_blank" href="<?php //echo site_url('kontrak/download/jaminan/'.$this->umum->forbidden($this->encryption->encrypt($header["pf_attachment"]), 'enkrip')); ?>"><?php //echo $header["pf_attachment"] ?></a></div> -->
+						<div class="col-lg-6 m-l-n"><a target="_blank" href="<?php echo INTRANET_DOWNLOAD_URL."contract/jaminan/".$header["pf_attachment"] ?>"><?php echo $header["pf_attachment"] ?></a></div>
 					</div>
 				</div>
 			</div>
@@ -205,7 +206,8 @@
 								<td><?php echo $i ?></td>
 								<td><?php echo $row["category"] ?></td>
 								<td><?php echo $row["description"] ?></td>
-								<td><?php echo $row["filename"] ?></td>
+								<!-- <td><?php //echo $row["filename"] ?></td> -->
+								<td><a href="<?php echo INTRANET_DOWNLOAD_URL."contract/document/".$row["filename"] ?>"><?php echo $row["filename"] ?></a></td>
 							</tr>
 							<?php
 							$i++;
