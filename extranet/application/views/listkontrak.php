@@ -13,7 +13,7 @@
                         <th><?php echo $this->lang->line('Nomor Kontrak'); ?></th>
                         <th><?php echo $this->lang->line('Deskripsi Pekerjaan'); ?></th>
 						<th><?php echo $this->lang->line('Jenis Kontrak'); ?></th>
-						<th><?php echo $this->lang->line('Vendor'); ?></th>
+						<!-- <th><?php// echo $this->lang->line('Vendor'); ?></th> -->
 						<th><?php echo $this->lang->line('Tanggal Mulai Kontrak'); ?></th>
 						<th><?php echo $this->lang->line('Tanggal Berakhir Kontrak'); ?></th>
 						<th><?php echo $this->lang->line('Nilai Kontrak'); ?></th>
@@ -30,7 +30,7 @@
 						<td><?php echo $row["contract_number"]; ?></td>
 						<td><?php echo $row["subject_work"]; ?></td>
 						<td><?php echo $row["contract_type"]; ?></td>
-						<td><?php echo $row["vendor_name"]; ?></td>
+						<!-- <td><?php //echo $row["vendor_name"]; ?></td> -->
 						<td><?php echo $this->umum->show_tanggal($row["start_date"]) ?></td>
 						<td><?php echo $this->umum->show_tanggal($row["end_date"]) ?></td>
 						<td><?php echo $this->umum->cetakuang($row["contract_amount"], $row["currency"])?></td>
