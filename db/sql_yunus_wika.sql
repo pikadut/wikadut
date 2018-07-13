@@ -371,3 +371,19 @@ INSERT INTO "public"."adm_wkf_response" VALUES (595, 2024, 'Revisi', 1);
 INSERT INTO "public"."adm_wkf_response" VALUES (596, 2025, 'Lanjutkan', 1);
 INSERT INTO "public"."adm_wkf_response" VALUES (597, 2026, 'Setuju', 1);
 INSERT INTO "public"."adm_wkf_response" VALUES (598, 2026, 'Revisi', 1);
+
+
+-------------
+---13/07/2018
+
+INSERT INTO "public"."adm_wkf_activity" VALUES (2027, 'Persetujuan Dokumen Kontrak', NULL , 3, 'CTR', 1, NULL);
+
+INSERT INTO "public"."adm_wkf_content" VALUES (2027, 'milestone_v', 6, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2027, 'header_v', 1, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2027, 'lampiran_v', 7, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2027, 'item_v', 5, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2027, 'tunjuk_pelaksana_v', 3, 'view');
+INSERT INTO "public"."adm_wkf_content" VALUES (2027, 'jaminan_v', 4, 'view');
+
+INSERT INTO "public"."adm_wkf_response" VALUES (599, 2027, 'Setuju', 1);
+INSERT INTO "public"."adm_wkf_response" VALUES (600, 2027, 'Revisi', 1);
