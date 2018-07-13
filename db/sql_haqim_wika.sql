@@ -781,3 +781,6 @@ CREATE OR REPLACE VIEW "public"."vw_prc_monitor" AS  SELECT ptm.pr_number,
      LEFT JOIN vnd_header vnd ON ((vnd.vendor_id = ptvs.pvs_vendor_code)))
      LEFT JOIN prc_tender_quo_main pqm ON (((vnd.vendor_id = pqm.ptv_vendor_code) AND ((ptp.ptm_number)::text = (pqm.ptm_number)::text))))
      LEFT JOIN vw_prc_quotation_vendor_sum pqvs ON (((vnd.vendor_id = pqvs.ptv_vendor_code) AND ((pqvs.ptm_number)::text = (ptm.ptm_number)::text))));
+
+ALTER TABLE "public"."com_mat_price" 
+  ALTER COLUMN "del_point_id" DROP NOT NULL;
