@@ -7,7 +7,7 @@ if(!empty($post)){
 		'pos_id' =>$post['pos_id_inp'],
 		'max_amount' =>moneytoint($post['max_amount_inp']),
 		'currency' =>$post['curr_code_inp'],
-		'parent_id' =>($post['parent_id_inp'] == $post['id'] && $post['id'] == 1) ? 0 : $post['parent_id_inp'],
+		'parent_id' =>($post['parent_id_inp'] == $post['id'] && $post['id'] == 1) ? 0 : (!empty($post['parent_id_inp'])?$post['parent_id_inp'] : 0),
 		);
 
 	switch ($post['type']) {
