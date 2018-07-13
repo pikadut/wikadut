@@ -360,7 +360,10 @@ class Log extends Telescoope_Controller {
 
 				if(!empty($data)){
 					if(empty($data['is_locked']) && empty($data['status'])){
-						$first_pos = $this->db->where("employee_id",$data['employeeid'])->get("vw_adm_pos")->row()->pos_id;
+						// $first_pos = $this->db->where("employee_id",$data['employeeid'])->get("vw_adm_pos")->row()->pos_id;
+						//haqim
+						$first_pos = $this->db->where(array("employee_id"=>$data['employeeid'],'is_main_job'=>1))->get("vw_adm_pos")->row()->pos_id;
+						//end
 						$this->session->set_userdata(do_hash("ROLE"),$first_pos);
 						$this->session->set_userdata(do_hash(SESSION_PREFIX),$data['id']);
 					} else {
