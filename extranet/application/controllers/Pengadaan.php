@@ -433,7 +433,7 @@ class Pengadaan extends MY_Controller {
 							$vendor_aanwijzing = $this->db
 							->select("vendor_id,vendor_name,fin_class,lkp_description")
 							->distinct()
-							->where_in("status",array(5,9))
+							->where_in((int)"status",array(5,9))
 							//->where("pvs_status",2)
 							->where_in("vendor_id",$vendor)
 							->join("prc_tender_vendor_status","pvs_vendor_code=vendor_id","left")
