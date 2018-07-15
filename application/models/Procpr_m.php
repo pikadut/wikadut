@@ -104,6 +104,18 @@ class Procpr_m extends CI_Model {
 
 	}
 
+	public function getViewPekerjaanPR($id=""){
+
+		if(!empty($id)){
+
+			$this->db->where("pr_number",$id);
+
+		}
+
+
+		return $this->db->get('vw_daftar_pekerjaan_pr');
+	}
+
 	public function getPekerjaanPR($id = ""){
 
 		if(!empty($id)){

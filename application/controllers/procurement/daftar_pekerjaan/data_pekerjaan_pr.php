@@ -25,7 +25,8 @@ $offset = (isset($get['offset']) && !empty($get['offset'])) ? $get['offset'] : 0
 $field_order = (isset($get['sort']) && !empty($get['sort'])) ? $get['sort'] : "ppc_start_date";
 
 if($field_order == "pr_number"){
-  $field_order = "A.pr_number";
+  // $field_order = "A.pr_number";
+  $field_order = "pr_number";
 }
 
 
@@ -33,7 +34,8 @@ if(!empty($userdata['pos_id'])){
   $this->db->where("ppc_pos_code",$userdata['pos_id'],false);
 
 } else {
-  $this->db->where("A.pr_number","");
+  // $this->db->where("A.pr_number","");
+  $this->db->where("pr_number","");
 }
 
 /*
@@ -49,7 +51,9 @@ if(!empty($search)){
   $this->db->like("LOWER(pr_subject_of_work)",$search);
   $this->db->or_like("LOWER(pr_requester_name)",$search);
   $this->db->or_like("LOWER(pr_requester_pos_name)",$search);
-  $this->db->or_like("A.pr_number",$search);
+  // $this->db->or_like("A.pr_number",$search);
+  $this->db->or_like("pr_number",$search);
+  $this->db->or_like("LOWER(pr_requester_pos_name)",$search);
   $this->db->group_end();
 }
 
@@ -59,8 +63,9 @@ if(!empty($filtering) && $filtering == "approval"){
 
 $this->db->select("ppc_id");
 
-$data['total'] = $this->Procpr_m->getPekerjaanPR($id)->num_rows();
-//echo $this->db->last_query();
+$data['total'] = $this->Procpr_m->getViewPekerjaanPR($id)->num_rows();
+// $data['total'] = $this->Procpr_m->getPekerjaanPR($id)->num_rows();
+
 /*
 if(!empty($dept)){
   $this->db->where("pr_dept_id",$dept);
@@ -72,21 +77,21 @@ if(!empty($dept)){
 if(!empty($userdata['pos_id'])){
   $this->db->where("ppc_pos_code",$userdata['pos_id'],false)->where("ppc_activity !=",1028);
 } else {
-  $this->db->where("A.pr_number","");
+  // $this->db->where("A.pr_number","");
+  $this->db->where("pr_number","");
 }
 
 if(!empty($search)){
    $this->db->group_start();
-  // $this->db->or_like("A.pr_number",$search);
-  $this->db->like("LOWER(A.pr_number)",$search);
+  // $this->db->olike("A.pr_number",$search);
+  $this->db->like("LOWER('pr_number')",$search);
   $this->db->or_like("LOWER(awa_name)",$search);
   $this->db->or_like("LOWER(pr_subject_of_work)",$search);
   $this->db->or_like("LOWER(pr_requester_name)",$search);
   // $this->db->or_like("LOWER(pr_requester_pos_name)",$search);
  $this->db->or_like("LOWER(pr_delivery_point)",$search);
  // $this->db->or_like("LOWER(ppc_start_date)",$search);
- $this->db->or_like("LOWER(ppc_start_date)",$search);
-  // $this->db->or_like("A.pr_number",$search);
+ $this->db->or_like("LOWER('ppc_start_date')",$search);
   $this->db->group_end();
 }
 if(!empty($order)){
@@ -105,11 +110,12 @@ if(!empty($filtering) && $filtering == "approval"){
 
 // $this->db->select("ppc_id,A.pr_number,pr_requester_name,pr_subject_of_work,pr_delivery_point,awa_name as activity,DATE_FORMAT(ppc_start_date,'%Y-%m%-%d %H:%i') as waktu");
 
-$this->db->select("ppc_id,A.pr_number,pr_requester_name,pr_subject_of_work,pr_delivery_point,awa_name as activity,to_date(ppc_start_date::text,'YYYY-MM-DD HH24:MI') as waktu");
+// $this->db->select("ppc_id,A.pr_number,pr_requester_name,pr_subject_of_work,pr_delivery_point,awa_name as activity,to_date(ppc_start_date::text,'YYYY-MM-DD HH24:MI') as waktu");
 
+ $this->db->select("ppc_id,pr_number,pr_requester_name,pr_subject_of_work,jenis_pengadaan,awa_name as activity,waktu");
 
-
-$rows = $this->Procpr_m->getPekerjaanPR($id)->result_array();
+// $rows = $this->Procpr_m->getPekerjaanPR($id)->result_array();
+$rows = $this->Procpr_m->getViewPekerjaanPR($id)->result_array();
 
 $status = array(1=>"Belum Disetujui",2=>"Telah Disetujui",3=>"Ditolak");
 

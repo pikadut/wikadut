@@ -600,24 +600,6 @@ CREATE VIEW "public"."vw_daftar_pekerjaan_sppbj" AS  SELECT prc_pr_main.pr_numbe
 		prc_pr_main.pr_type_of_plan
    FROM prc_pr_main;
 
-DROP VIEW "public"."vw_daftar_pekerjaan_rfq";
-
-CREATE VIEW "public"."vw_daftar_pekerjaan_rfq" AS  SELECT a.ptc_id,
-    a.ptm_number,
-    a.ptc_user,
-    b.ptm_buyer_id,
-    b.ptm_requester_name,
-    b.ptm_subject_of_work,
-    b.ptm_delivery_point,
-    b.ptm_requester_pos_name,
-    b.ptm_status,
-    c.awa_name AS activity,
-    to_date((a.ptc_start_date)::text, 'YYYY-MM-DD HH24:MI:SS'::text) AS waktu,
-    a.ptc_pos_code
-   FROM ((prc_tender_comment a
-     LEFT JOIN prc_tender_main b ON (((b.ptm_number)::text = (a.ptm_number)::text)))
-     LEFT JOIN adm_wkf_activity c ON ((c.awa_id = a.ptc_activity)))
-  WHERE ((a.ptc_name IS NULL) AND (a.ptc_end_date IS NULL) AND (a.ptc_activity <> ALL (ARRAY[1901, 1903]))
 
 DROP VIEW "public"."vw_prc_pr_monitor";
 
@@ -683,7 +665,6 @@ ALTER TABLE "public"."prc_tender_main"
   ADD COLUMN "ptm_type_of_plan" varchar(255),
   ADD COLUMN "ptm_project_name" varchar(255);
 
---- blm di push
 --06/07/2018
 CREATE OR REPLACE VIEW "public"."vw_prc_monitor" AS  SELECT ptm.pr_number,
     ptp.ptm_number,
@@ -782,5 +763,54 @@ CREATE OR REPLACE VIEW "public"."vw_prc_monitor" AS  SELECT ptm.pr_number,
      LEFT JOIN prc_tender_quo_main pqm ON (((vnd.vendor_id = pqm.ptv_vendor_code) AND ((ptp.ptm_number)::text = (pqm.ptm_number)::text))))
      LEFT JOIN vw_prc_quotation_vendor_sum pqvs ON (((vnd.vendor_id = pqvs.ptv_vendor_code) AND ((pqvs.ptm_number)::text = (ptm.ptm_number)::text))));
 
+---13/07/2018
 ALTER TABLE "public"."com_mat_price" 
   ALTER COLUMN "del_point_id" DROP NOT NULL;
+
+-- blm dipush
+
+DROP VIEW "public"."vw_daftar_pekerjaan_rfq";
+
+CREATE VIEW "public"."vw_daftar_pekerjaan_rfq" AS  SELECT a.ptc_id,
+    a.ptm_number,
+    a.ptc_user,
+    b.ptm_buyer_id,
+    b.ptm_requester_name,
+    b.ptm_subject_of_work,
+    b.ptm_delivery_point,
+    b.ptm_requester_pos_name,
+    b.ptm_status,
+    c.awa_name AS activity,
+    to_char(a.ptc_start_date, 'YYYY-MM-DD HH24:MI:SS') AS waktu,
+    a.ptc_pos_code,
+        CASE b.ptm_type_of_plan
+            WHEN 'rkp'::text THEN 'Proyek'::text
+            ELSE 'Non Proyek'::text
+        END AS jenis_pengadaan
+   FROM ((prc_tender_comment a
+     LEFT JOIN prc_tender_main b ON (((b.ptm_number)::text = (a.ptm_number)::text)))
+     LEFT JOIN adm_wkf_activity c ON ((c.awa_id = a.ptc_activity)))
+  WHERE ((a.ptc_name IS NULL) AND (a.ptc_end_date IS NULL) AND (a.ptc_activity <> ALL (ARRAY[1901, 1903])));
+
+-- 14/07/2018
+
+CREATE OR REPLACE VIEW "public"."vw_daftar_pekerjaan_pr" AS  SELECT a.pr_number,
+    c.awa_name,
+    b.pr_subject_of_work,
+    b.pr_requester_name,
+    b.pr_requester_pos_name,
+    a.ppc_start_date,
+		a.ppc_start_date as waktu,
+    b.pr_status,
+    a.ppc_pos_code,
+    b.pr_type_of_plan,
+    a.ppc_id,
+    a.ppc_activity,
+        CASE b.pr_type_of_plan
+            WHEN 'rkp'::text THEN 'Proyek'::text
+            ELSE 'Non Proyek'::text
+        END AS jenis_pengadaan
+   FROM ((prc_pr_comment a
+     LEFT JOIN prc_pr_main b ON (((b.pr_number)::text = (a.pr_number)::text)))
+     LEFT JOIN adm_wkf_activity c ON ((c.awa_id = a.ppc_activity)))
+  WHERE ((a.ppc_name IS NULL) AND (a.ppc_end_date IS NULL) AND (a.ppc_activity <> 1904));
