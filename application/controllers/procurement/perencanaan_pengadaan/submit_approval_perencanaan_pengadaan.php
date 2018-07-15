@@ -41,7 +41,7 @@ $input_comment = array();
 $next_jobtitle = $this->Procedure_m->getNextJobTitlePlan($userdata['pos_id'],$post['pagu_anggaran_inp'],$post['jenis_rencana']);
 
 // $next_pos_id = $status == '3' || $status == '2' ? ($next_jobtitle[0]['hap_pos_parent'] != null ? $next_jobtitle[0]['hap_pos_parent'] : 212) : $get['ppm_planner_pos_code'];
-$next_pos_id = $status == '3' || $status == '2' ? ($next_jobtitle != null ? $next_jobtitle : 212) : $get['ppm_planner_pos_code'];
+$next_pos_id = $status == '3' || $status == '2' || $status == '1' ? ($next_jobtitle != null ? $next_jobtitle : 212) : $get['ppm_planner_pos_code'];
 
 
 $input['ppm_next_pos_id'] = $next_pos_id;

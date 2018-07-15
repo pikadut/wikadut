@@ -767,8 +767,6 @@ CREATE OR REPLACE VIEW "public"."vw_prc_monitor" AS  SELECT ptm.pr_number,
 ALTER TABLE "public"."com_mat_price" 
   ALTER COLUMN "del_point_id" DROP NOT NULL;
 
--- blm dipush
-
 DROP VIEW "public"."vw_daftar_pekerjaan_rfq";
 
 CREATE VIEW "public"."vw_daftar_pekerjaan_rfq" AS  SELECT a.ptc_id,
@@ -814,3 +812,35 @@ CREATE OR REPLACE VIEW "public"."vw_daftar_pekerjaan_pr" AS  SELECT a.pr_number,
      LEFT JOIN prc_pr_main b ON (((b.pr_number)::text = (a.pr_number)::text)))
      LEFT JOIN adm_wkf_activity c ON ((c.awa_id = a.ppc_activity)))
   WHERE ((a.ppc_name IS NULL) AND (a.ppc_end_date IS NULL) AND (a.ppc_activity <> 1904));
+
+-- blm dipush
+-- 15/07/2018
+
+DROP VIEW "public"."vw_prc_hierarchy_approval";
+
+CREATE VIEW "public"."vw_prc_hierarchy_approval" AS --  SELECT adm_auth_hie_pr_non_proyek.pos_id AS hap_pos_code,
+--     adm_pos.pos_name AS hap_pos_name,
+--     adm_auth_hie_1.pos_id AS hap_pos_parent,
+--     adm_auth_hie_pr_non_proyek.max_amount AS hap_amount,
+--     adm_auth_hie_pr_non_proyek.currency AS hap_currency,
+--     adm_pos.district_id AS hap_district,
+--     adm_pos_1.pos_name AS hap_pos_parent_name
+--    FROM (((adm_auth_hie_pr_non_proyek
+--      JOIN adm_pos ON ((adm_auth_hie_pr_non_proyek.pos_id = adm_pos.pos_id)))
+--      JOIN adm_auth_hie_pr_non_proyek adm_auth_hie_1 ON ((adm_auth_hie_pr_non_proyek.parent_id = adm_auth_hie_1.auth_hie_id)))
+--      JOIN adm_pos adm_pos_1 ON ((adm_auth_hie_1.pos_id = adm_pos_1.pos_id)))
+--   ORDER BY adm_auth_hie_pr_non_proyek.pos_id
+-- 	
+
+SELECT DISTINCT adm_auth_hie_pr_non_proyek.pos_id AS hap_pos_code,
+    adm_pos.pos_name AS hap_pos_name,
+    adm_auth_hie_1.pos_id AS hap_pos_parent,
+    adm_auth_hie_pr_non_proyek.max_amount AS hap_amount,
+    adm_auth_hie_pr_non_proyek.currency AS hap_currency,
+    adm_pos.district_id AS hap_district,
+    adm_pos_1.pos_name AS hap_pos_parent_name
+   FROM (((adm_auth_hie_pr_non_proyek
+     LEFT JOIN adm_pos ON ((adm_auth_hie_pr_non_proyek.pos_id = adm_pos.pos_id)))
+     LEFT JOIN adm_auth_hie_pr_non_proyek adm_auth_hie_1 ON ((adm_auth_hie_pr_non_proyek.parent_id = adm_auth_hie_1.auth_hie_id)))
+     LEFT JOIN adm_pos adm_pos_1 ON ((adm_auth_hie_1.pos_id = adm_pos_1.pos_id)))
+  ORDER BY adm_auth_hie_pr_non_proyek.pos_id;
