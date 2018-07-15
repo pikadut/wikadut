@@ -159,7 +159,7 @@ function totalPriceFormatter(data) {
         searchable:true,
         align: 'center',
         valign: 'middle',
-        width:'15%',
+        width:'10%',
       },
       {
         field: 'pr_requester_name',
@@ -169,7 +169,7 @@ function totalPriceFormatter(data) {
         searchable:true,
         align: 'center',
         valign: 'middle',
-        width:'15%',
+        width:'20%',
       },
       {
         field: 'pr_subject_of_work',
@@ -179,17 +179,17 @@ function totalPriceFormatter(data) {
         searchable:true,
         align: 'left',
         valign: 'middle',
-        width:'30%',
+        width:'20%',
       },
       {
-        field: 'pr_delivery_point',
-        title: 'Divisi/Departemen',
+        field: 'jenis_pengadaan',
+        title: 'Jenis Pengadaan',
         sortable:true,
         order:true,
         searchable:true,
         align: 'left',
         valign: 'middle',
-        width:'20%',
+        width:'5%',
       },
       {
         field: 'activity',
@@ -209,7 +209,7 @@ function totalPriceFormatter(data) {
         searchable:true,
         align: 'center',
         valign: 'middle',
-        width:'20%',
+        width:'30%',
       },
       ]
 
@@ -254,7 +254,7 @@ $table_pekerjaan_pr.on('expand-row.bs.table', function (e, index, row, $detail) 
         searchable:true,
         align: 'center',
         valign: 'middle',
-        width:'15%',
+        width:'10%',
       },
       {
         field: 'ptm_requester_name',
@@ -264,7 +264,7 @@ $table_pekerjaan_pr.on('expand-row.bs.table', function (e, index, row, $detail) 
         searchable:true,
         align: 'center',
         valign: 'middle',
-        width:'15%',
+        width:'20%',
       }, {
         field: 'ptm_subject_of_work',
         title: 'Nama Pekerjaan',
@@ -273,17 +273,17 @@ $table_pekerjaan_pr.on('expand-row.bs.table', function (e, index, row, $detail) 
         searchable:true,
         align: 'left',
         valign: 'middle',
-        width:'30%',
+        width:'20%',
       },
       {
-        field: 'ptm_delivery_point',
-        title: 'Divisi/Departemen',
+        field: 'jenis_pengadaan',
+        title: 'Jenis Pengadaan',
         sortable:true,
         order:true,
         searchable:true,
         align: 'left',
         valign: 'middle',
-        width:'20%',
+        width:'5%',
       },
      {
         field: 'activity',
@@ -303,7 +303,7 @@ $table_pekerjaan_pr.on('expand-row.bs.table', function (e, index, row, $detail) 
         searchable:true,
         align: 'center',
         valign: 'middle',
-        width:'20%',
+        width:'30%',
       },
       ]
 

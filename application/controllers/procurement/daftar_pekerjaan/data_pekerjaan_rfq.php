@@ -109,7 +109,8 @@ if(!empty($filtering) && $filtering == "approval"){
 
 // $this->db->select("ptc_id,A.ptm_number,ptm_requester_name,ptm_subject_of_work,ptm_delivery_point,awa_name as activity,DATE_FORMAT(ptc_start_date,'%d/%m/%Y %H:%i') as waktu");
 //haqim
-$this->db->select("ptc_id,ptm_number,ptm_requester_name,ptm_subject_of_work,ptm_delivery_point,activity, waktu");
+// $this->db->select("ptc_id,ptm_number,ptm_requester_name,ptm_subject_of_work,ptm_delivery_point,activity, waktu");
+$this->db->select("ptc_id,ptm_number,ptm_requester_name,ptm_subject_of_work,jenis_pengadaan,activity, waktu");
 //end
 $rows = $this->Procrfq_m->getPekerjaanRFQ($id,$userdata['employee_id'],$buyer)->result_array();
 

@@ -359,7 +359,7 @@ if ($last_activity == 2901) {
     $penilaian[$a]['ccp_id_question']= $post['id_question'][$a];
     $penilaian[$a]['ccp_answer']= $post['jawaban'][$a];
     $penilaian[$a]['ccp_id_commodity_cat']=$post['id_commodity_cat'];
-    $penilaian[$a]['user_Created']=$userdata['employee_id'];
+    $penilaian[$a]['user_created']=$userdata['employee_id'];
     $penilaian[$a]['date_created']=date('Y-m-d h:i:s');
     $penilaian[$a]['aktif']=1;
   }
@@ -374,6 +374,9 @@ foreach ($penilaian as $key => $value) {
 
 
   $return = $this->Procedure2_m->ctr_contract_comment_complete($ptm_number,$userdata['complete_name'],$last_activity,$response,$com,$attachment,$last_comment['comment_id'],$contract_id,$userdata['employee_id']);
+// var_dump($return);
+// exit();
+
 
   if(!empty($return['nextactivity'])){
 
