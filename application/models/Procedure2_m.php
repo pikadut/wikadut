@@ -663,7 +663,7 @@ class Procedure2_m extends CI_Model {
 					$nextActivity = 2010;
 				} 
 
-			// revisi gm korporasi
+			// approval gm korporasi
 			} else if($activity == 2024){
 
 				if($response == url_title('Setuju',"_",true)){
@@ -694,7 +694,7 @@ class Procedure2_m extends CI_Model {
 					$nextActivity = 2010;
 				}
 
-			// approval gm korporasi
+			// review gm korporasi
 			} else if($activity == 2025){
 
 				if($response == url_title('Lanjutkan',"_",true)){
@@ -713,7 +713,7 @@ class Procedure2_m extends CI_Model {
 
 				}
 
-			// review direksi
+			// approval direksi
 			} else if($activity == 2026){
 
 				if($response == url_title('Setuju',"_",true)){
@@ -728,6 +728,65 @@ class Procedure2_m extends CI_Model {
 					$nextPosName = $getdata['nextPosName'];
 
 					$nextActivity = 2030;
+
+				} else if($response == url_title('Revisi',"_",true)){
+
+					$getdata = $this->getNextState(
+						"ctr_spe_pos",
+						"ctr_spe_pos_name",
+						"ctr_contract_header",
+						array("ptm_number"=>$ptm_number));
+
+					$nextPosCode = $getdata['nextPosCode'];
+					$nextPosName = $getdata['nextPosName'];
+
+					$nextActivity = 2010;
+				} 
+			
+			// approval all proyek
+			} else if($activity == 2027){
+
+				if($response == url_title('Setuju',"_",true)){
+					
+					$hapamount = $this->db->select('hap_amount')->where(array('hap_pos_code'=>$lastPosCode))->get('vw_prc_hierarchy_approval_10')->result_array();
+					
+					$ctrvalue = $this->db->select('price, qty, ppn, pph')
+								->where(array('ptm_number'=>$ptm_number))
+								->join('ctr_contract_header b', 'b.contract_id = a.contract_id')
+								->get('ctr_contract_item a')->result_array();
+					
+					foreach ($ctrvalue as $k => $v) {
+						$ctrprice[] = $v['price'] * $v['qty'] + ($v['price'] * $v['qty'] * $v['ppn'] / 100) + ($v['price'] * $v['qty'] * $v['pph'] / 100) ;
+					}
+
+					if(array_sum($ctrprice) > $hapamount[0]['hap_amount']){
+						
+						$getdata = $this->getNextState(
+							"hap_pos_code",
+							"hap_pos_name",
+							"vw_prc_hierarchy_approval_10",
+							"hap_pos_code = (select distinct hap_pos_parent 
+								from vw_prc_hierarchy_approval_10 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+
+						$nextPosCode = $getdata['nextPosCode'];
+						$nextPosName = $getdata['nextPosName'];
+						
+						$nextActivity = 2027;
+	
+					}else{
+
+						$getdata = $this->getNextState(
+							"ctr_spe_pos",
+							"ctr_spe_pos_name",
+							"ctr_contract_header",
+							array("ptm_number"=>$ptm_number));
+
+						$nextPosCode = $getdata['nextPosCode'];
+						$nextPosName = $getdata['nextPosName'];
+						
+						$nextActivity = 2030;	
+
+					}
 
 				} else if($response == url_title('Revisi',"_",true)){
 
@@ -784,18 +843,25 @@ class Procedure2_m extends CI_Model {
 					// 	"ctr_spe_pos_name",
 					// 	"ctr_contract_header",
 					// 	array("contract_id"=>$contract_id));
+					$typeplan = $this->db->select('ptm_type_of_plan')->where(array('ptm_number' => $ptm_number))->get('prc_tender_main')->row_array();
+
+					if($typeplan['ptm_type_of_plan'] == 'rkap'){
+						$view = 'vw_prc_hierarchy_approval_11';
+						$nextActivity = 2021;
+					}else{
+						$view = 'vw_prc_hierarchy_approval_10';
+						$nextActivity = 2027;
+					}
 
 					$getdata = $this->getNextState(
 						"hap_pos_code",
 						"hap_pos_name",
-						"vw_prc_hierarchy_approval_11",
+						$view,
 						"hap_pos_code = (select distinct hap_pos_parent 
-							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
-
+							from ".$view. " where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+					
 					$nextPosCode = $getdata['nextPosCode'];
 					$nextPosName = $getdata['nextPosName'];
-
-					$nextActivity = 2021;
 
 				} else if($response == url_title('Revisi Pelaksana',"_",true)){
 
