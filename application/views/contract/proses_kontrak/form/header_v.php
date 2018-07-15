@@ -96,7 +96,7 @@
 </div>
 
 
-<?php $curval = (isset($kontrak['contract_amount'])) ? inttomoney($kontrak['contract_amount']) : 0; ?>
+<?php $curval = (isset($total_kontrak['total_ppn'])) ? inttomoney($total_kontrak['total_ppn']) : 0; ?>
 
 <div class="form-group">
   <label class="col-sm-2 control-label">Nilai Kontrak</label>
