@@ -42,6 +42,9 @@ $statuslist = array(1060, 1070, 1071, 1080, 1081, 1113, 1114,1090,1115);
 
 if(!empty($filtering) && $filtering == "active"){
   $this->db->where_in("last_status",$statuslist);
+  if ($userdata['job_title'] != 'ADMIN' || $userdata['dept_name'] != 'SUPPLY CHAIN MANAGEMENT') {
+      $this->db->where('ptm_dept_id', $userdata['dept_id']);
+  }
 } else{
   $this->db->where("last_status !=",null,false);
 }
@@ -56,6 +59,9 @@ if($userdata['job_title'] == 'PIC USER'){
 
 if(!empty($filtering) && $filtering == "active"){
   $this->db->where_in("last_status",$statuslist);
+if ($userdata['job_title'] != 'ADMIN' || $userdata['dept_name'] != 'SUPPLY CHAIN MANAGEMENT') {
+      $this->db->where('ptm_dept_id', $userdata['dept_id']);
+  }
 } else{
   $this->db->where("last_status !=",null,false);
 }
