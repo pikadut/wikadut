@@ -19,6 +19,11 @@ if($filtering === "active"){
   $this->db->where("status",2901);
 }
 
+$this->db->join('prc_tender_main a', 'a.ptm_number = vw_ctr_monitor.ptm_number');
+if ($userdata['job_title'] != 'ADMIN' || $userdata['dept_name'] != 'SUPPLY CHAIN MANAGEMENT') {
+      $this->db->where('a.ptm_dept_id', $userdata['dept_id']);
+} 
+
 if(!empty($search)){
   $this->db->group_start();
   $this->db->like("LOWER(B.ptm_subject_of_work)",$search);
@@ -32,6 +37,11 @@ $data['total'] = $this->Contract_m->getMonitor($id)->num_rows();
 if($filtering === "active"){
   $this->db->where("status",2901);
 }
+
+$this->db->join('prc_tender_main a', 'a.ptm_number = vw_ctr_monitor.ptm_number');
+if ($userdata['job_title'] != 'ADMIN' || $userdata['dept_name'] != 'SUPPLY CHAIN MANAGEMENT') {
+      $this->db->where('a.ptm_dept_id', $userdata['dept_id']);
+} 
 
 if(!empty($search)){
   $this->db->group_start();
