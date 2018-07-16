@@ -91,10 +91,12 @@
   </div>
 
   <!-- start code hlmifzi -->
-  <?php foreach ($nilai_kontrak as $k => $v) { ?> 
-  <?php $curval = (isset($v['total'])) ? inttomoney($v['total']) : 0; ?>
-  <?php } ?>
+  <?php //foreach ($nilai_kontrak as $k => $v) {  
+  //$curval = (isset($v['total'])) ? inttomoney($v['total']) : 0; 
+  //} ?>
   <!-- end -->
+
+  <?php $curval = (isset($total_kontrak['total_ppn'])) ? inttomoney($total_kontrak['total_ppn']) : 0; ?>
 
   <div class="form-group">
     <label class="col-sm-2 control-label">Nilai Kontrak</label>

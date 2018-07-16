@@ -16,7 +16,7 @@ if(!empty($search)){
   $this->db->or_like("LOWER(vendor_name)",$search);
   $this->db->or_like("LOWER(contact_name)",$search);
   $this->db->or_like("LOWER(customer_code)",$search);
-  $this->db->or_like("LOWER(address_domisili_exp_date)",$search);
+//  $this->db->or_like("LOWER(address_domisili_exp_date)",$search);
   $this->db->group_end();
 }
 
@@ -28,7 +28,7 @@ if(!empty($search)){
   $this->db->or_like("LOWER(vendor_name)",$search);
   $this->db->or_like("LOWER(contact_name)",$search);
   $this->db->or_like("LOWER(customer_code)",$search);
-  $this->db->or_like("LOWER(address_domisili_exp_date)",$search);
+//  $this->db->or_like("LOWER(address_domisili_exp_date)",$search);
   $this->db->group_end();
 }
 
