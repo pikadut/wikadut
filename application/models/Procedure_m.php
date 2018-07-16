@@ -1971,7 +1971,8 @@ class Procedure_m extends MY_Model {
 					$nextPosCode = $getdata['nextPosCode'];
 					$nextPosName = $getdata['nextPosName'];
 
-					$nextActivity = 1121;
+					// $nextActivity = 1121;
+					$nextActivity = 1122;
 					
 				} else if($response == url_title('Ulangi Proses Pengadaan',"_",true)) {
 					$this->ulangiPengadaan($ptm_number);
@@ -2351,7 +2352,44 @@ class Procedure_m extends MY_Model {
 
 						} else {
 
-							$nextActivity = 1150;
+							//haqim
+							// $nextActivity = 1150;
+
+						$getdata = $this->db
+						->select("ptp_tender_method")
+						->where("ptm_number",$ptm_number)
+						->get("prc_tender_prep")->row_array();
+
+						if($getdata['ptp_tender_method'] == 0){
+
+							$nextjobtitle = 'VP PENGADAAN';
+
+							$this->db->join($view_pemenang." a", 'a.hap_pos_code = b.pos_id');
+							$getdata = $this->getNextState(
+								"a.hap_pos_code",
+								"a.hap_pos_name",
+								"adm_pos b",
+								array("b.job_title"=>$nextjobtitle,'b.dept_id'=>$dept_id));
+
+							$nextPosCode = $getdata['nextPosCode'];
+							$nextPosName = $getdata['nextPosName'];
+
+							$nextActivity = 1180;
+
+						} else {
+
+							$getdata = $this->getNextState(
+								"ptm_buyer_pos_code",
+								"ptm_buyer_pos_name",
+								"prc_tender_main",
+								array("ptm_number"=>$ptm_number));
+
+							$nextPosName = $getdata['nextPosName'];
+							$nextPosCode = $getdata['nextPosCode'];
+							$nextActivity = 1160;
+						}
+						//end
+
 
 						}
 
