@@ -33,26 +33,16 @@ foreach ($pos as $key => $value) {
   $alldist[] = $value['district_id'];
 }
 
-// if($kepala_anggaran){
+  if ($userdata['job_title'] == 'ADMIN' || $userdata['dept_name'] == 'SUPPLY CHAIN MANAGEMENT') {
+    $this->db->where_in("ppm_district_id",$alldist);
+    $this->db->where_in("ppm_dept_id",$alldept);
+  } else {
+    $this->db->where('ppm_dept_id', $userdata['dept_id']);
+  }
 
-//   $this->db->where(array(
-//     "ppm_district_id"=>$kepala_anggaran['district_id'],
-//     ));
+  
 
-// } else if($manajer_user) {
 
-  $this->db->where_in("ppm_district_id",$alldist);
-  $this->db->where_in("ppm_dept_id",$alldept);
-
-// } else if($pic_user) {
-
-//  $this->db->where(array(
-//   "ppm_planner_pos_code"=>$pic_user['pos_id'],
-//   "ppm_district_id"=>$pic_user['district_id'],
-//   "ppm_dept_id"=>$pic_user['dept_id']
-//   ));
-
-// }
 
 if(!empty($id)){
   $this->db->where("ppm_id",$id);
