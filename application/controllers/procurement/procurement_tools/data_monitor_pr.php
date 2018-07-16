@@ -25,7 +25,9 @@ if(!empty($search)){
 
 if($userdata['job_title'] == 'PIC USER'){
   $this->db->where("pr_dept_id",$userdata['dept_id']);
-}
+} elseif ($userdata['job_title'] != 'ADMIN' || $userdata['dept_name'] != 'SUPPLY CHAIN MANAGEMENT') {
+      $this->db->where('pr_dept_id', $userdata['dept_id']);
+} 
 
 $this->db->where("pr_status >=",1000,false);
 
@@ -33,7 +35,9 @@ $data['total'] = $this->Procpr_m->getMonitorPR($id)->num_rows();
 
 if($userdata['job_title'] == 'PIC USER'){
   $this->db->where("pr_dept_id",$userdata['dept_id']);
-}
+}elseif ($userdata['job_title'] != 'ADMIN' || $userdata['dept_name'] != 'SUPPLY CHAIN MANAGEMENT') {
+      $this->db->where('pr_dept_id', $userdata['dept_id']);
+} 
 
 if(!empty($search)){
   $this->db->group_start();
