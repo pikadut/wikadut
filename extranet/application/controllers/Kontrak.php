@@ -345,10 +345,12 @@ class Kontrak extends MY_Controller {
 	public function monitor()
 	{
 
-		$data['list'] = $this->db->select("contract_id, ptm_number, contract_number, vendor_name, start_date, end_date, subject_work, contract_type, currency, contract_amount, awa_name as status")
-		->join("adm_wkf_activity","awa_id=status")
-		->where(array("vendor_id"=>$this->session->userdata("userid")))
-		->get("ctr_contract_header")->result_array();
+		$data['list'] = $this->db->select("a.contract_id, a.ptm_number, a.contract_number, a.vendor_name, a.start_date, a.end_date, a.subject_work, a.contract_type, a.currency, c.total_ppn, b.awa_name as status")
+		->join("adm_wkf_activity b","b.awa_id=a.status")
+		->join("vw_prc_quotation_vendor_sum c", "c.ptm_number=a.ptm_number")
+		->where(array("a.vendor_id"=>$this->session->userdata("userid"), 
+						"c.vendor_id"=>$this->session->userdata("userid")))
+		->get("ctr_contract_header a")->result_array();
 
 		$data['title'] = "List Kontrak";
 		$this->layout->view('listkontrak', $data);

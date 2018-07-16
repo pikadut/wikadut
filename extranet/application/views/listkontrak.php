@@ -33,7 +33,7 @@
 						<!-- <td><?php //echo $row["vendor_name"]; ?></td> -->
 						<td><?php echo $this->umum->show_tanggal($row["start_date"]) ?></td>
 						<td><?php echo $this->umum->show_tanggal($row["end_date"]) ?></td>
-						<td><?php echo $this->umum->cetakuang($row["contract_amount"], $row["currency"])?></td>
+						<td><?php echo $this->umum->cetakuang($row["total_ppn"], $row["currency"])?></td>
 						<td><?php echo $row["status"]; ?></td>
 						<td style="text-align: center;"><button type="submit" class="btn btn-primary btn-sm"><?php echo $this->lang->line('Pilih'); ?></button></td>
 						</form>
