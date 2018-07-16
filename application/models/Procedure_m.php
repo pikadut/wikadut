@@ -1753,8 +1753,8 @@ class Procedure_m extends MY_Model {
 
 							$nextjobtitle = $this->getNextJobTitle($nextPosCode);
 
-							$nextPosCode = $getdata['nextPosCode'];
-							$nextPosName = $getdata['nextPosName'];
+							// $nextPosCode = $getdata['nextPosCode'];
+							// $nextPosName = $getdata['nextPosName'];
 
 							$nextActivity = 1102;	
 							// $nextActivity = 1101;	
@@ -2035,7 +2035,7 @@ class Procedure_m extends MY_Model {
 
 			}else if($activity == 1122){
 
-				if($response == url_title('Lanjutkan',"_",true)){
+				if($response == url_title('Setuju',"_",true)){
 
 					$getdata = $this->db
 					->select("adm_bid_committee")
@@ -2074,7 +2074,25 @@ class Procedure_m extends MY_Model {
 
 					}
 
-				} else if($response == url_title('Ulangi Proses Pengadaan',"_",true)) {
+				}elseif($response == url_title('Revisi',"_",true)){
+
+					$getdata = $this->getNextState(
+						"ptm_buyer_pos_code",
+						"ptm_buyer_pos_name",
+						"prc_tender_main",
+						array("ptm_number"=>$ptm_number));
+
+					$nextPosName = $getdata['nextPosName'];
+					$nextPosCode = $getdata['nextPosCode'];
+
+					$getdata = $this->db
+					->select("ptp_submission_method")
+					->where("ptm_number",$ptm_number)
+					->get("prc_tender_prep")->row_array();
+
+					$nextActivity = ($getdata['ptp_submission_method'] == 0) ? 1100 : 1110;
+
+				}else if($response == url_title('Ulangi Proses Pengadaan',"_",true)) {
 					$this->ulangiPengadaan($ptm_number);
 					$nextActivity = 1903;	
 				}
