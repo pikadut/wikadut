@@ -361,7 +361,13 @@ class Kontrak extends MY_Controller {
 
 		$contractid = $this->input->post("ids");
 
-		$data['header'] = $this->db->select("contract_id,vendor_id, ptm_number, contract_number, fullname as ctr_spe_complete_name, vendor_name, sign_date, start_date, end_date, subject_work, scope_work, contract_type, currency, contract_amount, pf_amount, pf_bank, pf_number, pf_start_date, pf_end_date, pf_attachment")->join("adm_employee","adm_employee.id=ctr_spe_employee")->where("contract_id",$contractid)->get("ctr_contract_header")->row_array();
+		$data['header'] = $this->db->select("contract_id,a.vendor_id, a.ptm_number, contract_number, fullname as ctr_spe_complete_name, a.vendor_name, sign_date, start_date, end_date, subject_work, scope_work, contract_type, currency, contract_amount, pf_amount, pf_bank, pf_number, pf_start_date, pf_end_date, pf_attachment, c.total_ppn")
+			->join("adm_employee b","b.id=a.ctr_spe_employee")
+			->join("vw_prc_quotation_vendor_sum c", "c.vendor_id=a.vendor_id and a.ptm_number=c.ptm_number")
+			->where("contract_id",$contractid)
+			->get("ctr_contract_header a")->row_array();
+
+		$data['last'] = $this->db->last_query();
 
 		$data["item"] = $this->db->query("select tit_id, item_code, short_description, price, uom, qty from ctr_contract_item where contract_id = ".$contractid)->result_array();
 
