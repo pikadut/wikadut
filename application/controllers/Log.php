@@ -122,9 +122,13 @@ class Log extends Telescoope_Controller {
 			$data['total_pr'] = $this->Procpr_m->getPR()->num_rows();
 			
 			$data['total_rfq'] = $this->Procrfq_m->getRFQ()->num_rows();
-			$this->db->select_sum("contract_amount")->group_by("contract_id");
+			//y start
+			$this->db->select_sum("b.total_ppn")
+			->join("vw_prc_quotation_vendor_sum b", "a.ptm_number = b.ptm_number and a.vendor_id = b.vendor_id")
+			->where(array("a.status"=>2901));
+			//y end			
 			$ctr = $this->Contract_m->getData()->row_array();
-			$data['total_contract'] = (isset($ctr['contract_amount'])) ? $ctr['contract_amount'] : 0;
+			$data['total_contract'] = (isset($ctr['total_ppn'])) ? $ctr['total_ppn'] : 0;
 			$data['total_vendor'] = $this->Vendor_m->getVendorActive()->num_rows();
 			$data['top_commodity'] = $this->db->limit(5)->get('vw_prc_item_sum')->result_array();
 			$method_label = array(0=>"Penunjukkan Langsung",1=>"Pemilihan Langsung",2=>"Pelelangan");

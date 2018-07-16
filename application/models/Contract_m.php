@@ -194,19 +194,19 @@ class Contract_m extends CI_Model {
 
 		if(!empty($ptm_number)){
 
-			$this->db->where("ptm_number",$ptm_number);
+			$this->db->where("a.ptm_number",$ptm_number);
 
 		}
 
 		if(!empty($contract_id)){
 
-			$this->db->where("contract_id",$contract_id);
+			$this->db->where("a.contract_id",$contract_id);
 
 		}
 
-		$this->db->order_by("contract_id","desc");
+		//$this->db->order_by("a.contract_id","desc");
 
-		return $this->db->get("ctr_contract_header");
+		return $this->db->get("ctr_contract_header a");
 
 	}
 
