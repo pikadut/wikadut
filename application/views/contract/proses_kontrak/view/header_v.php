@@ -91,12 +91,10 @@
   </div>
 
   <!-- start code hlmifzi -->
-  <?php //foreach ($nilai_kontrak as $k => $v) {  
-  //$curval = (isset($v['total'])) ? inttomoney($v['total']) : 0; 
-  //} ?>
+  <?php //foreach ($nilai_kontrak as $k => $v) { ?> 
+  <?php //$curval = (isset($v['total'])) ? inttomoney($v['total']) : 0; ?>
+  <?php //} ?>
   <!-- end -->
-
-  <?php $curval = (isset($total_kontrak['total_ppn'])) ? inttomoney($total_kontrak['total_ppn']) : 0; ?>
 
   <div class="form-group">
     <label class="col-sm-2 control-label">Nilai Kontrak</label>
@@ -155,16 +153,17 @@
     </div>
   </div>
 
-  <?php $curval = (isset($kontrak['sign_date'])) ? $kontrak["sign_date"] : set_value("tgl_sign_inp"); ?>
+<?php if ($activity_id > 2030): ?>
+
+<?php $curval = (isset($kontrak['sign_date'])) ? $kontrak["sign_date"] : set_value("tgl_sign_inp"); ?>
 <div class="form-group">
-  <label class="col-sm-2 control-label">Tanggal Penandatanganan</label>
-  <div class="col-sm-4">
-    <div class="input-group date">
-      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-      <input type="date" name="tgl_sign_inp" required class="form-control" value="<?php echo $curval ?>">
+    <label class="col-sm-2 control-label">Tanggal Penandatanganan</label>
+    <div class="col-sm-4">
+            <p class="form-control-static"><?php echo date("d/m/Y",strtotime($curval)) ?></p>
     </div>
   </div>
-</div>
+
+<?php endif ?>
 
 </div>
 </div>

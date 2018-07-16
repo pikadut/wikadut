@@ -95,8 +95,8 @@
   </div>
 </div>
 
+ <?php $curval = (isset($total_kontrak['total_ppn'])) ? inttomoney($total_kontrak['total_ppn']) : 0; ?>
 
-<?php $curval = (isset($total_kontrak['total_ppn'])) ? inttomoney($total_kontrak['total_ppn']) : 0; ?>
 
 <div class="form-group">
   <label class="col-sm-2 control-label">Nilai Kontrak</label>
@@ -161,7 +161,7 @@
     </div>
   </div>
 </div>
-
+<?php if ($activity_id == 2030): ?>
 <?php $curval = (isset($kontrak['sign_date']) && !empty($kontrak['sign_date'])) ? date("Y-m-d",strtotime($kontrak["sign_date"])) : set_value("tgl_sign_inp"); ?>
 <div class="form-group">
   <label class="col-sm-2 control-label">Tanggal Penandatanganan</label>
@@ -172,6 +172,7 @@
     </div>
   </div>
 </div>
+<?php endif ?>
 
 </div>
 </div>

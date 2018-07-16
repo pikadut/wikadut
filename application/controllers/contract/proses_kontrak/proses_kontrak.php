@@ -35,6 +35,8 @@ $activity_id = (!empty($last_comment['activity'])) ? $last_comment['activity'] :
 
 $activity = $this->Procedure2_m->getActivity($activity_id)->row_array();
 
+$data['activity_id'] = $activity_id;
+
 if($activity_id == 2000){
 
 	$kontrak = $this->Contract_m->getContractNew($ptm_number)->row_array();
@@ -129,12 +131,13 @@ $kontrak['contract_number'] = $this->Contract_m->getUrut("",$kontrak['contract_t
 
 */
 	$data['total_kontrak'] = $this->db->select('total_ppn')
-							->join('ctr_contract_header b', 'a.vendor_name = b.vendor_name')
-							->join('prc_tender_vendor_status c', 'a.ptm_number = c.ptm_number')
-							->where(array('a.ptm_number'=>$ptm_number, 'b.ptm_number'=>$ptm_number, 'c.ptm_number'=>$ptm_number, 'c.pvs_is_winner'=>1))
-							->get('vw_prc_quotation_vendor_sum a')
-							->row_array();
-							
+	                 ->join('ctr_contract_header b', 'a.vendor_name = b.vendor_name')
+	                 ->join('prc_tender_vendor_status c', 'a.ptm_number = c.ptm_number')
+	                 ->where(array('a.ptm_number'=>$ptm_number, 'b.ptm_number'=>$ptm_number, 'c.ptm_number'=>$ptm_number, 'c.pvs_is_winner'=>1))
+	                 ->get('vw_prc_quotation_vendor_sum a')
+	                 ->row_array();
+
+
 	$data['kontrak'] = $kontrak;
 
 	$manager_name = (!empty($kontrak['ctr_man_employee'])) ? 

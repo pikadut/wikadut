@@ -79,16 +79,19 @@ $data['nilai_kontrak'] = $head;
 
 //end
 
-$data['total_kontrak'] = $this->db->select('total_ppn')
-							->join('ctr_contract_header b', 'a.vendor_name = b.vendor_name')
-							->join('prc_tender_vendor_status c', 'a.ptm_number = c.ptm_number')
-							->where(array('a.ptm_number'=>$ptm_number, 'b.ptm_number'=>$ptm_number, 'c.ptm_number'=>$ptm_number, 'c.pvs_is_winner'=>1))
-							->get('vw_prc_quotation_vendor_sum a')
-							->row_array();
+ $data['total_kontrak'] = $this->db->select('total_ppn')
+                             ->join('ctr_contract_header b', 'a.vendor_name = b.vendor_name')
+                             ->join('prc_tender_vendor_status c', 'a.ptm_number = c.ptm_number')
+                             ->where(array('a.ptm_number'=>$ptm_number, 'b.ptm_number'=>$ptm_number, 'c.ptm_number'=>$ptm_number, 'c.pvs_is_winner'=>1))
+                             ->get('vw_prc_quotation_vendor_sum a')
+                             ->row_array();
+
 
 $activity_id = (!empty($kontrak['status'])) ? $kontrak['status'] : 2000;
 
 $activity = $this->Procedure2_m->getActivity($activity_id)->row_array();
+
+$data['activity_id'] = $activity_id;
 
 $this->db->where("job_title","PENGELOLA KONTRAK");
 
