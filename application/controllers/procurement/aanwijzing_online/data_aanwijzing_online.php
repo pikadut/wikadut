@@ -26,20 +26,14 @@ if(!empty($search)){
   $this->db->or_like("LOWER(status)",$search);
   $this->db->group_end();
 }
-if ($userdata['job_title'] != 'ADMIN' || $userdata['dept_name'] != 'SUPPLY CHAIN MANAGEMENT') {
-      $this->db->where('ptm_dept_id', $userdata['dept_id']);
-}
 
 $this->db->where("ptm_status !=",null,false)->where("ptp_aanwijzing_online",1);
 
 $data['total'] = $this->Procrfq_m->getMonitorRFQ($id)->num_rows();
 
-if ($userdata['job_title'] == 'ADMIN' || $userdata['dept_name'] == 'SUPPLY CHAIN MANAGEMENT') {
-      $this->db->where_in("ppm_district_id",$alldist);
-      $this->db->where_in("ppm_dept_id",$alldept);
-    } else {
-      $this->db->where('ppm_dept_id', $userdata['dept_id']);
-    }
+if ($userdata['job_title'] != 'ADMIN' || $userdata['dept_name'] != 'SUPPLY CHAIN MANAGEMENT') {
+      $this->db->where('ptm_dept_id', $userdata['dept_id']);
+}
 
 if(!empty($search)){
   $this->db->group_start();
