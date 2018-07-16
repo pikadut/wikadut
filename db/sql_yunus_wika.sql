@@ -387,3 +387,10 @@ INSERT INTO "public"."adm_wkf_content" VALUES (2027, 'jaminan_v', 4, 'view');
 
 INSERT INTO "public"."adm_wkf_response" VALUES (599, 2027, 'Setuju', 1);
 INSERT INTO "public"."adm_wkf_response" VALUES (600, 2027, 'Revisi', 1);
+
+-------------
+---16/07/2018
+UPDATE prc_lkpdoc 
+SET ldc_name = 'RKAP/RKP Doc' 
+WHERE
+	ldc_id = 12
