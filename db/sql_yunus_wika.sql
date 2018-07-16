@@ -393,4 +393,6 @@ INSERT INTO "public"."adm_wkf_response" VALUES (600, 2027, 'Revisi', 1);
 UPDATE prc_lkpdoc 
 SET ldc_name = 'RKAP/RKP Doc' 
 WHERE
-	ldc_id = 12
+	ldc_id = 12;
+
+DELETE FROM adm_menu where menuid = 275
