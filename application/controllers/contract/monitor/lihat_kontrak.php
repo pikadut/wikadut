@@ -22,7 +22,7 @@ $this->data['dir'] = CONTRACT_FOLDER;
 
 $data['del_point_list'] = $this->Administration_m->getDelPoint()->result_array();
 $data['district_list'] = $this->Administration_m->getDistrict()->result_array();
-$data['contract_type'] = array("PO"=>"PO","SPK"=>"SPK","KONTRAK"=>"KONTRAK");
+$data['contract_type'] = array("PO"=>"PO","SPK"=>"SPK","KONTRAK"=>"KONTRAK","PERJANJIAN"=>"PERJANJIAN");
 
 $kontrak = $this->Contract_m->getData($contract_id)->row_array();
 
