@@ -669,11 +669,11 @@ class Procedure2_m extends CI_Model {
 				if($response == url_title('Setuju',"_",true)){
 
 					$getdata = $this->getNextState(
-						"hap_pos_code",
-						"hap_pos_name",
-						"vw_prc_hierarchy_approval_11",
-						"hap_pos_code = (select distinct hap_pos_parent 
-							from vw_prc_hierarchy_approval_11 where hap_pos_code = ".$lastPosCode." AND hap_pos_parent IS NOT NULL)");
+						"ctr_spe_pos",
+						"ctr_spe_pos_name",
+						"ctr_contract_header",
+						array("ptm_number"=>$ptm_number));
+
 
 					$nextPosCode = $getdata['nextPosCode'];
 					$nextPosName = $getdata['nextPosName'];

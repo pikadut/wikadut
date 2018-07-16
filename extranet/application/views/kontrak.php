@@ -48,7 +48,7 @@
 					</div>
 					<br>
 					<div class="form-group"><label class="col-sm-4 control-label"><?php echo $this->lang->line('Nilai Kontrak'); ?></label>
-						<div class="col-lg-6 m-l-n"><?php echo $this->umum->cetakuang($header["contract_amount"], $header["currency"]) ?></div>
+						<div class="col-lg-6 m-l-n"><?php echo $this->umum->cetakuang($header["total_ppn"], $header["currency"]) ?></div>
 					</div>
 					<br>
 					<div class="form-group"><label class="col-sm-4 control-label"><?php echo $this->lang->line('Judul Pekerjaan'); ?></label>
