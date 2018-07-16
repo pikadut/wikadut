@@ -1756,7 +1756,8 @@ class Procedure_m extends MY_Model {
 							$nextPosCode = $getdata['nextPosCode'];
 							$nextPosName = $getdata['nextPosName'];
 
-							$nextActivity = 1101;	
+							$nextActivity = 1102;	
+							// $nextActivity = 1101;	
 
 						}
 
@@ -1970,9 +1971,8 @@ class Procedure_m extends MY_Model {
 					$nextPosCode = $getdata['nextPosCode'];
 					$nextPosName = $getdata['nextPosName'];
 
-					//$nextActivity = 1121;
-					$nextActivity = 1122;
-
+					$nextActivity = 1121;
+					
 				} else if($response == url_title('Ulangi Proses Pengadaan',"_",true)) {
 					$this->ulangiPengadaan($ptm_number);
 					$nextActivity = 1903;	
