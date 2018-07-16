@@ -29,7 +29,7 @@
           <h5>Contract</h5>
         </div>
         <div class="ibox-content">
-          <h2 class="no-margins"><?php echo $total_contract ?></h2>
+          <h2 class="no-margins"><?php echo inttomoney($total_contract) ?></h2>
           <small></small>
         </div>
       </div>
