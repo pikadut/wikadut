@@ -13,12 +13,9 @@ $search = (isset($get['search']) && !empty($get['search'])) ? $this->db->escape_
 $offset = (isset($get['offset']) && !empty($get['offset'])) ? $get['offset'] : 0;
 $field_order = (isset($get['sort']) && !empty($get['sort'])) ? $get['sort'] : "ptm_number";
 
-if ($userdata['job_title'] == 'ADMIN' || $userdata['dept_name'] == 'SUPPLY CHAIN MANAGEMENT') {
-      $this->db->where_in("ppm_district_id",$alldist);
-      $this->db->where_in("ppm_dept_id",$alldept);
-    } else {
-      $this->db->where('ppm_dept_id', $userdata['dept_id']);
-    }
+if ($userdata['job_title'] != 'ADMIN' || $userdata['dept_name'] != 'SUPPLY CHAIN MANAGEMENT') {
+      $this->db->where('ptm_dept_id', $userdata['dept_id']);
+}
 
 if(!empty($search)){
   $this->db->group_start();
