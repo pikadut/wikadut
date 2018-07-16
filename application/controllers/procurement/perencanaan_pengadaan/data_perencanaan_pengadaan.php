@@ -106,28 +106,16 @@ if(!empty($filtering)){
 $data['total'] = $this->Procplan_m->getPerencanaanPengadaan()->num_rows();
 
 
-// if($kepala_anggaran){
-
-//   $this->db->where(array(
-//     "ppm_district_id"=>$kepala_anggaran['district_id'],
-//     ));
-
-// } else if ($manajer_user){
-
-//   $this->db->where_in("ppm_district_id",$alldist);
-//   $this->db->where_in("ppm_dept_id",$alldept);
-
-//   // / nambahin ini 
-// }else if($pic_user ['pos_id'] =='25' ){
-// $this->db->where_in("ppm_district_id",$alldist);
-// $this->db->where_in("ppm_dept_id", $alldept);
-// // /////end nambahin
-
-
-// }
 if(!empty($id)){
   $this->db->where("ppm_id",$id);
 }
+
+if ($userdata['job_title'] == 'ADMIN' || $userdata['dept_name'] == 'SUPPLY CHAIN MANAGEMENT') {
+    $this->db->where_in("ppm_district_id",$alldist);
+    $this->db->where_in("ppm_dept_id",$alldept);
+  } else {
+    $this->db->where('ppm_dept_id', $userdata['dept_id']);
+  }
 
 if(!empty($search)){
   $this->db->group_start();
