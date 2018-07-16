@@ -162,6 +162,17 @@
   </div>
 </div>
 
+<?php $curval = (isset($kontrak['sign_date']) && !empty($kontrak['sign_date'])) ? date("Y-m-d",strtotime($kontrak["sign_date"])) : set_value("tgl_sign_inp"); ?>
+<div class="form-group">
+  <label class="col-sm-2 control-label">Tanggal Penandatanganan</label>
+  <div class="col-sm-4">
+    <div class="input-group date">
+      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+      <input type="date" name="tgl_sign_inp" required class="form-control" value="<?php echo $curval ?>">
+    </div>
+  </div>
+</div>
+
 </div>
 </div>
 </div>
