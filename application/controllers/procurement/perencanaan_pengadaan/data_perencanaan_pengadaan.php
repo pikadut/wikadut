@@ -110,13 +110,6 @@ if(!empty($id)){
   $this->db->where("ppm_id",$id);
 }
 
-if ($userdata['job_title'] == 'ADMIN' || $userdata['dept_name'] == 'SUPPLY CHAIN MANAGEMENT') {
-    $this->db->where_in("ppm_district_id",$alldist);
-    $this->db->where_in("ppm_dept_id",$alldept);
-  } else {
-    $this->db->where('ppm_dept_id', $userdata['dept_id']);
-  }
-
 if(!empty($search)){
   $this->db->group_start();
   // $this->db->like("LOWER(ppm_id)",$search);
@@ -171,6 +164,13 @@ if(!empty($filtering)){
 
 }
 
+} else{
+  if ($userdata['job_title'] == 'ADMIN' || $userdata['dept_name'] == 'SUPPLY CHAIN MANAGEMENT') {
+      $this->db->where_in("ppm_district_id",$alldist);
+      $this->db->where_in("ppm_dept_id",$alldept);
+    } else {
+      $this->db->where('ppm_dept_id', $userdata['dept_id']);
+    }
 }
 
 if(!empty($order)){
