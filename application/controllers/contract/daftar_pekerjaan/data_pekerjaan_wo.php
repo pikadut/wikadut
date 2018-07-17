@@ -21,8 +21,8 @@ if(!empty($userdata['pos_id'])){
 
 if(!empty($search)){
   $this->db->group_start();
-  $this->db->like("LOWER(B.po_notes)",$search);
-  $this->db->or_like("LOWER(B.vendor_name)",$search);
+  $this->db->like("LOWER('B.po_notes')",$search);
+  $this->db->or_like("LOWER('B.vendor_name')",$search);
   $this->db->or_where("B.po_number",$search);
   $this->db->group_end();
 }
@@ -40,8 +40,8 @@ if(!empty($userdata['pos_id'])){
 
 if(!empty($search)){
   $this->db->group_start();
-  $this->db->like("LOWER(B.po_notes)",$search);
-  $this->db->or_like("LOWER(B.vendor_name)",$search);
+  $this->db->like("LOWER('B.po_notes')",$search);
+  $this->db->or_like("LOWER('B.vendor_name')",$search);
   $this->db->or_where("B.po_number",$search);
   $this->db->group_end();
 }

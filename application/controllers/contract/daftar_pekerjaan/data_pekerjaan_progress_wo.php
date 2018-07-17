@@ -26,7 +26,7 @@ if(!empty($search)){
   $this->db->group_start();
   $this->db->like("LOWER(progress_description)",$search);
   $this->db->or_like("LOWER(creator_name)",$search);
-  $this->db->or_where("progress_id",$search);
+  $this->db->or_where("progress_id",(int)$search);
   $this->db->group_end();
 }
 
@@ -50,7 +50,7 @@ if(!empty($search)){
   $this->db->group_start();
   $this->db->like("LOWER(progress_description)",$search);
   $this->db->or_like("LOWER(creator_name)",$search);
-  $this->db->or_where("progress_id",$search);
+  $this->db->or_where("progress_id",(int)$search);
   $this->db->group_end();
 }
 
