@@ -17,7 +17,7 @@
           <div class="col-sm-2">
 
             <div class="input-group">
-              <input type="text" maxlength="2" name="periode_sanggahan_inp" id="periode_sanggahan_inp" class="form-control" value="5"/>
+              <input type="numeric" maxlength="2" name="periode_sanggahan_inp" id="periode_sanggahan_inp" class="form-control" required />
               <span class="input-group-addon" id="basic-addon2">Hari Kerja</span>
             </div>
 

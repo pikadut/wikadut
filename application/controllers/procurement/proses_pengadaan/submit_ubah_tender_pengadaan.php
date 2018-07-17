@@ -450,7 +450,7 @@ if($last_activity == 1080){
 }
 
 if(in_array($last_activity, array(1073,1160))){
-  $periode_sanggahan = moneytoint($post['periode_sanggahan_inp']);
+  $periode_sanggahan = !empty($post['periode_sanggahan_inp']) ? moneytoint($post['periode_sanggahan_inp']) : 0;
   $sanggahan_start = date("Y-m-d H:i:s");
   $sanggahan_end = date("Y-m-d H:i:s",strtotime("+$periode_sanggahan day"));
 
