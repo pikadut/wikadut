@@ -190,7 +190,7 @@
 						<!-- shantika -->
 						<tr>
 							<th><?php echo $this->lang->line('Eauction'); ?></th>
-							<?php $curval = (empty($header["ptp_eauction"])) ? "Tidak" : "Ya"; ?>
+							<?php $curval = if($header["ptp_eauction"] == '1') { echo "Ya"; } else { echo "Tidak"; } ?>
 							<td><?php echo $curval ?></td>
 						</tr>
 						<!-- end -->
