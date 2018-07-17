@@ -560,7 +560,7 @@ class Procedure_m extends MY_Model {
 				//completing tender comment
 
 			$totalOE = $this->db
-			->select("sum((ppi_price*ppi_quantity)*(1+(COALESCE(ppi_pph,0)/100)+(COALESCE(ppi_ppn,0)/100))) as total")
+			->select("sum((ppi_price*ppi_quantity)*(1+(COALESCE(ppi_pph::double precision,0)/100)+(COALESCE(ppi_ppn,0)/100))) as total")
 			->from("prc_pr_item")
 			->where("pr_number",$pr_number)
 			->get()->row()->total;
@@ -1044,7 +1044,7 @@ class Procedure_m extends MY_Model {
 		
 				//completing tender comment
 
-		$totalOE = $this->db->select("sum((tit_price*tit_quantity)*(1+(COALESCE(tit_pph::integer,0)/100)+(COALESCE(tit_ppn::integer,0)/100))) as total")->from("prc_tender_item")
+		$totalOE = $this->db->select("sum((tit_price*tit_quantity)*(1+(COALESCE(tit_pph::double precision,0)/100)+(COALESCE(tit_ppn::integer,0)/100))) as total")->from("prc_tender_item")
 		->where("ptm_number",$ptm_number)->get()->row()->total;
 
 		// $max_amount = $this->db->select("max_amount")->from("adm_auth_hie")
@@ -1058,7 +1058,7 @@ class Procedure_m extends MY_Model {
 		->where("pos_id",$lastPosCode)->get()->row();
 // ubah $pr_number jadi ptm_number
 		$totalOE_2 = $this->db
-		->select("sum((tit_price*tit_quantity)*(1+(COALESCE(tit_pph::integer,0)/100)+(COALESCE(tit_ppn::integer,0)/100))) as total")
+		->select("sum((tit_price*tit_quantity)*(1+(COALESCE(tit_pph::double precision,0)/100)+(COALESCE(tit_ppn::integer,0)/100))) as total")
 		->from("prc_tender_item")
 		->where("ptm_number",$ptm_number)
 		->get()->row()->total;

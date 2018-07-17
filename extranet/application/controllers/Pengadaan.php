@@ -125,7 +125,7 @@ class Pengadaan extends MY_Controller {
 					from prc_tender_vendor_status a 
 					JOIN prc_tender_prep b on a.ptm_number = b.ptm_number 
 					join prc_tender_main c on c.ptm_number = b.ptm_number 
-					where pvs_vendor_code = 1028 and a.ptm_number 
+					where pvs_vendor_code = '".$this->session->userdata("userid")."' and a.ptm_number 
 					not in (SELECT ptm_number FROM prc_tender_claim WHERE pcl_jwb_isi IS NULL) and b.ptp_denial_period != 0 and c.ptm_status = 1170
 					")->result_array();
 				$this->layout->view("pengadaan/sanggah", $data);

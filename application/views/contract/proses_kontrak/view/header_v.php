@@ -96,6 +96,9 @@
   <?php //} ?>
   <!-- end -->
 
+ <?php $curval = (isset($total_kontrak['total_ppn'])) ? inttomoney($total_kontrak['total_ppn']) : 0; ?>
+
+
   <div class="form-group">
     <label class="col-sm-2 control-label">Nilai Kontrak</label>
     <div class="col-sm-10">
