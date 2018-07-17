@@ -112,7 +112,20 @@
               <?php $curval = substr($prep['ptp_quo_type'], 2,1); ?>
               <input disabled type="checkbox" id="quo_type_c_inp" <?php echo ($curval == 1) ? "checked" : "" ?> name="quo_type_c_inp" value="1"> C
             </label>
+            
           </div>
+        </br>
+          <label>
+              A : Sesuai spek & jumlah
+            </label>
+          </br>
+            <label>
+              B : Alternatif spek
+            </label>
+          </br>
+            <label>
+              C : Spek & Jumlah beda
+            </label>
         </div>
       </div>
 
