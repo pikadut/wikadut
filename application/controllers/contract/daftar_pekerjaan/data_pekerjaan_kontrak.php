@@ -21,8 +21,8 @@ if(!empty($userdata['pos_id'])){
 
 if(!empty($search)){
   $this->db->group_start();
-  $this->db->like("LOWER(B.ptm_subject_of_work)",$search);
-  $this->db->or_like("LOWER(B.vendor_name)",$search);
+  $this->db->like("LOWER('B.subject_work')",$search);
+  $this->db->or_like("LOWER('B.vendor_name')",$search);
   $this->db->or_where("B.ptm_number",$search);
   $this->db->group_end();
 }
@@ -39,8 +39,8 @@ if(!empty($userdata['pos_id'])){
 
 if(!empty($search)){
   $this->db->group_start();
-  $this->db->like("LOWER(B.ptm_subject_of_work)",$search);
-  $this->db->or_like("LOWER(B.vendor_name)",$search);
+  $this->db->like("LOWER('B.subject_work')",$search);
+  $this->db->or_like("LOWER('B.vendor_name')",$search);
   $this->db->or_where("B.ptm_number",$search);
   $this->db->group_end();
 }
@@ -53,7 +53,7 @@ if(!empty($limit)){
   $this->db->limit($limit,$offset);
 }
 
-$this->db->select("ccc_id,A.ptm_number,contract_number,subject_work,vendor_name,contract_type,awa_name as activity,to_date(ccc_start_date::text,'DD/MM/YYYY HH24:MI'::text) as waktu");
+$this->db->select("ccc_id,A.ptm_number,contract_number,subject_work,vendor_name,contract_type,awa_name as activity,to_char(ccc_start_date,'DD/MM/YYYY HH24:MI') as waktu");
 
 $rows = $this->Contract_m->getPekerjaan($id,$userdata['employee_id'])->result_array();
 
