@@ -62,7 +62,7 @@
 
       {
         field: 'vendor_name',
-        title: 'Vendor',
+        title: 'Ke',
         sortable:true,
         order:true,
         searchable:true,

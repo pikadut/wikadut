@@ -56,7 +56,7 @@
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label">
-								Jangka Waktu Garansi
+								Jangka Waktu Garansi/Pemeliharaan
 							</label>
 							<div class="col-md-2 m-l-n"><input <?php echo $readonly ?> id="garansi_t" name="garansi_t" type="number" class="form-control" required value="<?php echo (isset($header['pqm_guarantee_time'])) ? $header["pqm_guarantee_time"] : "" ?>">
 							</div>
