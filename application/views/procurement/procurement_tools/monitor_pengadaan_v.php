@@ -192,6 +192,15 @@
         searchable:true,
         align: 'left',
         valign: 'middle'
+      },{
+        // field: 'ptm_requester_pos_name',
+        field: 'jenis_pengadaan',
+        title: 'Jenis Pengadaan',
+        sortable:true,
+        order:true,
+        searchable:true,
+        align: 'left',
+        valign: 'middle'
       },
       {
         field: 'last_pos',
@@ -279,6 +288,15 @@
         // field: 'pr_requester_pos_name',
         field: 'pr_dept_name',
         title: 'Divisi/Departemen',
+        sortable:true,
+        order:true,
+        searchable:true,
+        align: 'left',
+        valign: 'middle'
+      },{
+        // field: 'ptm_requester_pos_name',
+        field: 'jenis_pengadaan',
+        title: 'Jenis Pengadaan',
         sortable:true,
         order:true,
         searchable:true,

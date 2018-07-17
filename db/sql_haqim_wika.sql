@@ -848,3 +848,169 @@ SELECT DISTINCT adm_auth_hie_pr_non_proyek.pos_id AS hap_pos_code,
 
 INSERT INTO adm_wkf_response VALUES (502,1122,'Revisi',2);
 UPDATE adm_wkf_response SET awr_name = 'Setuju' WHERE awr_id = 501;
+
+
+CREATE OR REPLACE VIEW "public"."vw_prc_pr_monitor" AS  SELECT pr.pr_number,
+    pr."isSwakelola",
+    pr.pr_requester_name,
+    pr.pr_requester_pos_code,
+    pr.pr_requester_pos_name,
+    pr.pr_created_date,
+    pr.pr_subject_of_work,
+    pr.pr_scope_of_work,
+    pr.pr_district_id,
+    pr.pr_district,
+    pr.pr_delivery_point_id,
+    pr.pr_delivery_point,
+    pr.pr_delivery_time,
+    pr.pr_delivery_unit,
+    pr.pr_buyer,
+    pr.pr_buyer_pos_code,
+    pr.pr_buyer_pos_name,
+    pr.pr_currency,
+    pr.pr_contract_type,
+    pr.pr_last_participant,
+    pr.pr_last_participant_code,
+    pr.pr_status,
+    pr.pr_dept_id,
+    pr.pr_dept_name,
+    pr.pr_mata_anggaran,
+    pr.pr_nama_mata_anggaran,
+    pr.pr_sub_mata_anggaran,
+    pr.pr_nama_sub_mata_anggaran,
+    pr.pr_pagu_anggaran,
+    pr.pr_sisa_anggaran,
+    pr.pr_requester_id,
+    pr.ppm_id,
+    pr.pr_type,
+    ( SELECT adm_wkf_activity.awa_name
+           FROM adm_wkf_activity
+          WHERE (adm_wkf_activity.awa_id = ( SELECT ppc.ppc_activity
+                   FROM prc_pr_comment ppc
+                  WHERE ((ppc.pr_number)::text = (pr.pr_number)::text)
+                  ORDER BY ppc.ppc_id DESC
+                 LIMIT 1))) AS status,
+    ( SELECT ppc.ppc_activity
+           FROM prc_pr_comment ppc
+          WHERE (((ppc.pr_number)::text = (pr.pr_number)::text) AND (ppc.ppc_name IS NOT NULL))
+          ORDER BY ppc.ppc_id DESC
+         LIMIT 1) AS last_status,
+    ( SELECT ppc.ppc_position
+           FROM prc_pr_comment ppc
+          WHERE (((ppc.pr_number)::text = (pr.pr_number)::text) AND (ppc.ppc_name IS NOT NULL))
+          ORDER BY ppc.ppc_id DESC
+         LIMIT 1) AS last_pos,
+    pr.pr_project_name,
+    pr.pr_type_of_plan,
+		CASE pr.pr_type_of_plan
+	WHEN 'rkp' THEN
+		'Proyek'
+	ELSE
+		'Non Proyek'
+END as jenis_pengadaan
+   FROM prc_pr_main pr;
+
+COMMENT ON VIEW "public"."vw_prc_pr_monitor" IS 'Monitor PR';
+
+
+CREATE OR REPLACE VIEW "public"."vw_prc_monitor" AS  SELECT ptm.pr_number,
+    ptp.ptm_number,
+    vnd.vendor_name,
+    vnd.vendor_id,
+    ptm.ptm_upreff,
+    ptm.ptm_downreff,
+    ptm.ptm_requester_name,
+    ptm.ptm_requester_pos_code,
+    ptm.ptm_requester_pos_name,
+    ptm.ptm_created_date,
+    ptm.ptm_subject_of_work,
+    ptm.ptm_scope_of_work,
+    ptm.ptm_district_id,
+    ptm.ptm_district,
+    ptm.ptm_delivery_point_id,
+    ptm.ptm_delivery_point,
+    ptm.ptm_delivery_time,
+    ptm.ptm_delivery_unit,
+    ptm.ptm_buyer,
+    ptm.ptm_buyer_pos_code,
+    ptm.ptm_buyer_pos_name,
+    ptm.ptm_currency,
+    ptm.ptm_contract_type,
+    ptm.ptm_last_participant,
+    ptm.ptm_last_participant_code,
+    ptm.ptm_is_contract_created,
+    ptm.ptm_rfq_no,
+    ptm.ptm_status,
+    ptm.ptm_completed_date,
+    ptm.ptm_tender_id,
+    ptm.ptm_is_manual,
+    ptm.ptm_dept_id,
+    ptm.ptm_dept_name,
+    ptm.ptm_mata_anggaran,
+    ptm.ptm_nama_mata_anggaran,
+    ptm.ptm_sub_mata_anggaran,
+    ptm.ptm_nama_sub_mata_anggaran,
+    ptm.ptm_pagu_anggaran,
+    ptm.ptm_sisa_anggaran,
+    ptm.ptm_requester_id,
+    ptp.ptp_id,
+    ptp.ptp_tender_method,
+    ptp.ptp_submission_method,
+    ptp.ptp_evaluation_method,
+    ptp.ptp_reg_opening_date,
+    ptp.ptp_reg_closing_date,
+    ptp.ptp_prebid_date,
+    ptp.ptp_prebid_location,
+    ptp.ptp_quot_closing_date,
+    ptp.ptp_tech_bid_date,
+    ptp.ptp_quot_opening_date,
+    ptp.ptp_eauction,
+    ptp.ptp_inquiry_notes,
+    ptp.ptp_enabled_rank,
+    ptp.ptp_prequalify,
+    ptp.ptp_doc_open_date,
+    ptp.ptp_preq_info,
+    ptp.evt_id,
+    ptp.evt_description,
+    ptp.adm_bid_committee,
+    ptp.adm_bid_committee_name,
+    ptp.ppt_id,
+    ptp.ppt_name,
+    ptp.ptp_bid_opening2,
+    ptp.ptp_tgl_aanwijzing2,
+    ptp.ptp_lokasi_aanwijzing2,
+    ptp.ptp_klasifikasi_peserta,
+    ptp.ptp_aanwijzing_online,
+    ( SELECT adm_wkf_activity.awa_name
+           FROM adm_wkf_activity
+          WHERE (adm_wkf_activity.awa_id = ( SELECT ptc.ptc_activity
+                   FROM prc_tender_comment ptc
+                  WHERE ((ptc.ptm_number)::text = (ptm.ptm_number)::text)
+                  ORDER BY ptc.ptc_id DESC
+                 LIMIT 1))) AS status,
+    pqvs.total AS total_contract,
+    COALESCE(( SELECT ptc.ptc_activity
+           FROM prc_tender_comment ptc
+          WHERE ((ptc.ptm_number)::text = (ptm.ptm_number)::text)
+          ORDER BY ptc.ptc_id DESC
+         LIMIT 1), ptm.ptm_status) AS last_status,
+    ( SELECT ptc.ptc_position
+           FROM prc_tender_comment ptc
+          WHERE ((ptc.ptm_number)::text = (ptm.ptm_number)::text)
+          ORDER BY ptc.ptc_id DESC
+         LIMIT 1) AS last_pos,
+    pqm.pqm_currency,
+    ptm.pr_type,
+    ptm.ptm_type_of_plan,
+    ptm.ptm_project_name,
+		        CASE ptm.ptm_type_of_plan
+            WHEN 'rkp'::text THEN 'Proyek'::text
+            ELSE 'Non Proyek'::text
+        END AS jenis_pengadaan
+   FROM (((((prc_tender_main ptm
+     LEFT JOIN prc_tender_prep ptp ON (((ptp.ptm_number)::text = (ptm.ptm_number)::text)))
+     LEFT JOIN prc_tender_vendor_status ptvs ON ((((ptvs.ptm_number)::text = (ptm.ptm_number)::text) AND (ptvs.pvs_is_winner = 1))))
+     LEFT JOIN vnd_header vnd ON ((vnd.vendor_id = ptvs.pvs_vendor_code)))
+     LEFT JOIN prc_tender_quo_main pqm ON (((vnd.vendor_id = pqm.ptv_vendor_code) AND ((ptp.ptm_number)::text = (pqm.ptm_number)::text))))
+     LEFT JOIN vw_prc_quotation_vendor_sum pqvs ON (((vnd.vendor_id = pqvs.ptv_vendor_code) AND ((pqvs.ptm_number)::text = (ptm.ptm_number)::text))));
+
