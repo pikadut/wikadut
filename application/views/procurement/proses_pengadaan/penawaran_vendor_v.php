@@ -59,7 +59,7 @@ else{
 								<label class="col-sm-2 control-label">Kandungan Lokal</label>
 								<div class="col-md-2 m-l-n">
 									<p class="form-control-static">
-										<?php if(isset($header)) { echo $header["pqm_local_content"]; } ?>
+										<?php if(isset($header)) { echo $header["pqm_local_content"] ? $header["pqm_local_content"] : 0; } ?>
 									</p></div>
 								</div>
 								<div class="form-group">
@@ -73,7 +73,7 @@ else{
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-2 control-label">Jangka Waktu Garansi</label>
+									<label class="col-sm-2 control-label">Jangka Waktu Garansi/Pemeliharaan</label>
 									<div class="col-md-2 m-l-n">
 										<p class="form-control-static">
 											<?php if(isset($header)) { echo $header["pqm_guarantee_time"]; } ?> 
