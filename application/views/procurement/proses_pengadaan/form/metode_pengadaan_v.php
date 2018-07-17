@@ -111,8 +111,7 @@ if($prep['ptp_prequalify'] == 2){
                 <?php $curval = substr($prep['ptp_quo_type'], 2,1); ?>
                 <input type="checkbox" id="quo_type_c_inp" <?php echo ($curval == 1) ? "checked" : "" ?> name="quo_type_c_inp" value="1"> C
               </label>
-            </div>
-            </br>
+              </br>
           <label>
               A : Sesuai spek & jumlah
             </label>
@@ -126,6 +125,7 @@ if($prep['ptp_prequalify'] == 2){
             </label>
           </div>
         </div>
+            </div>
           </div>
         </div>
 
