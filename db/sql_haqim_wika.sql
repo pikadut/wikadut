@@ -813,7 +813,6 @@ CREATE OR REPLACE VIEW "public"."vw_daftar_pekerjaan_pr" AS  SELECT a.pr_number,
      LEFT JOIN adm_wkf_activity c ON ((c.awa_id = a.ppc_activity)))
   WHERE ((a.ppc_name IS NULL) AND (a.ppc_end_date IS NULL) AND (a.ppc_activity <> 1904));
 
--- blm dipush
 -- 15/07/2018
 
 DROP VIEW "public"."vw_prc_hierarchy_approval";
@@ -844,3 +843,8 @@ SELECT DISTINCT adm_auth_hie_pr_non_proyek.pos_id AS hap_pos_code,
      LEFT JOIN adm_auth_hie_pr_non_proyek adm_auth_hie_1 ON ((adm_auth_hie_pr_non_proyek.parent_id = adm_auth_hie_1.auth_hie_id)))
      LEFT JOIN adm_pos adm_pos_1 ON ((adm_auth_hie_1.pos_id = adm_pos_1.pos_id)))
   ORDER BY adm_auth_hie_pr_non_proyek.pos_id;
+
+--- 17/07/2018
+
+INSERT INTO adm_wkf_response VALUES (502,1122,'Revisi',2);
+UPDATE adm_wkf_response SET awr_name = 'Setuju' WHERE awr_id = 501;
