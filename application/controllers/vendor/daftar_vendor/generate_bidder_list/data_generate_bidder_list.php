@@ -48,10 +48,10 @@ if(!empty($search)){
   $this->db->group_start();
   $this->db->like("LOWER(vendor_name)",$search);
   // nambahin ini -shan
-   $this->db->or_like("LOWER(win)",$search);
-  $this->db->or_like("LOWER(invited)",$search);
-  $this->db->or_like("LOWER(reg)",$search);
-  $this->db->or_like("LOWER(quote)",$search);
+   $this->db->or_like("LOWER('win')",$search);
+  $this->db->or_like("LOWER('invited')",$search);
+  $this->db->or_like("LOWER('reg')",$search);
+  $this->db->or_like("LOWER('quote')",$search);
   $this->db->or_like("LOWER(reg_status_name)",$search);
   // end nambahin
   $this->db->group_end();
