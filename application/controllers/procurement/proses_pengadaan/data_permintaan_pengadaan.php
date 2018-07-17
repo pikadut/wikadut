@@ -19,18 +19,24 @@ if(!empty($search)){
   $this->db->group_start();
   $this->db->like("LOWER(pr_subject_of_work)",$search);
   $this->db->or_like("LOWER(pr_requester_name)",$search);
+  $this->db->or_like("LOWER('nilai')",$search);
   $this->db->or_like("LOWER(pr_requester_pos_name)",$search);
   $this->db->or_where("pr_number",$search);
   $this->db->group_end();
 }
 
-$this->db->where_in("pr_dept_id",$dept);
+// $this->db->where_in("pr_dept_id",$dept);
+if ($userdata['job_title'] != 'ADMIN' || $userdata['dept_name'] != 'SUPPLY CHAIN MANAGEMENT' ) {
+  $this->db->where_in("pr_dept_id",$userdata['dept_id']);
+}
 
 $data['total'] = $this->Procpr_m->getPR($id)->num_rows();
 
-//echo $this->db->last_query();
 
-$this->db->where_in("pr_dept_id",$dept);
+// $this->db->where_in("pr_dept_id",$dept);
+if ($userdata['job_title'] != 'ADMIN' || $userdata['dept_name'] != 'SUPPLY CHAIN MANAGEMENT' ) {
+  $this->db->where_in("pr_dept_id",$userdata['dept_id']);
+}
 
 if(!empty($search)){
   $this->db->group_start();
@@ -39,7 +45,7 @@ if(!empty($search)){
   $this->db->like("LOWER(pr_subject_of_work)",$search);
   $this->db->or_like("LOWER(pr_requester_name)",$search);
   $this->db->or_like("LOWER(pr_dept_name)",$search);
-  $this->db->or_like("LOWER(nilai)",$search);
+  $this->db->or_like("LOWER('nilai')",$search);
   $this->db->or_like("LOWER(status)",$search);
   // $this->db->or_where("pr_number",$search);
   $this->db->or_like("pr_number",$search);
