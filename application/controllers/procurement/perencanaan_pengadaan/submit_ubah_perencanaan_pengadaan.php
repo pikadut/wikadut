@@ -122,12 +122,12 @@ if ($this->form_validation->run() == FALSE  || $error){
 
   $next_jobtitle = $this->Procedure_m->getNextJobTitlePlan($userdata['pos_id'],'',$post['jenis_rencana']);
 
-  $next_pos_id = $status == '1' ? $next_jobtitle[0]['hap_pos_parent'] : $userdata['pos_id'];
+  $next_pos_id = $status == '1' ? $next_jobtitle : $userdata['pos_id'];
 
   $input['ppm_next_pos_id'] = $next_pos_id;
 
   $act = $this->Procplan_m->updateDataPerencanaanPengadaan($post['id'],$input);
-
+  
   if($act){
 
     $last_id = $post['id'];
@@ -160,7 +160,7 @@ if ($this->form_validation->run() == FALSE  || $error){
 
     //haqim mail drp send
     if ($status == '1') {
-      $this->Procedure_m->prc_plan_comment_complete($position['pos_id'],$input['ppm_dept_name'],$input['ppm_planner_pos_name'],"PEMBUATAN PERENCANAAN PENGADAAN ".strtoupper($post['nama_rencana_pekerjaan_inp']),"PIC USER",$next_jobtitle[0]['hap_pos_parent']); 
+      $this->Procedure_m->prc_plan_comment_complete($position['pos_id'],$input['ppm_dept_name'],$input['ppm_planner_pos_name'],"PEMBUATAN PERENCANAAN PENGADAAN ".strtoupper($post['nama_rencana_pekerjaan_inp']),"PIC USER",$next_jobtitle); 
     }
     //end
 
