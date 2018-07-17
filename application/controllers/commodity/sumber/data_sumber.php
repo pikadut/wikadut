@@ -11,14 +11,14 @@
   $field_order = (isset($get['sort']) && !empty($get['sort'])) ? $get['sort'] : "sourcing_id";
   
   if(!empty($search)){
-    $this->db->like("LOWER(sourcing_id)",$search);
+    $this->db->like("LOWER('sourcing_id')",$search);
     $this->db->or_like("LOWER(sourcing_name)",$search);
   }
 
   $data['total'] = $this->Commodity_m->getSourcing()->num_rows();
 
   if(!empty($search)){
-    $this->db->like("LOWER(sourcing_id)",$search);
+    $this->db->like("LOWER('sourcing_id')",$search);
     $this->db->or_like("LOWER(sourcing_name)",$search);
   }
 
