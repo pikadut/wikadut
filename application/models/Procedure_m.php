@@ -956,7 +956,8 @@ class Procedure_m extends MY_Model {
 		$attachment = "",
 		$ptcId = 0,
 		$user_id = null,
-		$type_of_plan
+		$type_of_plan,
+		$winner =""
 	) {
 
 		if ($type_of_plan == 'rkp') {
@@ -2679,16 +2680,6 @@ class Procedure_m extends MY_Model {
 
 				if($response == url_title('Tunjuk Pelaksana Pekerjaan',"_",true)){
 
-					$nextjobtitle = 'VP PENGADAAN';
-
-					$getdata = $this->getNextState(
-						"pos_id",
-						"pos_name",
-						"adm_pos",
-						array("job_title"=>$nextjobtitle));
-
-					$nextPosCode = $getdata['nextPosCode'];
-					$nextPosName = $getdata['nextPosName'];
 
 					$nextActivity = 1901;
 
@@ -2699,8 +2690,11 @@ class Procedure_m extends MY_Model {
 
 					$this->load->model('Contract_m');
 
+					// $check = $this->db
+					// ->query("SELECT * FROM vw_prc_monitor WHERE ptm_number = '".$ptm_number."' AND ptm_number NOT IN (SELECT ptm_number FROM ctr_contract_header) AND last_status = 1180 AND vendor_id IS NOT NULL")
+					// ->row_array();
 					$check = $this->db
-					->query("SELECT * FROM vw_prc_monitor WHERE ptm_number = '".$ptm_number."' AND ptm_number NOT IN (SELECT ptm_number FROM ctr_contract_header) AND last_status = 1180 AND vendor_id IS NOT NULL")
+					->query("SELECT * FROM vw_prc_monitor WHERE ptm_number = '".$ptm_number."' AND last_status = 1180")
 					->row_array();
 
 					// haqim
@@ -2712,7 +2706,8 @@ class Procedure_m extends MY_Model {
 					// $getdata = $this->db->select("pos_id,pos_name")
 					// ->where(array("job_title"=>"PENGELOLA KONTRAK")) //vp pengadaan
 					// ->get("adm_pos")->row_array();
-
+					$vendor = $this->db->where('vendor_id', $winner)
+								->get('vnd_header')->row_array();
 					//y manager kontrak
 					//haqim		
 					$this->db->join($view_kontrak." a", 'a.hap_pos_code = b.pos_id');
@@ -2725,10 +2720,6 @@ class Procedure_m extends MY_Model {
 					$getman = $this->db->get('adm_employee_pos')->row_array();
 
 					// end
-					// $getman = $this->db->select("pos_id, pos_name, employee_id")
-					// ->where(array("job_title"=>"MANAJER PENGADAAN",
-					// "user_name NOT LIKE" => '%proyek%'))
-					// ->get("user_login_rule")->row_array();
 
 					//y pengelola kontrak
 					//haqim
@@ -2741,16 +2732,13 @@ class Procedure_m extends MY_Model {
 					$this->db->where('pos_id', $getpos['pos_id']);
 					$getspe = $this->db->get('adm_employee_pos')->row_array();
 					//end
-					// $getspe = $this->db->select("pos_id, pos_name, employee_id")
-					// ->where(array("job_title"=>"PENGELOLA KONTRAK"))
-					// ->get("user_login_rule")->row_array();
 					
 					// foreach ($check as $key => $value) {
 
 						$input['ptm_number'] = $check['ptm_number'];
 						$input['currency'] = $check['pqm_currency'];
-						$input['vendor_id'] = $check['vendor_id'];
-						$input['vendor_name'] = $check['vendor_name'];
+						$input['vendor_id'] = $vendor['vendor_id'];
+						$input['vendor_name'] = $vendor['vendor_name'];
 						$input['subject_work'] = $check['ptm_subject_of_work'];
 						$input['scope_work'] = $check['ptm_scope_of_work'];
 						$input['contract_type'] = $check['ptm_contract_type'];
