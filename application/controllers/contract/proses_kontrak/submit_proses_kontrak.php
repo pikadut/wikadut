@@ -169,11 +169,14 @@ if(in_array($last_activity, array(2010,2030))){
 
   $mulai = $post['tgl_mulai_inp'];
   $akhir = $post['tgl_akhir_inp'];
-  $sign = $post['tgl_sign_inp'];//tambah
+if ($last_activity == 2030) {
+$sign = $post['tgl_sign_inp'];//tambah
+}
   $input['start_date'] = (!empty($mulai)) ? date("Y-m-d",strtotime($mulai)) : null;
   $input['end_date'] = (!empty($mulai)) ? date("Y-m-d",strtotime($akhir)) : null;
+if ($last_activity == 2030) {
   $input['sign_date'] = (!empty($mulai)) ? date("Y-m-d",strtotime($sign)) : null;//tambah
-  
+}  
   if(strtotime($akhir) < strtotime($mulai)){
     $this->setMessage("Tanggal berakhir kontrak tidak boleh kurang dari tanggal mulai kontrak");
     if(!$error){
