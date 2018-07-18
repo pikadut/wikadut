@@ -1014,3 +1014,6 @@ CREATE OR REPLACE VIEW "public"."vw_prc_monitor" AS  SELECT ptm.pr_number,
      LEFT JOIN prc_tender_quo_main pqm ON (((vnd.vendor_id = pqm.ptv_vendor_code) AND ((ptp.ptm_number)::text = (pqm.ptm_number)::text))))
      LEFT JOIN vw_prc_quotation_vendor_sum pqvs ON (((vnd.vendor_id = pqvs.ptv_vendor_code) AND ((pqvs.ptm_number)::text = (ptm.ptm_number)::text))));
 
+ALTER TABLE "public"."ctr_contract_item" 
+  ALTER COLUMN "ppn" TYPE float8 USING "ppn"::float8,
+  ALTER COLUMN "pph" TYPE float8 USING "pph"::float8;

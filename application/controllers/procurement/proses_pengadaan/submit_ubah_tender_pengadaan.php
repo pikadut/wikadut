@@ -1046,7 +1046,7 @@ $com = $post['comment_inp'][0];
 
 $attachment = $post['comment_attachment_inp'][0];
 
-$return = $this->Procedure_m->prc_tender_comment_complete($ptm_number,$userdata['complete_name'],$last_activity,$response,$com,$attachment,$last_comment['comment_id'],$userdata['employee_id'],$tender['ptm_type_of_plan'],$winner);
+$return = $this->Procedure_m->prc_tender_comment_complete($ptm_number,$userdata['complete_name'],$last_activity,$response,$com,$attachment,$last_comment['comment_id'],$userdata['employee_id'],$tender['ptm_type_of_plan'],$post['winner_inp']);
 
 if(!empty($return['nextactivity'])){
 
