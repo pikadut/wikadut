@@ -152,8 +152,11 @@ class Pengadaan extends MY_Controller {
 			}
 
 			public function inputsanggah(){
+				
 				$post = $this->input->post();
 
+				$nilaijaminan = str_replace(".", "", $post["nilaijaminan"]);
+			
 				if(!empty($_FILES['lampiran_sanggah']['name'])){
 					$files = $this->do_upload('lampiran_sanggah', $this->session->userdata("userid"), "sanggah");
 					if(is_array($files)){
@@ -174,7 +177,7 @@ class Pengadaan extends MY_Controller {
 					"pcl_reason"			=> $post["isi"],
 					"pcl_supporting_text"	=> $post["pendukung"],
 					"pcl_supporting_att"	=> $files,
-					"pcl_jam_amount"		=> $post["nilaijaminan"],
+					"pcl_jam_amount"		=> $nilaijaminan,
 					"pcl_jam_bank"			=> $post["bank"],
 					"pcl_jam_number"		=> $post["nomorjaminan"],
 					"pcl_jam_start_date"	=> $post["startdate"],
