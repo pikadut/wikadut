@@ -216,10 +216,10 @@
 							<td><?php echo $curval ?></td>
 						</tr>
 						<?php } ?>
-						<tr>
-							<th><?php echo $this->lang->line('Nilai PR'); ?></th>
-							<td><?php echo number_format($header["nilai"], 2, '.', ',') ?></td>
-						</tr>
+						<!-- <tr>
+							<th><?php //echo $this->lang->line('Nilai PR'); ?></th>
+							<td><?php //echo number_format($header["nilai"], 2, '.', ',') ?></td>
+						</tr> -->
 					</table>
 				</div>
 			</div>
