@@ -571,10 +571,10 @@ class Procedure2_m extends CI_Model {
 				}
 
 			//y start my code
-			// review legal fix
+			// approval legal fix
 			} else if($activity == 2021){
 
-				if($response == url_title('Lanjutkan',"_",true)){
+				if($response == url_title('Setuju',"_",true)){
 
 					$ctrvalue = $this->db->select('price, qty, ppn, pph')
 								->where(array('ptm_number'=>$ptm_number))
@@ -609,6 +609,18 @@ class Procedure2_m extends CI_Model {
 						$nextActivity = 2023;
 					}
 
+				} else if($response == url_title('Revisi',"_",true)){
+					
+					$getdata = $this->getNextState(
+						"ctr_spe_pos",
+						"ctr_spe_pos_name",
+						"ctr_contract_header",
+						array("ptm_number"=>$ptm_number));
+
+					$nextPosCode = $getdata['nextPosCode'];
+					$nextPosName = $getdata['nextPosName'];
+
+					$nextActivity = 2010;
 				}
 
 			// review manager terkait
