@@ -140,7 +140,7 @@
         <button type='button' class='btn btn-primary btn-xs delete_item' data-no='<?php echo $value['etd_id'] ?>'><i class='fa fa-remove'></i></button></td>
         <td><input type='hidden' class='item_name' data-no='<?php echo $value['etd_id'] ?>' name='item_name[<?php echo $value['etd_id'] ?>]' value='<?php echo $value['etd_item'] ?>'/><?php echo $value['etd_item'] ?></td>
         <td><input type='hidden' class='item_jenis' data-no='<?php echo $value['etd_id'] ?>' name='item_jenis[<?php echo $value['etd_id'] ?>]' value='<?php echo $value['etd_mode'] ?>'/><?php echo ($value['etd_mode'] == 1) ? "Teknis" : "Administrasi" ?></td>
-        <td class="text-right"><input type='hidden' class='item_bobot' data-no='<?php echo $value['etd_id'] ?>' name='item_bobot[<?php echo $value['etd_id'] ?>]' value='<?php echo $value['etd_weight'] ?>'/><?php echo $value['etd_weight'] ?></td>
+        <td class="text-left"><input type='hidden' class='item_bobot' data-no='<?php echo $value['etd_id'] ?>' name='item_bobot[<?php echo $value['etd_id'] ?>]' value='<?php echo $value['etd_weight'] ?>'/><?php echo $value['etd_weight'] ?></td>
         </tr>
     <?php } ?>
     </tbody>

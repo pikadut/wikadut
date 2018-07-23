@@ -1185,7 +1185,7 @@ class Kontrak extends MY_Controller {
 
 		$isprogress = $this->db
 		->select("b.*")
-		->where(array("vendor_id"=>$this->session->userdata("userid"),"COALESCE(b.status,0)"=>0,"b.milestone_id"=>$id))
+		->where(array("vendor_id"=>$this->session->userdata("userid"),"COALESCE(b.status::integer,0)"=>0,"b.milestone_id"=>$id))
 		->join("ctr_contract_milestone e","e.milestone_id=b.milestone_id","left")
 		->join("ctr_contract_header c","c.contract_id=e.contract_id","left")
 		->order_by("progress_id","desc")

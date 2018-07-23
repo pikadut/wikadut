@@ -396,3 +396,18 @@ WHERE
 	ldc_id = 12;
 
 DELETE FROM adm_menu where menuid = 275
+
+-------------
+---20/07/2018
+INSERT INTO "public"."adm_wkf_response" VALUES (601, 2021, 'Setuju', 1);
+
+UPDATE adm_wkf_response 
+SET awr_name = 'Revisi' 
+WHERE
+	awr_id = 590;
+
+UPDATE adm_wkf_activity 
+SET awa_name = 'Persetujuan Dokumen Kontrak' 
+WHERE
+	awa_id = 2021;
+	
