@@ -371,7 +371,8 @@
 
         var x = parseFloat(jumlah_int)*parseFloat(harga_satuan_int);
         var subtotal_int = x+(x*parseFloat(ppn)/100)+(x*(pph)/100);
-        var subtotal = inttomoney(subtotal_int);
+        // var subtotal = inttomoney(subtotal_int);
+        var subtotal = inttomoney(x);
         harga_satuan = inttomoney(harga_satuan_int);
 
         var html = "<tr><td><button type='button' class='btn btn-primary btn-xs edit_item' data-no='"+no+"'><i class='fa fa-edit'></i></button></td>";
