@@ -1196,11 +1196,35 @@ class Pengadaan extends MY_Controller {
 							$data["pajak"] = $this->db->query("select case npwp_pkp WHEN 'YA' THEN '1' ELSE '0' END as pajak from vnd_header where vendor_id = '".$this->session->userdata("userid")."'")->row_array();
 							$data["pajak"] = $data["pajak"]["pajak"];
 							$data["header"] = $this->db->query("select * from prc_tender_quo_main where ptm_number = '".$tenderid."' and ptv_vendor_code = '".$this->session->userdata("userid")."'")->row_array();
+							
+							//============================================
+							if($data["header"] == NULL ){
+								$data["header"] = $this->db->query("SELECT ptp_eauction,a.ptm_number, b.ptp_submission_method, a.ptm_subject_of_work, a.ptm_scope_of_work, a.ptm_contract_type, b.ptp_klasifikasi_peserta, a.ptm_currency, b.ptp_reg_opening_date, b.ptp_reg_closing_date, b.ptp_prebid_date, b.ptp_quot_opening_date, b.ptp_prebid_location, b.ptp_bid_opening2, b.ptp_tgl_aanwijzing2, b.ptp_lokasi_aanwijzing2, ptp_quot_closing_date, ptp_doc_open_date, CASE b.ptp_tender_method WHEN '0' THEN 'PENUNJUKAN LANGSUNG' WHEN '1' THEN 'PEMILIHAN LANGSUNG' WHEN '2' THEN 'LELANG' END AS metode, now() AS waktu, b.ptp_aanwijzing_online, COALESCE (( SELECT sum(tit_quantity * tit_price * 1.1) FROM prc_tender_item WHERE ptm_number = '".$tenderid."' GROUP BY ptm_number ), 0 ) AS nilai from prc_tender_main a join prc_tender_prep b on a.ptm_number = b.ptm_number where b.ptm_number = '".$tenderid."'")->row_array();
+								$data["item"] = $this->db->query("select tit_code,tit_ppn,tit_pph, tit_description, tit_quantity, tit_unit from prc_tender_item where ptm_number = '".$tenderid."'")->result_array();
+								$data["dokumen"] = $this->db->query("select ptd_id, ptd_category, ptd_description, ptd_file_name from prc_tender_doc where ptd_type = '1' and ptm_number = '".$tenderid."'")->result_array();
+								if($current_stat == "1" && (strtotime($data["header"]["ptp_reg_closing_date"]) > strtotime($data["header"]["waktu"]))){
+									$data["submits"] = true;
+								}
+								else{
+									$data["submits"] = false;
+								}
+								if ($data["header"]["ptp_submission_method"] == '2') { 
+									$data["tahap2"] = true;
+								}
+								else{
+									$data["tahap2"] = false;
+								}
+								$this->layout->view("pengadaan/overview", $data);
+							}else{							
+							//============================================
+
 							$data["template"] = $this->db->query("select pqt_id, pqt_item, pqt_weight, pqt_check_vendor, pqt_vendor_desc, pqt_attachment from prc_tender_quo_tech where pqm_id = '".$data["header"]["pqm_id"]."'")->result_array();
 							$data["item"] = $this->db->query("select * from prc_tender_quo_item join prc_tender_item on prc_tender_quo_item.tit_id = prc_tender_item.tit_id where pqm_id = '".$data["header"]["pqm_id"]."'")->result_array();
 							$data["currency"] = $this->db->query("select curr_code, curr_name from adm_curr where curr_code like 'IDR' order by curr_code asc")->result_array();
 							$data["readonly"] = "1";
 							$this->layout->view("pengadaan/penawaran", $data);
+
+							}
 							
 						}
 

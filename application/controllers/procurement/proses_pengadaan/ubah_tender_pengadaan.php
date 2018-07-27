@@ -148,7 +148,7 @@ $this->session->unset_userdata("selection_vendor_tender");
 $vendor = array();
 
 foreach ($vnd as $key => $value) {
-  if($value['pvs_status'] > 0){
+  if($value['pvs_status'] > 0 || $value['pvs_status'] == null ){
    $vendor[] = $value['pvs_vendor_code'];
  } else {
   unset($temp[$value['pvs_vendor_code']]);
