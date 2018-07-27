@@ -37,7 +37,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Kode Sub Anggaran</label>
 							<div class="col-sm-4">
-								<input type="text" maxlength="50" class="form-control" id="subcode_inp" maxlength="50" name="subcode_inp" value="<?php echo $curval ?>">
+								<input type="text" required maxlength="50" class="form-control" id="subcode_inp" maxlength="50" name="subcode_inp" value="<?php echo $curval ?>">
 							</div>
 						</div>
 
@@ -45,7 +45,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Nama Sub Anggaran</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="subname_inp" maxlength="255" name="subname_inp" value="<?php echo $curval ?>">
+								<input type="text" required class="form-control" id="subname_inp" maxlength="255" name="subname_inp" value="<?php echo $curval ?>">
 							</div>
 						</div> 
 
