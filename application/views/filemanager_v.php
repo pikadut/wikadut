@@ -8,7 +8,7 @@
         <h4 class="modal-title" id="uploadLabel">File Uploader</h4>
       </div>
       <div class="modal-body">
-        <input  type="file" name="file" id="file-uploader">
+        <input  type="file" name="file" id="file-uploader" accept=".doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, .jpg, .jpeg, .png, .Zip, .rar, .tgz, .7zip, .tar">
         <input type="hidden" name="upload_id" id="upload_id">
         <input type="hidden" name="upload_preview" id="upload_preview">
         <input type="hidden" name="uploader" id="uploader">
@@ -20,6 +20,7 @@
 <script type="text/javascript" src="assets/js/jquery.ajaxfileupload.js"></script>
 
 <script type="text/javascript">
+  $(document).ready(function(){
   var interval;
   applyAjaxFileUpload("#file-uploader");
   function applyAjaxFileUpload(element) {
@@ -93,6 +94,17 @@
 
               }, 1300);
 
+              var $fileInput = $("<input />")
+              .attr({
+                type: "file",
+                name: $(this).attr("name"),
+                id: $(this).attr("id")
+              });
+
+            $("span." + $(this).attr("id")).replaceWith($fileInput);
+
+            applyAjaxFileUpload($fileInput);
+
               return;
 
             } else {
@@ -121,5 +133,5 @@
         });
 
 }
-
+})
 </script>
