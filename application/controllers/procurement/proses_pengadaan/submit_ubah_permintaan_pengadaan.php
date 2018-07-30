@@ -27,7 +27,6 @@ $permintaan = $this->Procpr_m->getPR($pr_number)->row_array();
 $perencanaan_id = (isset($post['perencanaan_pengadaan_inp'])) ? $post['perencanaan_pengadaan_inp'] : (!empty($permintaan) ? $permintaan['ppm_id'] : $tender['ppm_id']);
 //end
 
-
 $perencanaan = $this->Procplan_m->getPerencanaanPengadaan($perencanaan_id)->row_array();
 
   
@@ -203,6 +202,7 @@ foreach ($post as $key => $value) {
 
 }
 
+
 if ($this->form_validation->run() == FALSE || $error){
 
   //$this->ubah_permintaan_pengadaan();
@@ -267,6 +267,12 @@ if ($this->form_validation->run() == FALSE || $error){
     $isSwakelola = $this->db->get()->row_array();
 
     $return = $this->Procedure_m->prc_pr_comment_complete($pr_number,$userdata['complete_name'],$last_comment['activity'],$response,$com,$attachment,$last_comment['comment_id'],$perencanaan_id,$userdata['employee_id'],$isSwakelola['isSwakelola'],$perencanaan['ppm_type_of_plan']);
+ 
+    //potong anggaran
+    if($return['response'] = "batalkan_permintaan_pengadaan"){
+      $revang = $post['total_alokasi_ppn_inp'] + $post['sisa_pagu_inp'];
+      $potong = $this->Procplan_m->updateDataPerencanaanPengadaan($perencanaan_id, array('ppm_sisa_anggaran'=>$revang));
+    }
 
     if(!empty($return['nextactivity'])){
 

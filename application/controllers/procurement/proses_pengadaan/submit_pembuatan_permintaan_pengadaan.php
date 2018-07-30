@@ -71,6 +71,7 @@ $input['pr_contract_type']=$jenis_kontrak_inp;
 $input['ppm_id']=$perencanaan_id;
 $input['pr_number']=$this->Procpr_m->getUrutPR();
 
+
 $input_doc = array();
 
 $input_item = array();
@@ -196,6 +197,9 @@ if ($this->form_validation->run() == FALSE || $error){
   $this->db->trans_begin();
 
   $act = $this->Procpr_m->insertDataPR($input);
+  
+  //potong anggaran
+  $potong = $this->Procplan_m->updateDataPerencanaanPengadaan($input['ppm_id'], array('ppm_sisa_anggaran'=>$input['pr_sisa_anggaran']));
 
   $complete_comment = 1;
 
