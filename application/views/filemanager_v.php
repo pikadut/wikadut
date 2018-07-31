@@ -8,11 +8,10 @@
         <h4 class="modal-title" id="uploadLabel">File Uploader</h4>
       </div>
       <div class="modal-body">
-        <input type="file" name="file" id="file-uploader" accept=".doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, image/jpg, image/jpeg, image/png, .Zip, .rar, .tgz, .7zip, .tar" >
+        <input  type="file" name="file" id="file-uploader" accept=".doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, .jpg, .jpeg, .png, .Zip, .rar, .tgz, .7zip, .tar">
         <input type="hidden" name="upload_id" id="upload_id">
         <input type="hidden" name="upload_preview" id="upload_preview">
         <input type="hidden" name="uploader" id="uploader">
-        
       </div>
     </div>
   </div>
@@ -22,17 +21,6 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-
-  $('#file-uploader').bind('change', function(e) {
-  //this.files[0].size gets the size of your file.
-  // alert(this.files[0].size);
-  if (this.files[0].size > 5000000) {
-    alert('Ukuran file tidak boleh lebih dari 5 MB');
-    $('#file-uploader').val('');
-    fail
-  }
-})
-
   var interval;
   applyAjaxFileUpload("#file-uploader");
   function applyAjaxFileUpload(element) {
@@ -84,8 +72,7 @@
             .attr({
               type: "file",
               name: $(this).attr("name"),
-              id: $(this).attr("id"),
-              accept: $(this).attr("accept"),
+              id: $(this).attr("id")
             });
 
             if (response.status == "error") {
@@ -111,8 +98,7 @@
               .attr({
                 type: "file",
                 name: $(this).attr("name"),
-                id: $(this).attr("id"),
-                accept: $(this).attr("accept"),
+                id: $(this).attr("id")
               });
 
             $("span." + $(this).attr("id")).replaceWith($fileInput);
@@ -147,8 +133,5 @@
         });
 
 }
-
-
-});
-
+})
 </script>
