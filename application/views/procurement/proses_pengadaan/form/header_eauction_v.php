@@ -13,7 +13,7 @@
 
         <?php $curval = (isset($eauction_header['JUDUL'])) ? $eauction_header['JUDUL'] : ""; ?>
         <div class="form-group">
-          <label class="col-sm-2 control-label">Judul E-Auction</label>
+          <label class="col-sm-2 control-label">Judul E-Auction *</label>
           <div class="col-sm-7">
             <input type="text" class="form-control" required name="judul_eauction_inp" value="<?php echo $curval ?>">
           </div>
@@ -22,7 +22,7 @@
 
         <?php $curval = (isset($eauction_header['DESKRIPSI'])) ? $eauction_header['DESKRIPSI'] : ""; ?>
         <div class="form-group">
-          <label class="col-sm-2 control-label">Deskripsi E-Auction</label>
+          <label class="col-sm-2 control-label">Deskripsi E-Auction *</label>
           <div class="col-sm-8">
             <textarea name="deskripsi_eauction_inp" required class="form-control"><?php echo $curval ?></textarea>
           </div>
@@ -55,12 +55,12 @@
        </div>
 
        <div class="form-group">
-        <label class="col-sm-2 control-label">Tanggal Mulai</label>
+        <label class="col-sm-2 control-label">Tanggal Mulai *</label>
         <div class="col-sm-3">
           <?php $curval = (isset($eauction_header['TANGGAL_MULAI'])) ? $eauction_header['TANGGAL_MULAI'] : ""; ?>
           <input type="text" class="form-control datetimepicker" required name="tgl_mulai_eauction_inp" value="<?php echo $curval ?>">
         </div>
-        <label class="col-sm-2 control-label">Tanggal Selesai</label>
+        <label class="col-sm-2 control-label">Tanggal Selesai *</label>
         <div class="col-sm-3">
           <?php $curval = (isset($eauction_header['TANGGAL_BERAKHIR'])) ? $eauction_header['TANGGAL_BERAKHIR'] : ""; ?>
           <input type="text" class="form-control datetimepicker" required name="tgl_selesai_eauction_inp" value="<?php echo $curval ?>">

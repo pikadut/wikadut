@@ -156,7 +156,7 @@
             </div>
 
             <div class="form-group">
-              <label class="col-sm-2 control-label"><?php echo lang('comment') ?></label>
+              <label class="col-sm-2 control-label"><?php echo lang('comment') ?> *</label>
               <div class="col-sm-8">
                 <textarea name="comment_eval_inp" id="comment_eval_inp" maxlength="1000" required class="form-control"></textarea>
               </div>
