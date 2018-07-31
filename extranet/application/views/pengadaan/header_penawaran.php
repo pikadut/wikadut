@@ -109,11 +109,11 @@
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label">
-								<?php echo $this->lang->line('Lampiran Penawaran'); ?> <small>(Max 10MB)</small>
+								<?php echo $this->lang->line('Lampiran Penawaran'); ?> *<small>(Max 10MB)</small>
 							</label>
 							<div class="col-lg-6 m-l-n">
 								<?php if(empty($readonly)){ ?>
-								<input <?php echo $readonly ?> id="lampiran_penawaran" name="lampiran_penawaran" type="file" class="file">
+								<input <?php echo $readonly ?> id="lampiran_penawaran" name="lampiran_penawaran" type="file" class="file" required>
 								<?php } ?>
 								<?php if(isset($header)){ ?>
 								<p class="form-control-static">
