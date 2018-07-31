@@ -258,6 +258,34 @@ break;
 
 }
 
+//validasi tanggal
+if($post['tgl_pembukaan_pendaftaran_inp'] == ""){  
+  $this->setMessage("Tanggal pembukaan pendaftaran harus diisi");
+  $error = true;
+}
+if($post['tgl_penutupan_pendaftaran_inp'] == ""){  
+  $this->setMessage("Tanggal penutupan pendaftaran harus diisi");
+  $error = true;
+}
+if($post['tgl_mulai_penawaran_inp'] == ""){  
+  $this->setMessage("Tanggal mulai kirim penawaran harus diisi");
+  $error = true;
+}
+if($post['tgl_akhir_penawaran_inp'] == ""){  
+  $this->setMessage("Tanggal akhir kirim penawaran harus diisi");
+  $error = true;
+}
+if($post['tgl_aanwijzing_inp'] == ""){  
+  $this->setMessage("Tanggal aanwijzing harus diisi");
+  $error = true;
+}
+if($post['tgl_pembukaan_dok_penawaran_inp'] == ""){  
+  $this->setMessage("Tanggal pembukaan dokumen penawaran harus diisi");
+  $error = true;
+}
+//end
+
+
 if(!empty($post['tgl_pembukaan_pendaftaran_inp'])){
   $input_prep['ptp_reg_opening_date'] = $post['tgl_pembukaan_pendaftaran_inp'];
 } else {
