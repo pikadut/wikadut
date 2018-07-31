@@ -145,6 +145,15 @@
           </div>
         </div>
 
+        <?php $curval = $permintaan['ptm_packet']?>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Nama Paket</label>
+          <div class="col-sm-10">
+            <p class="form-control-static" id="nama_paket"><?php echo $curval ?></p>
+
+          </div>
+        </div>
+
   <?php $curval = (isset($permintaan['pr_type'])) ? $permintaan["pr_type"] : set_value("Jenis PR"); ?>
     <div class="form-group">
       <label class="col-sm-2 control-label">Jenis PR</label>

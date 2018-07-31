@@ -216,7 +216,8 @@ class Procedure_m extends MY_Model {
 			'pagu_anggaran',	
 			'requester_id',
 			'type_of_plan',
-			'project_name'
+			'project_name',
+			'packet'
 		);
 
 		foreach ($field as $key => $value) {

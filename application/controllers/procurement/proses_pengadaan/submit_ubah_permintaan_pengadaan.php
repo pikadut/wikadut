@@ -46,6 +46,7 @@ $input['pr_sisa_anggaran']= (isset($post['sisa_pagu_inp'])) ? $post['sisa_pagu_i
 $input['pr_project_name']=$perencanaan['ppm_project_name']; //y
 $input['pr_type_of_plan']=$perencanaan['ppm_type_of_plan']; //y
 $input['pr_type']=$post['tipe_pr'];//y
+$input['pr_packet']=$post['nama_paket'];
 //end
 
   if(isset($post['perencanaan_pengadaan_inp'])){

@@ -183,6 +183,16 @@
         valign: 'middle',
         width:'30%',
       },
+       {
+        field: 'ptm_packet',
+        title: 'Nama Paket',
+        sortable:true,
+        order:true,
+        searchable:true,
+        align: 'left',
+        valign: 'middle',
+        width:'30%',
+      },
       {
         // field: 'ptm_requester_pos_name',
         field: 'ptm_dept_name',
@@ -277,6 +287,16 @@
       }, {
         field: 'pr_subject_of_work',
         title: 'Nama Rencana Pekerjaan',
+        sortable:true,
+        order:true,
+        searchable:true,
+        align: 'left',
+        valign: 'middle',
+        width:'30%',
+      },
+      {
+        field: 'pr_packet',
+        title: 'Nama Paket',
         sortable:true,
         order:true,
         searchable:true,

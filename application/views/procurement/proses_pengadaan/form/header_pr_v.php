@@ -43,7 +43,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Nama Pekerjaan</label>
           <div class="col-sm-8">
-             <input type="text" class="form-control" name="nama_pekerjaan" id="nama_pekerjaan" value="<?php echo $curval ?>">
+             <input type="text" class="form-control" name="nama_pekerjaan" id="nama_pekerjaan" value="<?php echo $curval ?>" readonly>
           </div>
           <div class="col-sm-2">
           <?php $curval = (isset($permintaan['ppm_id'])) ?  $permintaan["ppm_id"] : set_value("perencanaan_pengadaan_inp"); ?>
@@ -57,7 +57,7 @@
           <label class="col-sm-2 control-label">Deskripsi Pekerjaan</label>
           <div class="col-sm-10">
 
-            <textarea type="text" class="form-control" id="deskripsi_pekerjaan" name="deskripsi_pekerjaan"><?php echo $curval ?></textarea>
+            <textarea type="text" class="form-control" id="deskripsi_pekerjaan" name="deskripsi_pekerjaan" readonly><?php echo $curval ?></textarea>
           </div>
         </div>
 
@@ -140,6 +140,12 @@
           </div>
         </div>*/
         ?>
+       <div class="form-group">
+          <label class="col-sm-2 control-label">Nama Paket *</label>
+          <div class="col-sm-8">
+             <input type="text" class="form-control" name="nama_paket" id="nama_paket" required="true">
+          </div>
+        </div>
 
         <!-- //y tambah jenis pr -->        
         <?php $curval = (isset($permintaan['pr_type'])) ?  $permintaan["pr_type"] : set_value("tipe_pr"); ?>

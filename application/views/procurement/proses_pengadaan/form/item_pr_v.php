@@ -54,7 +54,7 @@
    <div class="form-group">
     <label class="col-sm-2 control-label">Satuan</label>
     <div class="col-sm-2">
-     <input type="text" class="form-control" maxlength="12" name="satuan_item_inp" id="satuan_item_inp" value="<?php echo $curval ?>">
+     <input type="text" readonly="true" class="form-control" maxlength="12" name="satuan_item_inp" id="satuan_item_inp" value="<?php echo $curval ?>">
    </div>
  </div>
 

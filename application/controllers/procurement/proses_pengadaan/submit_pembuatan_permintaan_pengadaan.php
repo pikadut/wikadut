@@ -42,6 +42,7 @@ $input['pr_requester_id']=$userdata['employee_id'];
 $input['pr_project_name']=$perencanaan['ppm_project_name']; //y
 $input['pr_type_of_plan']=$perencanaan['ppm_type_of_plan']; //y
 $input['pr_type']=$post['tipe_pr'];//y
+$input['pr_packet']=$post['nama_paket']; //y
 //start code hlmifzi
 if (empty($post['swakelola_inp'])){
     $swakelola_inp = null;

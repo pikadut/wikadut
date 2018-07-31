@@ -136,11 +136,20 @@
         </div>*/
         ?>
 
+        <?php $curval = $permintaan["pr_packet"]; ?>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Nama Paket *</label>
+          <div class="col-sm-10">
+            <p class="form-control-static" id="nama_paket"><?php echo $curval ?></p>
+          </div>
+        </div>
+
+
          <?php $curval = $permintaan["pr_type"]; ?>
         <div class="form-group">
           <label class="col-sm-2 control-label">Jenis PR *</label>
           <div class="col-sm-10">
-            <p class="form-control-static" id="lokasi_pengiriman"><?php echo $curval ?></p>
+            <p class="form-control-static" id="jenis_pr"><?php echo $curval ?></p>
           </div>
         </div>
         <!-- hlmifzi -->

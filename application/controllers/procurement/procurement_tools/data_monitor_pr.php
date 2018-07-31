@@ -19,6 +19,7 @@ if(!empty($search)){
   $this->db->or_like("LOWER(pr_subject_of_work)",$search);
   $this->db->or_like("LOWER(pr_requester_name)",$search);
   $this->db->or_like("LOWER(pr_requester_pos_name)",$search);
+  $this->db->or_like("LOWER(pr_packet)",$search);
   $this->db->or_like("LOWER(status)",$search);
   $this->db->group_end();
 }
@@ -45,6 +46,7 @@ if(!empty($search)){
   $this->db->or_like("LOWER(pr_subject_of_work)",$search);
   $this->db->or_like("LOWER(pr_requester_name)",$search);
   $this->db->or_like("LOWER(pr_requester_pos_name)",$search);
+  $this->db->or_like("LOWER(pr_packet)",$search);
   //haqim
   $this->db->or_like("LOWER(last_pos)",$search);
   // end

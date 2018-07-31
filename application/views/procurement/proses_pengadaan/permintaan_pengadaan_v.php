@@ -156,6 +156,16 @@ function totalPriceFormatter(data) {
         align: 'left',
         valign: 'middle',
          width:'30%',
+      }, 
+      {
+        field: 'pr_packet',
+        title: 'Nama Paket',
+        sortable:true,
+        order:true,
+        searchable:true,
+        align: 'left',
+        valign: 'middle',
+         width:'30%',
       },
 	  {
         field: 'nilai',
