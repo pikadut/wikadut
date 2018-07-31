@@ -228,9 +228,9 @@
 
 <div class="form-group">
   <div class="col-sm-5">
-  </div>
+  </div> 
   <label class="col-sm-4 control-label">Sisa Nilai Anggaran</label>
-  <div class="col-sm-3">
+  <div class="col-sm-3" id="sisa_pagu_inp_div">
     <p class="form-control-static text-right" id="sisa_pagu">
       <?php echo inttomoney($permintaan['pr_pagu_anggaran']-($subtotal+$subtotal_ppn+$subtotal_pph)) ?></p>
       <input type="hidden" name="sisa_pagu_inp" id="sisa_pagu_inp" 
@@ -245,6 +245,7 @@
 </div>
 
 <script type="text/javascript">
+
 
 
   function set_total(){
@@ -403,7 +404,19 @@
 
       set_total();
 
+        if ($('#sisa_pagu_inp').val() < 0) {
+          $('#sisa_pagu_inp_div').css('background-color','#f49a97')
+        }else {
+          $('#sisa_pagu_inp_div').removeAttr('style')
+        }
+
+        $('.edit_item').click(function(){
+          $('#sisa_pagu_inp_div').removeAttr('style')
+        })
+
     });
+
+
 
     $(document.body).on("click",".empty_item",function(){
 
