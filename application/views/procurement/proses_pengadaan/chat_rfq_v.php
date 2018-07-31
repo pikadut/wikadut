@@ -12,7 +12,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="title">
-                    <i class="fa fa-pencil"></i> Chatting RFQ</h4>
+                    <i class="fa fa-pencil"></i> Pesan RFQ</h4>
             </div>
             <!--Body-->
             <div class="modal-body" style="max-height: calc(100vh - 210px);

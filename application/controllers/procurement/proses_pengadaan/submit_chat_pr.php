@@ -25,8 +25,8 @@
 
 	$submit = $this->Procpr_m->submit_chat_pr($data);
 	if ($submit >= 1) {
-		$title = "Chatting $data[pr_number]";
-		$msg = "Ada pesan pesan untuk Anda di chatting $data[pr_number]. <br> 
+		$title = "Pesan $data[pr_number]";
+		$msg = "Ada pesan untuk Anda di pesan $data[pr_number]. <br> 
 				Silahkan buka <a href='".site_url('procurement/procurement_tools/monitor_pengadaan')."'>Monitor pengadaan</a> dibagian daftar pengadaan atau <a href='".site_url('procurement/daftar_pekerjaan')."'>Daftar pengadaan</a> dibagian Daftar Pekerjaan RFQ-Undangan";
 		$this->sendEmail($employee_to,$title,$msg);
 		foreach ($employee_cc as $key => $value) {

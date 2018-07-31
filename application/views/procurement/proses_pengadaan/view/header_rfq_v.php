@@ -139,9 +139,9 @@
 
         <!-- haqim -->
         <div class="form-group">
-            <label class="col-sm-2 control-label">Chatting</label>
+            <label class="col-sm-2 control-label">Pesan</label>
             <div class="col-sm-10">
-              <button type="button" id="chatBtn" class="btn btn-primary" data-toggle="modal" data-target="#chatModal">Chatting</button>
+              <button type="button" id="chatBtn" class="btn btn-primary" data-toggle="modal" data-target="#chatModal">Pesan</button>
           </div>
         </div>
 
