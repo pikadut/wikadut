@@ -23,9 +23,9 @@ if(!empty($post)){
 			$update['pte_price_remark'] = $value;
 		}
 		$update['pte_validity_offer'] = (isset($post['validity_offer'][$key])) ? 1 : 0;
-		$update['pte_validity_bid_bond'] = (isset($post['validity_bid_bond'][$key])) ? 1 : 1;
+		$update['pte_validity_bid_bond'] = (isset($post['validity_bid_bond'][$key])) ? 1 : 0;
 		$this->db->where("pte_id",$key)->update("prc_tender_eval",$update);
-		if(!empty($update['pte_validity_offer']) && !empty($update['pte_validity_bid_bond'])){
+		if(!empty($update['pte_validity_offer'])){
 			$vnd_id = $this->db->where("pte_id",$key)->get("prc_tender_eval")->row()->ptv_vendor_code;
 			$vendor_lolos[] = $vnd_id;
 		}
@@ -53,7 +53,7 @@ if(!empty($post)){
 		$eval = $this->db->where(
 			array("ptm_number"=>$value['ptm_number'],"ptv_vendor_code"=>$vendor_id))
 		->get("prc_tender_eval")->row_array();
-		if (!(!empty($eval) && $eval['pte_validity_offer'] == 1 && $eval['pte_validity_bid_bond'] == 1)){
+		if (!(!empty($eval) && $eval['pte_validity_offer'] == 1)){
 			$total = 0;
 
 		}
