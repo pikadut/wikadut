@@ -259,28 +259,8 @@ break;
 }
 
 //validasi tanggal
-if($post['tgl_pembukaan_pendaftaran_inp'] == ""){  
-  $this->setMessage("Tanggal pembukaan pendaftaran harus diisi");
-  $error = true;
-}
-if($post['tgl_penutupan_pendaftaran_inp'] == ""){  
-  $this->setMessage("Tanggal penutupan pendaftaran harus diisi");
-  $error = true;
-}
-if($post['tgl_mulai_penawaran_inp'] == ""){  
-  $this->setMessage("Tanggal mulai kirim penawaran harus diisi");
-  $error = true;
-}
-if($post['tgl_akhir_penawaran_inp'] == ""){  
-  $this->setMessage("Tanggal akhir kirim penawaran harus diisi");
-  $error = true;
-}
-if($post['tgl_aanwijzing_inp'] == ""){  
-  $this->setMessage("Tanggal aanwijzing harus diisi");
-  $error = true;
-}
-if($post['tgl_pembukaan_dok_penawaran_inp'] == ""){  
-  $this->setMessage("Tanggal pembukaan dokumen penawaran harus diisi");
+if($post['tgl_pembukaan_pendaftaran_inp'] == "" || $post['tgl_mulai_penawaran_inp'] == "" || $post['tgl_penutupan_pendaftaran_inp'] || $post['tgl_akhir_penawaran_inp'] == "" || $post['tgl_aanwijzing_inp'] == "" || $post['tgl_pembukaan_dok_penawaran_inp'] == ""){  
+  $this->setMessage("Kolom yang wajib diisi tidak boleh kosong");
   $error = true;
 }
 //end

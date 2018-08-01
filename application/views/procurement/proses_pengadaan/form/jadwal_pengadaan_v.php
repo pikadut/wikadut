@@ -14,56 +14,57 @@
 
         <div class="form-group">
 
-          <label class="col-sm-2 control-label">Tanggal Pembukaan Pendaftaran</label>
+          <label class="col-sm-2 control-label">Tanggal Pembukaan Pendaftaran *</label>
           <div class="col-sm-4">
             <?php $curval = $prep['ptp_reg_opening_date']; ?>
             <div class="input-group date">
               <?php if(!$jadwal_tahap_2){ ?>
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <?php } ?>
-              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_pembukaan_pendaftaran_inp" class="form-control tgl_pembukaan_pendaftaran_inp" value="<?php echo $curval ?>">
+              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_pembukaan_pendaftaran_inp" class="form-control tgl_pembukaan_pendaftaran_inp" id="tgl_pembukaan_pendaftaran_inp" value="<?php echo $curval ?>">
             </div>
+              <div style="color: red; display: none;" id="alert_buka">Tanggal pembukaan pendaftaran harus diisi</div>
           </div>
 
           <?php $curval = $prep['ptp_quot_opening_date']; ?>
-          <label class="col-sm-2 control-label">Tanggal Mulai Kirim Penawaran</label>
+          <label class="col-sm-2 control-label">Tanggal Mulai Kirim Penawaran *</label>
           <div class="col-sm-4">
             <div class="input-group date">
               <?php if(!$jadwal_tahap_2){ ?>
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <?php } ?>
-              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_mulai_penawaran_inp" class="form-control  tgl_mulai_penawaran_inp"  value="<?php echo $curval ?>" >
+              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_mulai_penawaran_inp" id="tgl_mulai_penawaran_inp" class="form-control  tgl_mulai_penawaran_inp"  value="<?php echo $curval ?>" >
             </div>
+          <div style="color: red; display: none;" id="alert_mulai">Tanggal mulai kirim pendaftaran harus diisi</div>
           </div>
-
         </div>
 
         <div class="form-group">
 
           <?php $curval = $prep['ptp_reg_closing_date']; ?>
-          <label class="col-sm-2 control-label">Tanggal Penutupan Pendaftaran</label>
+          <label class="col-sm-2 control-label">Tanggal Penutupan Pendaftaran *</label>
           <div class="col-sm-4">
 
             <div class="input-group date">
               <?php if(!$jadwal_tahap_2){ ?>
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <?php } ?>
-              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_penutupan_pendaftaran_inp" class="form-control  tgl_penutupan_pendaftaran_inp" value="<?php echo $curval ?>"  >
+              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_penutupan_pendaftaran_inp" id="tgl_penutupan_pendaftaran_inp" class="form-control  tgl_penutupan_pendaftaran_inp" value="<?php echo $curval ?>"  >
             </div>
-
+              <div style="color: red; display: none;" id="alert_tutup">Tanggal penuntupan pendaftaran harus diisi</div>
           </div>
 
           <?php $curval = $prep['ptp_quot_closing_date']; ?>
-          <label class="col-sm-2 control-label">Tanggal Akhir Kirim Penawaran</label>
+          <label class="col-sm-2 control-label">Tanggal Akhir Kirim Penawaran *</label>
           <div class="col-sm-4">
 
             <div class="input-group date">
               <?php if(!$jadwal_tahap_2){ ?>
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <?php } ?>
-              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_akhir_penawaran_inp" class="form-control tgl_akhir_penawaran_inp" value="<?php echo $curval ?>" >
+              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_akhir_penawaran_inp" id="tgl_akhir_penawaran_inp" class="form-control tgl_akhir_penawaran_inp" value="<?php echo $curval ?>" >
             </div>
-
+              <div style="color: red; display: none;" id="alert_akhir">Tanggal kirim penawaran harus diisi</div>
           </div>
 
         </div>
@@ -71,28 +72,29 @@
         <div class="form-group">
 
           <?php $curval = $prep['ptp_prebid_date']; ?>
-          <label class="col-sm-2 control-label">Tanggal Aanwijzing</label>
+          <label class="col-sm-2 control-label">Tanggal Aanwijzing *</label>
           <div class="col-sm-4">
             <div class="input-group date">
               <?php if(!$jadwal_tahap_2){ ?>
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <?php } ?>
-              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_aanwijzing_inp" class="form-control tgl_aanwijzing_inp" value="<?php echo $curval ?>"  >
+              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_aanwijzing_inp" id="tgl_aanwijzing_inp" class="form-control tgl_aanwijzing_inp" value="<?php echo $curval ?>"  >
             </div>
+              <div style="color: red; display: none;" id="alert_anwz">Tanggal aanwijzing harus diisi</div>
           </div>
 
 
           <?php $curval = $prep['ptp_doc_open_date']; ?>
-          <label class="col-sm-2 control-label">Tanggal Pembukaan Dokumen Penawaran</label>
+          <label class="col-sm-2 control-label">Tanggal Pembukaan Dokumen Penawaran *</label>
           <div class="col-sm-4">
 
             <div class="input-group date">
               <?php if(!$jadwal_tahap_2){ ?>
               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
               <?php } ?>
-              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_pembukaan_dok_penawaran_inp" class="form-control tgl_pembukaan_dok_penawaran_inp" value="<?php echo $curval ?>" >
+              <input <?php echo ($jadwal_tahap_2) ? "disabled" : "" ?> type="text" name="tgl_pembukaan_dok_penawaran_inp" class="form-control tgl_pembukaan_dok_penawaran_inp" id="tgl_pembukaan_dok_penawaran_inp" value="<?php echo $curval ?>" >
             </div>
-
+              <div style="color: red; display: none;" id="alert_doc">Tanggal pembukaan dokumen penawaran harus diisi</div>
           </div>
 
         </div>
@@ -238,9 +240,26 @@
   // function convert_date(date){
   //   return new Date(date.replace(/-/g,'/'));
   // }
-
-
-
+  $("form").submit(function() {
+    if($("#tgl_pembukaan_pendaftaran_inp").val() == ""){
+      $("#alert_buka").css("display", "");
+    }
+    if($("#tgl_penutupan_pendaftaran_inp").val() == ""){
+      $("#alert_tutup").css("display", "");
+    }
+    if($("#tgl_aanwijzing_inp").val() == ""){
+      $("#alert_anwz").css("display", "");
+    }
+    if($("#tgl_mulai_penawaran_inp").val() == ""){
+      $("#alert_mulai").css("display", "");
+    }
+    if($("#tgl_akhir_penawaran_inp").val() == ""){
+      $("#alert_akhir").css("display", "");
+    }
+    if($("#tgl_pembukaan_dok_penawaran_inp").val() == ""){
+      $("#alert_doc").css("display", "");
+    }
+  });
 
   $('.tgl_pembukaan_pendaftaran_inp').datetimepicker({format:"YYYY-MM-DD HH:mm:ss"})
   $('.tgl_penutupan_pendaftaran_inp').datetimepicker({format:"YYYY-MM-DD HH:mm:ss"})
